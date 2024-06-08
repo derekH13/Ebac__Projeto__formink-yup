@@ -1,13 +1,14 @@
-import { styled } from 'styled-components'
+import styled from 'styled-components'
+import { Props } from '.'
 
-export const HeaderPage = styled.header`
+export const HeaderPage = styled.div`
   width: 100%;
 `
 
-export const Images = styled.div`
+export const Imagem = styled.div<Props>`
   max-width: 2031.81px;
   width: 100%;
-  max-height: 360px;
+  max-height: ${(props) => (props.background === 'dark' ? '186px' : '360px')};
   height: 100%;
   display: block;
   background-repeat: no-repeat;
@@ -29,6 +30,16 @@ export const Images = styled.div`
     height: 57.5px;
   }
 `
+export const Titulo = styled.h2`
+  width: 539px;
+  height: 84px;
+
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 42.19px;
+  text-align: center;
+  margin-top: 138.5px;
+`
 export const ContainerHeader = styled.div`
   display: flex;
   width: 100%;
@@ -46,15 +57,4 @@ export const CarrinhoDeProdutos = styled(ContainerHeader)`
   font-weight: 900;
   justify-content: right;
   padding-top: none;
-`
-
-export const Titulo = styled.h2`
-  width: 539px;
-  height: 84px;
-
-  font-size: 36px;
-  font-weight: 900;
-  line-height: 42.19px;
-  text-align: center;
-  margin-top: 138.5px;
 `
