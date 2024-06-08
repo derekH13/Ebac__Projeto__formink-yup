@@ -20,7 +20,7 @@ import Tag from '../../components/Tag'
 import Botao from '../Button'
 
 // Define o tipo Props para tipar as propriedades que o componente MockUp espera receber
-type Props = {
+export type Props = {
   title: string
   description: string
   infos: string[]
@@ -30,7 +30,7 @@ type Props = {
 }
 
 // Define o componente funcional MockUp que recebe propriedades do tipo Props
-const MockUp = ({
+const Products = ({
   title,
   description,
   infos,
@@ -74,7 +74,7 @@ const MockUp = ({
               {/* Renderiza um Link que leva para a página de perfil com um botão de tag */}
               <Link to="/Perfil">
                 <Tag size="big">
-                  <Botao type="button" title={buttonText}>
+                  <Botao type="button" title={buttonText} background={'light'}>
                     {buttonText}
                   </Botao>
                 </Tag>
@@ -88,4 +88,4 @@ const MockUp = ({
 }
 
 // Exporta o componente MockUp como padrão
-export default MockUp
+export default Products

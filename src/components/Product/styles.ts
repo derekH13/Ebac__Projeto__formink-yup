@@ -21,7 +21,6 @@ export const ContainerDescritivo = styled.div`
   height: 181px;
   border: 1px solid ${colors.rosePink};
   border-top: 0;
-  background-color: ${colors.white};
 
   p {
     width: 456px;
@@ -42,15 +41,14 @@ export const ContainerDescritivo = styled.div`
     margin: 0 0 8px 8px;
   }
 
-  ${ButtonContainer} {
+  /* ${ButtonContainer} {
     font-family: Roboto;
     font-size: 14px;
     font-weight: 700;
     line-height: 16.41px;
     text-align: center;
     cursor: pointer;
-    color: ${colors.creamyWhite};
-  }
+  } */
 `
 export const RatingStar = styled.div`
   width: 21px;

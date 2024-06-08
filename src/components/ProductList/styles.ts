@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { Props } from '.'
 import { colors } from '../../styles'
+import { ButtonContainer } from '../Button/styles'
 import {
   CardConteiner,
   CardRestaurant,
@@ -73,10 +74,15 @@ export const ProductListContainer = styled.div<Omit<Props, 'title' | 'efoods'>>`
 
         ${TagContainer} {
           width: ${(props) => (props.background === 'dark' ? '304px' : '')};
+          padding: 0;
+        }
+
+        ${ButtonContainer} {
           background-color: ${(props) =>
             props.background === 'dark' ? colors.palePeach : colors.rosePink};
           color: ${(props) =>
-            props.background === 'dark' ? colors.rosePink : ''};
+            props.background === 'dark' ? colors.rosePink : colors.palePeach};
+          height: ${(props) => (props.background === 'dark' ? '24px' : '')};
         }
       }
     }
