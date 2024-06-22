@@ -1,4 +1,4 @@
-// Importa os componentes Link e useLocation da biblioteca react-router-dom
+import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
 // Importa os estilos personalizados e componentes estilizados
@@ -18,6 +18,7 @@ import RestaurantRatingImg from '../../assets/icons/estrela.png'
 // Importa o componente Tag
 import Tag from '../../components/Tag'
 import Botao from '../Button'
+import ModalPoupap from '../Modal'
 
 // Define o tipo Props para tipar as propriedades que o componente MockUp espera receber
 export type Props = {
@@ -43,6 +44,24 @@ const Products = ({
   // Define o texto no botão baseado na localização atual
   const buttonText =
     location.pathname === '/Perfil' ? 'Adicionar ao carrinho' : 'Saiba mais'
+
+  const [isModalOpen, setIsModalOpen] = useState(false) // Estado para controlar a visibilidade do modal
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen)
+  }
+
+  const handleButtonClick = () => {
+    if (
+      location.pathname === '/Perfil' &&
+      buttonText === 'Adicionar ao carrinho'
+    ) {
+      toggleModal()
+    } else {
+      // Redireciona para a página de perfil
+      window.location.href = '/Perfil'
+    }
+  }
 
   return (
     <div className="container">
@@ -74,7 +93,12 @@ const Products = ({
               {/* Renderiza um Link que leva para a página de perfil com um botão de tag */}
               <Link to="/Perfil">
                 <Tag size="big">
-                  <Botao type="button" title={buttonText} background={'light'}>
+                  <Botao
+                    type="button"
+                    title={buttonText}
+                    background={'light'}
+                    onClick={handleButtonClick}
+                  >
                     {buttonText}
                   </Botao>
                 </Tag>
@@ -82,6 +106,8 @@ const Products = ({
             </ContainerDescritivo>
           </CardRestaurant>
         </CardConteiner>
+
+        {isModalOpen && <ModalPoupap onClose={toggleModal} />}
       </>
     </div>
   )
