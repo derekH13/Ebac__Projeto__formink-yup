@@ -1,6 +1,7 @@
 import React from 'react'
 import ImgPoupapClose from '../../assets/icons/close.png'
 import ImgPoupap from '../../assets/images/image3.png'
+import Botao from '../Button'
 import Tag from '../Tag'
 import {
   CloseImg,
@@ -41,7 +42,15 @@ const ModalPoupap: React.FC<ModalPoupapProps> = ({ onClose }) => (
             <br />
             Serve: de 2 a 3 pessoas
           </p>
-          <Tag size="big">Adicionar ao carrinho - R$ 60,90</Tag>
+          <Tag size="big">
+            <Botao
+              type="button"
+              title={'Adicionar ao carrinho'}
+              background={'dark'}
+            >
+              Adicionar ao carrinho - R$ 60,90
+            </Botao>
+          </Tag>
         </div>
       </Poupap>
     </ContainerPoupap>
