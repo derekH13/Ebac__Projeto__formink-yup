@@ -25,7 +25,7 @@ export type Props = {
   title: string
   description: string
   infos: string[]
-  nota: string
+  nota: number
   image: string
   background: 'light' | 'dark'
 }
