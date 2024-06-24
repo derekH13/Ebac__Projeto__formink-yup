@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import Product from '../Product'
 import { ProductListContainer, ProductListItem } from './styles'
 
@@ -11,6 +11,14 @@ export type Efood = {
   tipo: string
   destacado: boolean
   avaliacao: number
+  cardapio: {
+    foto: string
+    preco: number
+    id: number
+    nome: string
+    descricao: string
+    porcao: string
+  }[]
 }
 
 export type Props = {
@@ -21,6 +29,7 @@ export type Props = {
 
 const ProductList = ({ background, title, efoods }: Props) => {
   const { id } = useParams<{ id: string }>()
+  const location = useLocation()
   const [catalogoServico, setCatalogoServico] = useState<Efood[]>([])
 
   useEffect(() => {
@@ -45,23 +54,47 @@ const ProductList = ({ background, title, efoods }: Props) => {
     return tags
   }
 
+  const isPerfilPage = location.pathname.includes('/perfil')
+
+  const getdescription = (description: string) => {
+    if (description.length > 176) {
+      return description.slice(0, 173) + '...'
+    }
+    return description
+  }
+
   return (
     <div className="container">
       <ProductListContainer background={background}>
         <h2>{title}</h2>
         <ProductListItem background={background}>
-          {catalogoServico.map((efood) => (
-            <Product
-              key={efood.id}
-              image={efood.capa}
-              infos={getEfoodTags(efood)}
-              title={efood.titulo}
-              nota={efood.avaliacao}
-              description={efood.descricao}
-              to={`/perfil/${efood.id}`}
-              background={background}
-            />
-          ))}
+          {catalogoServico.map((efood) =>
+            isPerfilPage ? (
+              efood.cardapio?.map((item) => (
+                <Product
+                  key={item.id}
+                  image={item.foto}
+                  infos={getEfoodTags(efood)}
+                  title={item.nome}
+                  nota={efood.avaliacao}
+                  description={getdescription(item.descricao)}
+                  to={`/perfil/${efood.id}`}
+                  background={background}
+                />
+              ))
+            ) : (
+              <Product
+                key={efood.id}
+                image={efood.capa}
+                infos={getEfoodTags(efood)}
+                title={efood.titulo}
+                nota={efood.avaliacao}
+                description={efood.descricao}
+                to={`/perfil/${efood.id}`}
+                background={background}
+              />
+            )
+          )}
         </ProductListItem>
       </ProductListContainer>
     </div>

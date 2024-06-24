@@ -41,7 +41,7 @@ const Products = ({
   }
 
   const handleButtonClick = () => {
-    if (location.pathname === '/Perfil') {
+    if (location.pathname === '/perfil') {
       toggleModal()
     } else {
       window.location.href = to
@@ -69,21 +69,25 @@ const Products = ({
               </div>
             </LineSection>
             <p>{description}</p>
-            <Botao
-              type="link"
-              to={to}
-              title={
-                location.pathname === '/Perfil'
-                  ? 'Adicionar ao carrinho'
-                  : 'Saiba mais'
-              }
-              background={background}
-              onClick={handleButtonClick}
-            >
-              {location.pathname === '/Perfil'
-                ? 'Adicionar ao carrinho'
-                : 'Saiba mais'}
-            </Botao>
+            {location.pathname === '/' ? (
+              <Botao
+                type="link"
+                to={to}
+                title="Saiba mais"
+                background={background}
+              >
+                Saiba mais
+              </Botao>
+            ) : (
+              <Botao
+                type="button"
+                onClick={handleButtonClick}
+                title="Adicionar ao carrinho"
+                background={background}
+              >
+                Adicionar ao carrinho
+              </Botao>
+            )}
           </ContainerDescritivo>
         </CardRestaurant>
       </CardConteiner>
