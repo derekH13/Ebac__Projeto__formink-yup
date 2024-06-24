@@ -24,6 +24,13 @@ export type Props = {
   background: 'light' | 'dark'
 }
 
+export const formatPreco = (preco = 0) => {
+  return new Intl.NumberFormat('pt-BR', {
+    style: 'currency',
+    currency: 'BRL'
+  }).format(preco)
+}
+
 const Products = ({
   image,
   infos,
@@ -35,6 +42,7 @@ const Products = ({
 }: Props) => {
   const location = useLocation()
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [currentItem, setCurrentItem] = useState<Props | null>(null)
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen)
@@ -44,6 +52,15 @@ const Products = ({
     if (location.pathname === '/') {
       window.location.href = to
     } else {
+      setCurrentItem({
+        image,
+        infos,
+        title,
+        nota,
+        description,
+        to,
+        background
+      })
       toggleModal()
     }
   }
@@ -91,7 +108,9 @@ const Products = ({
           </ContainerDescritivo>
         </CardRestaurant>
       </CardConteiner>
-      {isModalOpen && <ModalPoupap onClose={toggleModal} />}
+      {isModalOpen && currentItem && (
+        <ModalPoupap item={currentItem} onClose={toggleModal} />
+      )}
     </div>
   )
 }

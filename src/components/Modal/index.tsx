@@ -1,8 +1,8 @@
 import React from 'react'
 import ImgPoupapClose from '../../assets/icons/close.png'
-import ImgPoupap from '../../assets/images/image3.png'
 import Botao from '../Button'
 import Tag from '../Tag'
+import { formatPreco } from '../Product'
 import {
   CloseImg,
   ContainerPoupap,
@@ -14,49 +14,38 @@ import {
 // Define a interface para as propriedades do modal
 interface ModalPoupapProps {
   onClose: () => void
+  item: {
+    image: string
+    title: string
+    description: string
+    background: 'light' | 'dark'
+    nota: number
+    infos: string[]
+    to: string
+  }
 }
 
-export const formatPrico = (preco = 0) => {
-  return new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL'
-  }).format(preco)
-}
-
-const ModalPoupap: React.FC<ModalPoupapProps> = ({ onClose }) => {
+const ModalPoupap: React.FC<ModalPoupapProps> = ({ onClose, item }) => {
   return (
     <div className="container">
       <ContainerPoupap className="overlay">
         <Poupap>
           <CloseImg onClick={onClose}>
-            <img src={ImgPoupapClose} />
+            <img src={ImgPoupapClose} alt="Fechar modal" />
           </CloseImg>
           <SectionImgModal>
-            <ModalImage src={ImgPoupap} />
+            <ModalImage src={item.image} alt={item.title} />
           </SectionImgModal>
           <div>
-            <h3>Pizza Marguerita</h3>
-            <p>
-              A pizza Margherita é uma pizza clássica da culinária italiana,
-              reconhecida por sua simplicidade e sabor inigualável. Ela é feita
-              com uma base de massa fina e crocante, coberta com molho de tomate
-              fresco, queijo mussarela de alta qualidade, manjericão fresco e
-              azeite de oliva extra-virgem. A combinação de sabores é perfeita,
-              com o molho de tomate suculento e ligeiramente ácido, o queijo
-              derretido e cremoso e as folhas de manjericão frescas, que
-              adicionam um toque de sabor herbáceo. É uma pizza simples, mas
-              deliciosa, que agrada a todos os paladares e é uma ótima opção
-              para qualquer ocasião. <br />
-              <br />
-              Serve: de 2 a 3 pessoas
-            </p>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
             <Tag size="big">
               <Botao
                 type="button"
                 title={'Adicionar ao carrinho'}
-                background={'dark'}
+                background={item.background}
               >
-                Adicionar ao carrinho - R$ 60,90
+                Adicionar ao carrinho - {formatPreco(60.9)}
               </Botao>
             </Tag>
           </div>
