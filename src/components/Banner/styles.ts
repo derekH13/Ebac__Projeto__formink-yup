@@ -7,6 +7,7 @@ export const ImgBanner = styled.div`
   display: block;
   background-repeat: no-repeat;
   background-size: cover;
+  position: relative;
 
   h3 {
     font-size: 32px;
@@ -14,6 +15,8 @@ export const ImgBanner = styled.div`
     color: ${colors.white};
     padding-top: 25px;
     margin-left: 171px;
+    z-index: 1;
+    position: relative;
   }
 
   h1 {
@@ -23,5 +26,18 @@ export const ImgBanner = styled.div`
     padding-top: 156px;
     padding-bottom: 32px;
     margin-left: 171px;
+    z-index: 1;
+    position: relative;
+  }
+
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    content: '';
+    z-index: 0;
   }
 `

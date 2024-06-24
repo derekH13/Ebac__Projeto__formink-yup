@@ -9,7 +9,7 @@ export type Props = {
 }
 
 const ProductList = ({ background, title, efoods }: Props) => {
-  const TagEfood = (efood: Efood) => {
+  const getEfoodTags = (efood: Efood) => {
     const tags = []
 
     if (efood.tipo) {
@@ -30,7 +30,7 @@ const ProductList = ({ background, title, efoods }: Props) => {
             <Product
               key={efood.id}
               image={efood.capa}
-              infos={TagEfood(efood)}
+              infos={getEfoodTags(efood)}
               title={efood.titulo}
               nota={efood.avaliacao}
               description={efood.descricao}
