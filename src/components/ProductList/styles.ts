@@ -93,8 +93,9 @@ export const ProductListContainer = styled.div<Omit<Props, 'title' | 'efoods'>>`
 export const ProductListItem = styled.ul<Omit<Props, 'title' | 'efoods'>>`
   max-width: 1024px;
   width: 100%;
-  max-height: ${(props) => (props.background === 'dark' ? '708px' : '1290px')};
   height: 100%;
+  /* max-height: ${(props) =>
+    props.background === 'dark' ? '708px' : '1290px'}; */
   display: grid;
   grid-template-columns: ${(props) =>
     props.background === 'dark' ? '1fr 1fr 1fr' : '1fr 1fr'};

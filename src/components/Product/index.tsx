@@ -41,10 +41,10 @@ const Products = ({
   }
 
   const handleButtonClick = () => {
-    if (location.pathname === '/perfil') {
-      toggleModal()
-    } else {
+    if (location.pathname === '/') {
       window.location.href = to
+    } else {
+      toggleModal()
     }
   }
 
