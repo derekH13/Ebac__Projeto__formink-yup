@@ -1,26 +1,24 @@
-import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import Banner from '../../components/Banner'
 import Header from '../../components/Header'
-import ProductList from '../../components/ProductList'
-import { Efood } from '../Home'
-
-type Params = {
-  id: string
-}
-const ListaRestaurantMenu: Efood[] = []
+import ProductList, { Efood } from '../../components/ProductList'
 
 const Perfil = () => {
-  const { id } = useParams()
+  const [listaRestaurantMenu, setListaRestaurantMenu] = useState<Efood[]>([])
 
-  const [efood, setEfood] = useState<Efood>()
+  useEffect(() => {
+    fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes')
+      .then((res) => res.json())
+      .then((res) => setListaRestaurantMenu(res))
+  }, [])
 
   return (
     <>
       <Header background={'dark'} />
       <Banner />
-      <ProductList title="" background={'dark'} efoods={ListaRestaurantMenu} />
+      <ProductList title="" background={'dark'} efoods={listaRestaurantMenu} />
     </>
   )
 }
+
 export default Perfil

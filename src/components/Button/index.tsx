@@ -5,7 +5,7 @@ export type Props = {
   title: string
   to?: string
   onClick?: () => void
-  children: string
+  children: React.ReactNode
   background: 'light' | 'dark'
 }
 
@@ -23,7 +23,7 @@ const Botao = ({ type, children, title, to, onClick, background }: Props) => {
     )
   }
   return (
-    <ButtonLink to={to as string} title={title}>
+    <ButtonLink to={to as string} title={title} background={background}>
       {children}
     </ButtonLink>
   )

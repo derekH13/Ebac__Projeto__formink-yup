@@ -1,20 +1,18 @@
 import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { Efood } from '../../pages/Home'
 import { ImgBanner } from './styles'
 
 const Banner = () => {
   const [catalogoServico, setCatalogoServico] = useState<Efood | null>(null)
+  const { id } = useParams<{ id: string }>()
 
+  // Efeito para buscar os dados do restaurante específico ao carregar o componente
   useEffect(() => {
-    fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes')
+    fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
       .then((res) => res.json())
-      .then((res: Efood[]) => {
-        if (res.length > 0) {
-          setCatalogoServico(res[0]) // Pegue o primeiro item do array
-        }
-      })
-      .catch((error) => console.error('Erro ao carregar dados:', error))
-  }, [])
+      .then((res) => setCatalogoServico(res))
+  }, [id])
 
   if (!catalogoServico) {
     return (
