@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom'
 import RestaurantRatingImg from '../../assets/icons/estrela.png'
 import Tag from '../../components/Tag'
 import Botao from '../Button'
-import ModalPoupap from '../Modal'
 import {
   CardConteiner,
   CardRestaurant,
@@ -13,6 +12,8 @@ import {
   LineSection,
   RatingStar
 } from './styles'
+import { Efood } from '../../pages/Home'
+import ModalPoupap from '../Modal'
 
 export type Props = {
   image: string
@@ -22,13 +23,6 @@ export type Props = {
   description: string
   to: string
   background: 'light' | 'dark'
-}
-
-export const formatPreco = (preco = 0) => {
-  return new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL'
-  }).format(preco)
 }
 
 const Products = ({
@@ -42,7 +36,7 @@ const Products = ({
 }: Props) => {
   const location = useLocation()
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [currentItem, setCurrentItem] = useState<Props | null>(null)
+  const [currentItem, setCurrentItem] = useState<Efood | null>(null) // Defina como Efood | null
 
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen)
@@ -52,14 +46,25 @@ const Products = ({
     if (location.pathname === '/') {
       window.location.href = to
     } else {
+      // Defina currentItem como um objeto que corresponde a Efood
       setCurrentItem({
-        image,
-        infos,
-        title,
-        nota,
-        description,
-        to,
-        background
+        id: 1, // Suponha um ID adequado aqui
+        capa: image,
+        titulo: title,
+        descricao: description,
+        tipo: 'tipo', // Ajuste conforme necessário
+        destacado: true, // Ajuste conforme necessário
+        avaliacao: nota, // Ajuste conforme necessário
+        cardapio: [
+          {
+            foto: image,
+            preco: 10, // Exemplo de preço
+            id: 1, // ID do cardápio
+            nome: 'Nome do item', // Nome do item
+            descricao: 'Descrição do item', // Descrição do item
+            porcao: 'Porção' // Porção do item
+          }
+        ]
       })
       toggleModal()
     }

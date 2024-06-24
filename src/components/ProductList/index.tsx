@@ -70,7 +70,7 @@ const ProductList = ({ background, title, efoods }: Props) => {
         <ProductListItem background={background}>
           {catalogoServico.map((efood) =>
             isPerfilPage ? (
-              efood.cardapio?.map((item) => (
+              efood.cardapio.map((item) => (
                 <Product
                   key={item.id}
                   image={item.foto}
