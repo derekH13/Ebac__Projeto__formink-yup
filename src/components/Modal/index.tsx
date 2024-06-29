@@ -1,7 +1,7 @@
 import React from 'react'
 import ImgPoupapClose from '../../assets/icons/close.png'
+import { Efood } from '../../pages/Perfil'
 import Botao from '../Button'
-import { Efood } from '../ProductList'
 import Tag from '../Tag'
 import {
   CloseImg,
@@ -44,7 +44,7 @@ const ModalPoupap: React.FC<ModalPoupapProps> = ({ onClose, item }) => {
             <h3>{item.titulo}</h3>
             <p>{item.descricao}</p>
             {/* Verifica se há itens no cardápio antes de exibir */}
-            {item.cardapio.length > 0 && (
+            {item.cardapio && item.cardapio.length > 0 && (
               <Tag size="big">
                 <Botao
                   type="button"

@@ -7,7 +7,7 @@ function App() {
   return (
     <BrowserRouter>
       <GlobalCSS />
-      <Rotas key={Math.random()} />
+      <Rotas />
       <Footer />
     </BrowserRouter>
   )

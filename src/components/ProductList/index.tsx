@@ -1,25 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
+import { Efood } from '../../pages/Perfil'
 import Product from '../Product'
 import { ProductListContainer, ProductListItem } from './styles'
-
-export type Efood = {
-  id: number
-  capa: string
-  titulo: string
-  descricao: string
-  tipo: string
-  destacado: boolean
-  avaliacao: number
-  cardapio: {
-    foto: string
-    preco: number
-    id: number
-    nome: string
-    descricao: string
-    porcao: string
-  }[]
-}
 
 export type Props = {
   title: string
@@ -31,6 +14,9 @@ const ProductList = ({ background, title, efoods }: Props) => {
   const { id } = useParams<{ id: string }>()
   const location = useLocation()
   const [catalogoServico, setCatalogoServico] = useState<Efood[]>([])
+
+  // Determinando se é a página de perfil
+  const isPerfilPage = location.pathname.includes('/perfil')
 
   useEffect(() => {
     if (efoods.length === 0) {
@@ -53,8 +39,6 @@ const ProductList = ({ background, title, efoods }: Props) => {
     }
     return tags
   }
-
-  const isPerfilPage = location.pathname.includes('/perfil')
 
   const getdescription = (description: string) => {
     if (description.length > 176) {
@@ -89,7 +73,7 @@ const ProductList = ({ background, title, efoods }: Props) => {
                 infos={getEfoodTags(efood)}
                 title={efood.titulo}
                 nota={efood.avaliacao}
-                description={efood.descricao}
+                description={getdescription(efood.descricao)}
                 to={`/perfil/${efood.id}`}
                 background={background}
               />

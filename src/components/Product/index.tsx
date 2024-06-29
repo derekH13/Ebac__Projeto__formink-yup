@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import RestaurantRatingImg from '../../assets/icons/estrela.png'
 import Tag from '../../components/Tag'
+import { Efood } from '../../pages/Perfil'
 import Botao from '../Button'
+import ModalPoupap from '../Modal'
 import {
   CardConteiner,
   CardRestaurant,
@@ -12,8 +14,6 @@ import {
   LineSection,
   RatingStar
 } from './styles'
-import { Efood } from '../../pages/Home'
-import ModalPoupap from '../Modal'
 
 export type Props = {
   image: string

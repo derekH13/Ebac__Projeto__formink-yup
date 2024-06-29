@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Efood } from '../../pages/Home'
 import { ImgBanner } from './styles'
+import { Efood } from '../../pages/Perfil'
 
 const Banner = () => {
   const [catalogoServico, setCatalogoServico] = useState<Efood | null>(null)
