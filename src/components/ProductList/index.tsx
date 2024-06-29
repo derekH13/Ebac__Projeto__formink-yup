@@ -41,7 +41,7 @@ const ProductList = ({ background, title, efoods }: Props) => {
   }
 
   const getdescription = (description: string) => {
-    if (description.length > 176) {
+    if (description && description.length > 176) {
       return description.slice(0, 173) + '...'
     }
     return description
