@@ -23,6 +23,9 @@ export type Props = {
   description: string
   to: string
   background: 'light' | 'dark'
+  setIsModalVisible?: React.Dispatch<React.SetStateAction<boolean>> // Nova propriedade opcional
+  isModalOpen?: boolean // Torna isModalOpen opcional
+  currentItem: Efood
 }
 
 const Products = ({
@@ -32,40 +35,26 @@ const Products = ({
   nota,
   description,
   to,
-  background
+  background,
+  setIsModalVisible,
+  isModalOpen = false, // Define um valor padrão para isModalOpen
+  currentItem
 }: Props) => {
   const location = useLocation()
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [currentItem, setCurrentItem] = useState<Efood | null>(null) // Defina como Efood | null
+  const [currentItemModal, setCurrentItemModal] = useState<Efood | null>(null) // Defina como Efood | null
 
   const toggleModal = () => {
-    setIsModalOpen(!isModalOpen)
+    if (setIsModalVisible && typeof isModalOpen === 'boolean') {
+      // Verifica se setIsModalVisible está definido e se isModalOpen é booleano
+      setIsModalVisible(!isModalOpen)
+    }
   }
 
   const handleButtonClick = () => {
     if (location.pathname === '/') {
       window.location.href = to
     } else {
-      // Defina currentItem como um objeto que corresponde a Efood
-      setCurrentItem({
-        id: 1, // Suponha um ID adequado aqui
-        capa: image,
-        titulo: title,
-        descricao: description,
-        tipo: 'tipo', // Ajuste conforme necessário
-        destacado: true, // Ajuste conforme necessário
-        avaliacao: nota, // Ajuste conforme necessário
-        cardapio: [
-          {
-            foto: image,
-            preco: 10, // Exemplo de preço
-            id: 1, // ID do cardápio
-            nome: 'Nome do item', // Nome do item
-            descricao: 'Descrição do item', // Descrição do item
-            porcao: 'Porção' // Porção do item
-          }
-        ]
-      })
+      setCurrentItemModal(currentItem)
       toggleModal()
     }
   }
@@ -90,7 +79,10 @@ const Products = ({
                 />
               </div>
             </LineSection>
-            <p>{description}</p>
+            <p>
+              {isModalOpen ? description : getTruncatedDescription(description)}
+            </p>{' '}
+            {/* Renderiza a descrição completa na modal */}
             {location.pathname === '/' ? (
               <Botao
                 type="link"
@@ -113,11 +105,18 @@ const Products = ({
           </ContainerDescritivo>
         </CardRestaurant>
       </CardConteiner>
-      {isModalOpen && currentItem && (
-        <ModalPoupap item={currentItem} onClose={toggleModal} />
+      {isModalOpen && currentItemModal && (
+        <ModalPoupap item={currentItemModal} onClose={toggleModal} />
       )}
     </div>
   )
+}
+
+const getTruncatedDescription = (description: string) => {
+  if (description && description.length > 176) {
+    return description.slice(0, 173) + '...'
+  }
+  return description
 }
 
 export default Products

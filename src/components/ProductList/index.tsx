@@ -14,6 +14,7 @@ const ProductList = ({ background, title, efoods }: Props) => {
   const { id } = useParams<{ id: string }>()
   const location = useLocation()
   const [catalogoServico, setCatalogoServico] = useState<Efood[]>([])
+  const [isModalVisible, setIsModalVisible] = useState(false) // Estado para controlar a visibilidade da modal
 
   // Determinando se é a página de perfil
   const isPerfilPage = location.pathname.includes('/perfil')
@@ -40,13 +41,6 @@ const ProductList = ({ background, title, efoods }: Props) => {
     return tags
   }
 
-  const getdescription = (description: string) => {
-    if (description && description.length > 176) {
-      return description.slice(0, 173) + '...'
-    }
-    return description
-  }
-
   return (
     <div className="container">
       <ProductListContainer background={background}>
@@ -61,9 +55,12 @@ const ProductList = ({ background, title, efoods }: Props) => {
                   infos={getEfoodTags(efood)}
                   title={item.nome}
                   nota={efood.avaliacao}
-                  description={getdescription(item.descricao)}
+                  description={item.descricao} // Passa a descrição sem truncamento
                   to={`/perfil/${efood.id}`}
                   background={background}
+                  setIsModalVisible={setIsModalVisible}
+                  isModalOpen={isModalVisible}
+                  currentItem={efood}
                 />
               ))
             ) : (
@@ -73,9 +70,12 @@ const ProductList = ({ background, title, efoods }: Props) => {
                 infos={getEfoodTags(efood)}
                 title={efood.titulo}
                 nota={efood.avaliacao}
-                description={getdescription(efood.descricao)}
+                description={efood.descricao} // Passa a descrição sem truncamento
                 to={`/perfil/${efood.id}`}
                 background={background}
+                setIsModalVisible={setIsModalVisible}
+                isModalOpen={isModalVisible}
+                currentItem={efood}
               />
             )
           )}
