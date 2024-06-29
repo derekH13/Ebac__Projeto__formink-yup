@@ -61,6 +61,7 @@ const ProductList = ({ background, title, efoods }: Props) => {
                   setIsModalVisible={setIsModalVisible}
                   isModalOpen={isModalVisible}
                   currentItem={efood}
+                  shouldTruncateDescription={true} // Define que deve truncar a descrição
                 />
               ))
             ) : (

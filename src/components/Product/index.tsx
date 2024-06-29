@@ -23,9 +23,10 @@ export type Props = {
   description: string
   to: string
   background: 'light' | 'dark'
-  setIsModalVisible?: React.Dispatch<React.SetStateAction<boolean>> // Nova propriedade opcional
-  isModalOpen?: boolean // Torna isModalOpen opcional
+  setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>> // Garantimos que setIsModalVisible seja definido
+  isModalOpen: boolean // Garantimos que isModalOpen seja definido como booleano
   currentItem: Efood
+  shouldTruncateDescription?: boolean // Propriedade opcional para decidir se deve truncar a descrição
 }
 
 const Products = ({
@@ -37,15 +38,16 @@ const Products = ({
   to,
   background,
   setIsModalVisible,
-  isModalOpen = false, // Define um valor padrão para isModalOpen
-  currentItem
+  isModalOpen,
+  currentItem,
+  shouldTruncateDescription = false // Define como falso por padrão
 }: Props) => {
   const location = useLocation()
   const [currentItemModal, setCurrentItemModal] = useState<Efood | null>(null) // Defina como Efood | null
 
   const toggleModal = () => {
-    if (setIsModalVisible && typeof isModalOpen === 'boolean') {
-      // Verifica se setIsModalVisible está definido e se isModalOpen é booleano
+    if (typeof isModalOpen === 'boolean') {
+      // Verifica se isModalOpen é booleano
       setIsModalVisible(!isModalOpen)
     }
   }
@@ -57,6 +59,13 @@ const Products = ({
       setCurrentItemModal(currentItem)
       toggleModal()
     }
+  }
+
+  const getTruncatedDescription = (description: string) => {
+    if (description && description.length > 160) {
+      return description.slice(0, 163) + '...'
+    }
+    return description
   }
 
   return (
@@ -80,7 +89,10 @@ const Products = ({
               </div>
             </LineSection>
             <p>
-              {isModalOpen ? description : getTruncatedDescription(description)}
+              {shouldTruncateDescription &&
+              location.pathname.includes('/perfil')
+                ? getTruncatedDescription(description)
+                : description}
             </p>{' '}
             {/* Renderiza a descrição completa na modal */}
             {location.pathname === '/' ? (
@@ -110,13 +122,6 @@ const Products = ({
       )}
     </div>
   )
-}
-
-const getTruncatedDescription = (description: string) => {
-  if (description && description.length > 176) {
-    return description.slice(0, 173) + '...'
-  }
-  return description
 }
 
 export default Products
