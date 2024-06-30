@@ -15,19 +15,27 @@ interface ModalPoupapProps {
   foto: string
   descricao: string
   preco: number
+  nome: string
 }
 
 const ModalPoupap: React.FC<ModalPoupapProps> = ({
   onClose,
   foto,
   descricao,
-  preco
+  preco,
+  nome
 }) => {
   const formatPreco = (preco = 0) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL'
     }).format(preco)
+  }
+
+  const handleAddToCart = () => {
+    // Lógica para adicionar o item ao carrinho
+    console.log('Item adicionado ao carrinho:', nome)
+    onClose() // Fecha o modal após adicionar ao carrinho (simulação)
   }
 
   return (
@@ -41,10 +49,12 @@ const ModalPoupap: React.FC<ModalPoupapProps> = ({
             <ModalImage src={foto} alt="Produto" />
           </SectionImgModal>
           <div>
+            <h3>{nome}</h3>
             <p>{descricao}</p>
             <Tag size="big">
               <Botao
                 type="button"
+                onClick={handleAddToCart} // Adiciona a função de clique
                 title={'Adicionar ao carrinho'}
                 background="dark"
               >

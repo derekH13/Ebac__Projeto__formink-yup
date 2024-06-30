@@ -11,14 +11,16 @@ export type Efood = {
   avaliacao: number
   descricao: string
   capa: string
-  cardapio: {
-    foto: string
-    preco: number
-    id: number
-    nome: string
-    descricao: string
-    porcao: string
-  }[]
+  cardapio: [
+    {
+      foto: string
+      preco: number
+      id: number
+      nome: string
+      descricao: string
+      porcao: string
+    }
+  ]
 }
 
 const Perfil = () => {

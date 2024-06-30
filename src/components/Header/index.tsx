@@ -1,4 +1,7 @@
+import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import LogoImgHome from '../../assets/icons/logo.png'
+import BannerImgHome from '../../assets/images/BannerImgHome.png'
 import {
   CarrinhoDeProdutos,
   ContainerHeader,
@@ -7,9 +10,6 @@ import {
   RestaurantName,
   Titulo
 } from './styles'
-
-import LogoImgHome from '../../assets/icons/logo.png'
-import BannerImgHome from '../../assets/images/BannerImgHome.png'
 
 export type Props = {
   background: 'light' | 'dark'
@@ -39,7 +39,13 @@ const Header = ({ background }: Props) => {
           <ContainerHeader>
             <RestaurantName>{titleRestaurate}</RestaurantName>
             <Link to="/">
-              <img className="imagemLogoLnk" src={LogoImgHome} alt="efood" />
+              <img
+                className="imagemLogoLnk"
+                src={LogoImgHome}
+                alt="efood"
+                width="150"
+                height="50" // Definindo altura e largura da imagem
+              />
             </Link>
             <CarrinhoDeProdutos>{titleCarrinho}</CarrinhoDeProdutos>
           </ContainerHeader>
@@ -50,4 +56,4 @@ const Header = ({ background }: Props) => {
   )
 }
 
-export default Header
+export default React.memo(Header)

@@ -29,7 +29,7 @@ export type Props = {
   shouldTruncateDescription?: boolean
 }
 
-const Products = ({
+const Products: React.FC<Props> = ({
   image,
   infos,
   title,
@@ -41,9 +41,24 @@ const Products = ({
   isModalOpen,
   currentItem,
   shouldTruncateDescription = false
-}: Props) => {
+}) => {
   const location = useLocation()
-  const [currentItemModal, setCurrentItemModal] = useState<Efood | null>(null)
+  const [currentItemModal, setCurrentItemModal] = useState<{
+    cardapio: {
+      foto: string
+      descricao: string
+      nome: string
+      preco: number
+      porcao: string
+    }[]
+    id: number
+    titulo: string
+    destacado: boolean
+    tipo: string
+    avaliacao: number
+    descricao: string
+    capa: string
+  } | null>(null)
 
   const toggleModal = () => {
     setIsModalVisible(!isModalOpen)
@@ -52,27 +67,28 @@ const Products = ({
   const handleButtonClick = (
     foto: string,
     descricao: string,
+    nome: string,
     preco: number
   ) => {
-    setCurrentItemModal({
+    const itemSelecionado = {
       ...currentItem,
       cardapio: [
         {
           foto: foto,
           descricao: descricao,
           preco: preco,
-          id: currentItem.id, // Se necessário para identificação do item
-          nome: currentItem.titulo, // Pode ser o nome do item
-          porcao: '' // Se houver campo de porção
+          porcao: '',
+          nome: nome
         }
       ]
-    })
+    }
+    setCurrentItemModal(itemSelecionado)
     toggleModal()
   }
 
   const getTruncatedDescription = (description: string) => {
     if (description && description.length > 160) {
-      return description.slice(0, 163) + '...'
+      return description.slice(0, 160) + '...'
     }
     return description
   }
@@ -83,8 +99,8 @@ const Products = ({
         <CardRestaurant>
           <Imagem style={{ backgroundImage: `url(${image})` }} />
           <Infos>
-            {infos.map((info) => (
-              <Tag key={info}>{info}</Tag>
+            {infos.map((info, index) => (
+              <Tag key={index}>{info}</Tag>
             ))}
           </Infos>
           <ContainerDescritivo>
@@ -119,7 +135,8 @@ const Products = ({
                   handleButtonClick(
                     image,
                     description,
-                    currentItem.cardapio[0].preco
+                    currentItem.cardapio[0].nome,
+                    currentItem.cardapio[0].preco // Verifique se isso é realmente necessário
                   )
                 }
                 title="Adicionar ao carrinho"
@@ -134,9 +151,10 @@ const Products = ({
       {isModalOpen && currentItemModal && (
         <ModalPoupap
           onClose={toggleModal}
-          foto={currentItemModal.cardapio[0].foto}
+          foto={currentItemModal.cardapio[0].foto} // Verifique a estrutura real do objeto
           descricao={currentItemModal.cardapio[0].descricao}
           preco={currentItemModal.cardapio[0].preco}
+          nome={currentItemModal.cardapio[0].nome} // Ajuste conforme necessário
         />
       )}
     </div>
