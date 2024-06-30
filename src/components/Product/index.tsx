@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import RestaurantRatingImg from '../../assets/icons/estrela.png'
 import Tag from '../../components/Tag'
@@ -23,10 +23,10 @@ export type Props = {
   description: string
   to: string
   background: 'light' | 'dark'
-  setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>> // Garantimos que setIsModalVisible seja definido
-  isModalOpen: boolean // Garantimos que isModalOpen seja definido como booleano
+  setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>
+  isModalOpen: boolean
   currentItem: Efood
-  shouldTruncateDescription?: boolean // Propriedade opcional para decidir se deve truncar a descrição
+  shouldTruncateDescription?: boolean
 }
 
 const Products = ({
@@ -40,25 +40,34 @@ const Products = ({
   setIsModalVisible,
   isModalOpen,
   currentItem,
-  shouldTruncateDescription = false // Define como falso por padrão
+  shouldTruncateDescription = false
 }: Props) => {
   const location = useLocation()
-  const [currentItemModal, setCurrentItemModal] = useState<Efood | null>(null) // Defina como Efood | null
+  const [currentItemModal, setCurrentItemModal] = useState<Efood | null>(null)
 
   const toggleModal = () => {
-    if (typeof isModalOpen === 'boolean') {
-      // Verifica se isModalOpen é booleano
-      setIsModalVisible(!isModalOpen)
-    }
+    setIsModalVisible(!isModalOpen)
   }
 
-  const handleButtonClick = () => {
-    if (location.pathname === '/') {
-      window.location.href = to
-    } else {
-      setCurrentItemModal(currentItem)
-      toggleModal()
-    }
+  const handleButtonClick = (
+    foto: string,
+    descricao: string,
+    preco: number
+  ) => {
+    setCurrentItemModal({
+      ...currentItem,
+      cardapio: [
+        {
+          foto: foto,
+          descricao: descricao,
+          preco: preco,
+          id: currentItem.id, // Se necessário para identificação do item
+          nome: currentItem.titulo, // Pode ser o nome do item
+          porcao: '' // Se houver campo de porção
+        }
+      ]
+    })
+    toggleModal()
   }
 
   const getTruncatedDescription = (description: string) => {
@@ -93,8 +102,7 @@ const Products = ({
               location.pathname.includes('/perfil')
                 ? getTruncatedDescription(description)
                 : description}
-            </p>{' '}
-            {/* Renderiza a descrição completa na modal */}
+            </p>
             {location.pathname === '/' ? (
               <Botao
                 type="link"
@@ -107,7 +115,13 @@ const Products = ({
             ) : (
               <Botao
                 type="button"
-                onClick={handleButtonClick}
+                onClick={() =>
+                  handleButtonClick(
+                    image,
+                    description,
+                    currentItem.cardapio[0].preco
+                  )
+                }
                 title="Adicionar ao carrinho"
                 background={background}
               >
@@ -118,7 +132,12 @@ const Products = ({
         </CardRestaurant>
       </CardConteiner>
       {isModalOpen && currentItemModal && (
-        <ModalPoupap item={currentItemModal} onClose={toggleModal} />
+        <ModalPoupap
+          onClose={toggleModal}
+          foto={currentItemModal.cardapio[0].foto}
+          descricao={currentItemModal.cardapio[0].descricao}
+          preco={currentItemModal.cardapio[0].preco}
+        />
       )}
     </div>
   )

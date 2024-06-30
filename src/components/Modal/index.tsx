@@ -1,6 +1,5 @@
 import React from 'react'
 import ImgPoupapClose from '../../assets/icons/close.png'
-import { Efood } from '../../pages/Perfil'
 import Botao from '../Button'
 import Tag from '../Tag'
 import {
@@ -11,18 +10,19 @@ import {
   SectionImgModal
 } from './styles'
 
-// Definindo o tipo de item baseado em Efood
-type EfoodItem = Efood | null
-
 interface ModalPoupapProps {
   onClose: () => void
-  item: EfoodItem // Usando o tipo do item conforme definido em Efood
+  foto: string
+  descricao: string
+  preco: number
 }
 
-const ModalPoupap: React.FC<ModalPoupapProps> = ({ onClose, item }) => {
-  // Verifica se item é definido antes de acessar suas propriedades
-  if (!item) return null
-
+const ModalPoupap: React.FC<ModalPoupapProps> = ({
+  onClose,
+  foto,
+  descricao,
+  preco
+}) => {
   const formatPreco = (preco = 0) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
@@ -38,23 +38,19 @@ const ModalPoupap: React.FC<ModalPoupapProps> = ({ onClose, item }) => {
             <img src={ImgPoupapClose} alt="Fechar modal" />
           </CloseImg>
           <SectionImgModal>
-            <ModalImage src={item.capa} alt={item.titulo} />
+            <ModalImage src={foto} alt="Produto" />
           </SectionImgModal>
           <div>
-            <h3>{item.titulo}</h3>
-            <p>{item.descricao}</p>
-            {/* Verifica se há itens no cardápio antes de exibir */}
-            {item.cardapio && item.cardapio.length > 0 && (
-              <Tag size="big">
-                <Botao
-                  type="button"
-                  title={'Adicionar ao carrinho'}
-                  background="dark" // Exemplo de background, substitua conforme necessário
-                >
-                  Adicionar ao carrinho - {formatPreco(item.cardapio[0].preco)}
-                </Botao>
-              </Tag>
-            )}
+            <p>{descricao}</p>
+            <Tag size="big">
+              <Botao
+                type="button"
+                title={'Adicionar ao carrinho'}
+                background="dark"
+              >
+                Adicionar ao carrinho - {formatPreco(preco)}
+              </Botao>
+            </Tag>
           </div>
         </Poupap>
       </ContainerPoupap>

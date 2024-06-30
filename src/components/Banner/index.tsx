@@ -1,20 +1,26 @@
+// Banner.tsx
+
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { ImgBanner } from './styles'
 import { Efood } from '../../pages/Perfil'
+import { ImgBanner } from './styles'
 
 const Banner = () => {
   const [catalogoServico, setCatalogoServico] = useState<Efood | null>(null)
   const { id } = useParams<{ id: string }>()
+  const [isLoading, setIsLoading] = useState(true) // Estado de carregamento
 
-  // Efeito para buscar os dados do restaurante específico ao carregar o componente
   useEffect(() => {
     fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
       .then((res) => res.json())
-      .then((res) => setCatalogoServico(res))
+      .then((res) => {
+        setCatalogoServico(res)
+        setIsLoading(false) // Marca o carregamento como concluído
+      })
+      .catch((error) => console.error('Erro ao carregar dados:', error))
   }, [id])
 
-  if (!catalogoServico) {
+  if (isLoading) {
     return (
       <div className="container">
         <h3>Carregando...</h3>
