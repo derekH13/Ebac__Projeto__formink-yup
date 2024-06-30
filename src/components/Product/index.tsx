@@ -135,8 +135,8 @@ const Products: React.FC<Props> = ({
                   handleButtonClick(
                     image,
                     description,
-                    currentItem.cardapio[0].nome,
-                    currentItem.cardapio[0].preco // Verifique se isso é realmente necessário
+                    title,
+                    currentItem.cardapio[0].preco
                   )
                 }
                 title="Adicionar ao carrinho"
@@ -151,10 +151,10 @@ const Products: React.FC<Props> = ({
       {isModalOpen && currentItemModal && (
         <ModalPoupap
           onClose={toggleModal}
-          foto={currentItemModal.cardapio[0].foto} // Verifique a estrutura real do objeto
-          descricao={currentItemModal.cardapio[0].descricao}
+          foto={image}
+          descricao={description}
           preco={currentItemModal.cardapio[0].preco}
-          nome={currentItemModal.cardapio[0].nome} // Ajuste conforme necessário
+          nome={title}
         />
       )}
     </div>
