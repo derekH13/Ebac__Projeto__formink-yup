@@ -81,20 +81,10 @@ const ProductList: React.FC<Props> = ({ title, background, efoods }) => {
                       to={`/perfil/${efood.id}`}
                       background={background}
                       currentItem={currentItemModal}
-                      onButtonClick={
-                        handleButtonClick as (item: {
-                          id: string
-                          foto: string
-                          descricao: string
-                          preco: number
-                          nome: string
-                          porcao?: string | number | undefined
-                        }) => void
-                      } // Ajustando para corresponder ao tipo esperado
                       shouldTruncateDescription={location.pathname.includes(
                         '/perfil'
                       )}
-                      id={id || ''}
+                      id={''}
                     />
                   )
                 )
@@ -111,20 +101,10 @@ const ProductList: React.FC<Props> = ({ title, background, efoods }) => {
                   to={`/perfil/${efood.id}`}
                   background={background}
                   currentItem={currentItemModal}
-                  onButtonClick={
-                    handleButtonClick as (item: {
-                      id: string
-                      foto: string
-                      descricao: string
-                      preco: number
-                      nome: string
-                      porcao?: string | number | undefined
-                    }) => void
-                  } // Ajustando para corresponder ao tipo esperado
                   shouldTruncateDescription={location.pathname.includes(
                     '/perfil'
                   )}
-                  id={id || ''}
+                  id={''}
                 />
               ))}
         </ProductListItem>

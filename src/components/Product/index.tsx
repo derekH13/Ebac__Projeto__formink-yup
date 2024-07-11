@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import RestaurantRatingImg from '../../assets/icons/estrela.png'
 import Tag from '../../components/Tag'
+import { CardapioItem } from '../../pages/Perfil'
 import Botao from '../Button'
 import ModalPoupap from '../Modal'
 import {
@@ -14,7 +15,18 @@ import {
   RatingStar
 } from './styles'
 
-export type Props = {
+export type Efood = {
+  id: string
+  capa: string
+  tipo: string
+  destacado: boolean
+  titulo: string
+  avaliacao: number
+  descricao: string
+  cardapio: CardapioItem[] // Deve corresponder ao tipo CardapioItem definido
+}
+
+type ProductProps = {
   image: string
   infos: string[]
   title: string
@@ -22,27 +34,12 @@ export type Props = {
   description: string
   to: string
   background: 'light' | 'dark'
-  currentItem: {
-    id: string
-    foto: string
-    descricao: string
-    preco: number
-    nome: string
-    porcao?: number | string // Ajustando para aceitar número ou string
-  }
+  currentItem: CardapioItem | null // Alterado para permitir null
   shouldTruncateDescription?: boolean
   id: string // Recebendo id como propriedade
-  onButtonClick: (item: {
-    id: string
-    foto: string
-    descricao: string
-    preco: number
-    nome: string
-    porcao?: number | string // Ajustando para aceitar número ou string
-  }) => void // Adicionando a propriedade onButtonClick
 }
 
-const Products: React.FC<Props> = ({
+const Product: React.FC<ProductProps> = ({
   image,
   infos,
   title,
@@ -52,8 +49,7 @@ const Products: React.FC<Props> = ({
   background,
   currentItem,
   shouldTruncateDescription = false,
-  id,
-  onButtonClick // Recebendo onButtonClick como propriedade
+  id // Recebendo id como propriedade
 }) => {
   const location = useLocation()
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -62,7 +58,7 @@ const Products: React.FC<Props> = ({
     setIsModalVisible(!isModalVisible)
   }
 
-  const buttonText = location.pathname.startsWith('/perfil')
+  const buttonText = location.pathname.startsWith(`/perfil/${id}`)
     ? 'Adicionar ao carrinho'
     : 'Saiba mais'
 
@@ -71,11 +67,6 @@ const Products: React.FC<Props> = ({
       return description.slice(0, 160) + '...'
     }
     return description
-  }
-
-  const handleClick = () => {
-    onButtonClick(currentItem)
-    toggleModal()
   }
 
   return (
@@ -104,10 +95,10 @@ const Products: React.FC<Props> = ({
                 ? getTruncatedDescription(description)
                 : description}
             </p>
-            {location.pathname.startsWith('/perfil') ? (
+            {location.pathname.startsWith(`/perfil/${id}`) ? (
               <Botao
                 type="button"
-                onClick={handleClick} // Chama handleClick ao clicar no botão
+                onClick={toggleModal}
                 title={buttonText}
                 background={background}
               >
@@ -126,18 +117,17 @@ const Products: React.FC<Props> = ({
           </ContainerDescritivo>
         </CardRestaurant>
       </CardConteiner>
-      {isModalVisible && (
+      {isModalVisible && currentItem && (
         <ModalPoupap
           onClose={toggleModal}
           foto={currentItem.foto}
           descricao={currentItem.descricao}
           preco={currentItem.preco}
           nome={currentItem.nome}
-          // porcao={currentItem.porcao}
         />
       )}
     </div>
   )
 }
 
-export default Products
+export default Product

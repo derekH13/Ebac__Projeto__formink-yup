@@ -1,3 +1,4 @@
+// ModalPoupap.tsx
 import React from 'react'
 import ImgPoupapClose from '../../assets/icons/close.png'
 import Botao from '../Button'
@@ -34,7 +35,7 @@ const ModalPoupap: React.FC<ModalPoupapProps> = ({
 
   const handleAddToCart = () => {
     // Lógica para adicionar o item ao carrinho
-    console.log('Item adicionado ao carrinho:', nome)
+    // console.log('Item adicionado ao carrinho:', nome)
     onClose() // Fecha o modal após adicionar ao carrinho (simulação)
   }
 
