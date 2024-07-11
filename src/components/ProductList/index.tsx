@@ -14,8 +14,8 @@ const ProductList: React.FC<Props> = ({ title, background, efoods }) => {
   const { id } = useParams<{ id: string }>()
   const location = useLocation()
   const [catalogoServico, setCatalogoServico] = useState<Efood[]>([])
-  const [currentItemModal, setCurrentItemModal] = useState<CardapioItem | null>(
-    null
+  const [currentItemModal, setCurrentItemModal] = useState<CardapioItem>(
+    {} as CardapioItem
   )
 
   useEffect(() => {
@@ -72,7 +72,11 @@ const ProductList: React.FC<Props> = ({ title, background, efoods }) => {
                 description={item.descricao}
                 to={`/perfil/${efood.id}`}
                 background={background}
-                currentItem={item}
+                currentItem={
+                  location.pathname.startsWith('/perfil')
+                    ? item
+                    : currentItemModal
+                }
                 shouldTruncateDescription={location.pathname.includes(
                   '/perfil'
                 )}
