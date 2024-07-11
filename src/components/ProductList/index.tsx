@@ -75,6 +75,7 @@ const ProductList: React.FC<Props> = ({ title, background, efoods }) => {
                     to={`/perfil/${efood.id}`}
                     background={background}
                     currentItem={currentItemModal}
+                    onButtonClick={handleButtonClick} // Passa a função para o componente Products
                     shouldTruncateDescription={location.pathname.includes(
                       '/perfil'
                     )}
@@ -94,6 +95,7 @@ const ProductList: React.FC<Props> = ({ title, background, efoods }) => {
                   to={`/perfil/${efood.id}`}
                   background={background}
                   currentItem={currentItemModal}
+                  onButtonClick={handleButtonClick} // Passa a função para o componente Products
                   shouldTruncateDescription={location.pathname.includes(
                     '/perfil'
                   )}

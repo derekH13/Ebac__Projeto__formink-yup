@@ -26,6 +26,7 @@ export type Props = {
   currentItem: CardapioItem
   shouldTruncateDescription?: boolean
   id: string // Recebendo id como propriedade
+  onButtonClick: (item: CardapioItem) => void // Adicionando a propriedade onButtonClick
 }
 
 const Products: React.FC<Props> = ({
@@ -38,7 +39,8 @@ const Products: React.FC<Props> = ({
   background,
   currentItem,
   shouldTruncateDescription = false,
-  id // Recebendo id como propriedade
+  id,
+  onButtonClick // Recebendo onButtonClick como propriedade
 }) => {
   const location = useLocation()
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -87,7 +89,10 @@ const Products: React.FC<Props> = ({
             {location.pathname.startsWith('/perfil') ? (
               <Botao
                 type="button"
-                onClick={toggleModal}
+                onClick={() => {
+                  onButtonClick(currentItem) // Chama onButtonClick ao clicar no botão
+                  toggleModal() // Chama toggleModal para abrir a modal
+                }}
                 title={buttonText}
                 background={background}
               >
