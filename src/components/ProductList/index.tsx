@@ -64,24 +64,40 @@ const ProductList: React.FC<Props> = ({ title, background, efoods }) => {
           {location.pathname.startsWith('/perfil')
             ? // Renderizar informações de CardapioItem quando estiver na página Perfil/id
               catalogoServico.map((efood) =>
-                efood.cardapio.map((item) => (
-                  <Products
-                    key={item.id}
-                    image={item.foto}
-                    infos={getEfoodTags(efood)}
-                    title={item.nome}
-                    nota={efood.avaliacao}
-                    description={item.descricao}
-                    to={`/perfil/${efood.id}`}
-                    background={background}
-                    currentItem={currentItemModal}
-                    onButtonClick={handleButtonClick} // Passa a função para o componente Products
-                    shouldTruncateDescription={location.pathname.includes(
-                      '/perfil'
-                    )}
-                    id={id || ''}
-                  />
-                ))
+                efood.cardapio.map(
+                  (item: {
+                    id: React.Key | null | undefined
+                    foto: string
+                    nome: string
+                    descricao: string
+                  }) => (
+                    <Products
+                      key={item.id}
+                      image={item.foto}
+                      infos={getEfoodTags(efood)}
+                      title={item.nome}
+                      nota={efood.avaliacao}
+                      description={item.descricao}
+                      to={`/perfil/${efood.id}`}
+                      background={background}
+                      currentItem={currentItemModal}
+                      onButtonClick={
+                        handleButtonClick as (item: {
+                          id: string
+                          foto: string
+                          descricao: string
+                          preco: number
+                          nome: string
+                          porcao?: string | number | undefined
+                        }) => void
+                      } // Ajustando para corresponder ao tipo esperado
+                      shouldTruncateDescription={location.pathname.includes(
+                        '/perfil'
+                      )}
+                      id={id || ''}
+                    />
+                  )
+                )
               )
             : // Renderizar informações de Efood quando estiver na página HOME
               catalogoServico.map((efood) => (
@@ -95,7 +111,16 @@ const ProductList: React.FC<Props> = ({ title, background, efoods }) => {
                   to={`/perfil/${efood.id}`}
                   background={background}
                   currentItem={currentItemModal}
-                  onButtonClick={handleButtonClick} // Passa a função para o componente Products
+                  onButtonClick={
+                    handleButtonClick as (item: {
+                      id: string
+                      foto: string
+                      descricao: string
+                      preco: number
+                      nome: string
+                      porcao?: string | number | undefined
+                    }) => void
+                  } // Ajustando para corresponder ao tipo esperado
                   shouldTruncateDescription={location.pathname.includes(
                     '/perfil'
                   )}

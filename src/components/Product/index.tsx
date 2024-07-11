@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import RestaurantRatingImg from '../../assets/icons/estrela.png'
 import Tag from '../../components/Tag'
-import { CardapioItem } from '../../pages/Perfil'
 import Botao from '../Button'
 import ModalPoupap from '../Modal'
 import {
@@ -23,10 +22,24 @@ export type Props = {
   description: string
   to: string
   background: 'light' | 'dark'
-  currentItem: CardapioItem
+  currentItem: {
+    id: string
+    foto: string
+    descricao: string
+    preco: number
+    nome: string
+    porcao?: number | string // Ajustando para aceitar número ou string
+  }
   shouldTruncateDescription?: boolean
   id: string // Recebendo id como propriedade
-  onButtonClick: (item: CardapioItem) => void // Adicionando a propriedade onButtonClick
+  onButtonClick: (item: {
+    id: string
+    foto: string
+    descricao: string
+    preco: number
+    nome: string
+    porcao?: number | string // Ajustando para aceitar número ou string
+  }) => void // Adicionando a propriedade onButtonClick
 }
 
 const Products: React.FC<Props> = ({
@@ -60,6 +73,11 @@ const Products: React.FC<Props> = ({
     return description
   }
 
+  const handleClick = () => {
+    onButtonClick(currentItem)
+    toggleModal()
+  }
+
   return (
     <div className="container">
       <CardConteiner>
@@ -89,10 +107,7 @@ const Products: React.FC<Props> = ({
             {location.pathname.startsWith('/perfil') ? (
               <Botao
                 type="button"
-                onClick={() => {
-                  onButtonClick(currentItem) // Chama onButtonClick ao clicar no botão
-                  toggleModal() // Chama toggleModal para abrir a modal
-                }}
+                onClick={handleClick} // Chama handleClick ao clicar no botão
                 title={buttonText}
                 background={background}
               >
@@ -118,6 +133,7 @@ const Products: React.FC<Props> = ({
           descricao={currentItem.descricao}
           preco={currentItem.preco}
           nome={currentItem.nome}
+          // porcao={currentItem.porcao}
         />
       )}
     </div>
