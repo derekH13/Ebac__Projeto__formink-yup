@@ -25,6 +25,7 @@ export type Props = {
   background: 'light' | 'dark'
   currentItem: CardapioItem
   shouldTruncateDescription?: boolean
+  id: string // Recebendo id como propriedade
 }
 
 const Products: React.FC<Props> = ({
@@ -36,7 +37,8 @@ const Products: React.FC<Props> = ({
   to,
   background,
   currentItem,
-  shouldTruncateDescription = false
+  shouldTruncateDescription = false,
+  id // Recebendo id como propriedade
 }) => {
   const location = useLocation()
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -44,6 +46,10 @@ const Products: React.FC<Props> = ({
   const toggleModal = () => {
     setIsModalVisible(!isModalVisible)
   }
+
+  const buttonText = location.pathname.startsWith('/perfil')
+    ? 'Adicionar ao carrinho'
+    : 'Saiba mais'
 
   const getTruncatedDescription = (description: string) => {
     if (description && description.length > 160) {
@@ -74,18 +80,29 @@ const Products: React.FC<Props> = ({
             </LineSection>
             <p>
               {shouldTruncateDescription &&
-              location.pathname.includes('/perfil')
+              location.pathname.startsWith(`/perfil/${id}`)
                 ? getTruncatedDescription(description)
                 : description}
             </p>
-            <Botao
-              type="button"
-              onClick={toggleModal}
-              title="Adicionar ao carrinho"
-              background={background}
-            >
-              Adicionar ao carrinho
-            </Botao>
+            {location.pathname.startsWith('/perfil') ? (
+              <Botao
+                type="button"
+                onClick={toggleModal}
+                title={buttonText}
+                background={background}
+              >
+                {buttonText}
+              </Botao>
+            ) : (
+              <Botao
+                type="link"
+                to={to}
+                title={buttonText}
+                background={background}
+              >
+                {buttonText}
+              </Botao>
+            )}
           </ContainerDescritivo>
         </CardRestaurant>
       </CardConteiner>

@@ -19,11 +19,23 @@ const ProductList: React.FC<Props> = ({ title, background, efoods }) => {
   )
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`
+        )
+        if (!response.ok) {
+          throw new Error('Erro ao carregar dados')
+        }
+        const data = await response.json()
+        setCatalogoServico(Array.isArray(data) ? data : [data]) // Assuming data is an array or an object
+      } catch (error) {
+        console.error('Erro ao carregar dados:', error)
+      }
+    }
+
     if (efoods.length === 0) {
-      fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
-        .then((res) => res.json())
-        .then((res) => setCatalogoServico([res]))
-        .catch((error) => console.error('Erro ao carregar dados:', error))
+      fetchData()
     } else {
       setCatalogoServico(efoods)
     }
@@ -64,6 +76,7 @@ const ProductList: React.FC<Props> = ({ title, background, efoods }) => {
                 shouldTruncateDescription={location.pathname.includes(
                   '/perfil'
                 )}
+                id={id || ''} // Inicializa com uma string vazia se id for undefined
               />
             ))
           )}
@@ -80,6 +93,7 @@ const ProductList: React.FC<Props> = ({ title, background, efoods }) => {
           background={background}
           currentItem={currentItemModal}
           shouldTruncateDescription={false}
+          id={''}
         />
       )}
     </div>
