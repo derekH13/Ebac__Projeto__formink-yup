@@ -61,45 +61,47 @@ const ProductList: React.FC<Props> = ({ title, background, efoods }) => {
       <ProductListContainer background={background}>
         <h2>{title}</h2>
         <ProductListItem background={background}>
-          {catalogoServico.map((efood) =>
-            efood.cardapio.map((item) => (
-              <Products
-                key={item.id}
-                image={item.foto}
-                infos={getEfoodTags(efood)}
-                title={item.nome}
-                nota={efood.avaliacao}
-                description={item.descricao}
-                to={`/perfil/${efood.id}`}
-                background={background}
-                currentItem={
-                  location.pathname.startsWith('/perfil')
-                    ? item
-                    : currentItemModal
-                }
-                shouldTruncateDescription={location.pathname.includes(
-                  '/perfil'
-                )}
-                id={id || ''} // Inicializa com uma string vazia se id for undefined
-              />
-            ))
-          )}
+          {location.pathname.startsWith('/perfil')
+            ? // Renderizar informações de CardapioItem quando estiver na página Perfil/id
+              catalogoServico.map((efood) =>
+                efood.cardapio.map((item) => (
+                  <Products
+                    key={item.id}
+                    image={item.foto}
+                    infos={getEfoodTags(efood)}
+                    title={item.nome}
+                    nota={efood.avaliacao}
+                    description={item.descricao}
+                    to={`/perfil/${efood.id}`}
+                    background={background}
+                    currentItem={currentItemModal}
+                    shouldTruncateDescription={location.pathname.includes(
+                      '/perfil'
+                    )}
+                    id={id || ''}
+                  />
+                ))
+              )
+            : // Renderizar informações de Efood quando estiver na página HOME
+              catalogoServico.map((efood) => (
+                <Products
+                  key={efood.id}
+                  image={efood.capa}
+                  infos={getEfoodTags(efood)}
+                  title={efood.titulo}
+                  nota={efood.avaliacao}
+                  description={efood.descricao}
+                  to={`/perfil/${efood.id}`}
+                  background={background}
+                  currentItem={currentItemModal}
+                  shouldTruncateDescription={location.pathname.includes(
+                    '/perfil'
+                  )}
+                  id={id || ''}
+                />
+              ))}
         </ProductListItem>
       </ProductListContainer>
-      {currentItemModal && (
-        <Products
-          image={currentItemModal.foto}
-          infos={[]}
-          title={currentItemModal.nome}
-          nota={0} // Substitua pela avaliação real do item, se disponível
-          description={currentItemModal.descricao}
-          to=""
-          background={background}
-          currentItem={currentItemModal}
-          shouldTruncateDescription={false}
-          id={''}
-        />
-      )}
     </div>
   )
 }
