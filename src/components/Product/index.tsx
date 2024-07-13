@@ -23,7 +23,7 @@ export type Efood = {
   titulo: string
   avaliacao: number
   descricao: string
-  cardapio: CardapioItem[] // Deve corresponder ao tipo CardapioItem definido
+  cardapio: CardapioItem[]
 }
 
 type ProductProps = {
@@ -34,9 +34,9 @@ type ProductProps = {
   description: string
   to: string
   background: 'light' | 'dark'
-  currentItem: CardapioItem | null // Alterado para permitir null
+  currentItem: CardapioItem | null
   shouldTruncateDescription?: boolean
-  id: string // Recebendo id como propriedade
+  id: string
 }
 
 const Product: React.FC<ProductProps> = ({
@@ -49,7 +49,7 @@ const Product: React.FC<ProductProps> = ({
   background,
   currentItem,
   shouldTruncateDescription = false,
-  id // Recebendo id como propriedade
+  id
 }) => {
   const location = useLocation()
   const [isModalVisible, setIsModalVisible] = useState(false)

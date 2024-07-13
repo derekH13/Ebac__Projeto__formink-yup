@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 import { CardapioItem, Efood } from '../../pages/Perfil'
-import Products from '../Product'
+import Product from '../Product'
 import { ProductListContainer, ProductListItem } from './styles'
 
 export type Props = {
@@ -14,8 +14,8 @@ const ProductList: React.FC<Props> = ({ title, background, efoods }) => {
   const { id } = useParams<{ id: string }>()
   const location = useLocation()
   const [catalogoServico, setCatalogoServico] = useState<Efood[]>([])
-  const [currentItemModal, setCurrentItemModal] = useState<CardapioItem>(
-    {} as CardapioItem
+  const [currentItemModal, setCurrentItemModal] = useState<CardapioItem | null>(
+    null
   )
 
   useEffect(() => {
@@ -64,34 +64,27 @@ const ProductList: React.FC<Props> = ({ title, background, efoods }) => {
           {location.pathname.startsWith('/perfil')
             ? // Renderizar informações de CardapioItem quando estiver na página Perfil/id
               catalogoServico.map((efood) =>
-                efood.cardapio.map(
-                  (item: {
-                    id: React.Key | null | undefined
-                    foto: string
-                    nome: string
-                    descricao: string
-                  }) => (
-                    <Products
-                      key={item.id}
-                      image={item.foto}
-                      infos={getEfoodTags(efood)}
-                      title={item.nome}
-                      nota={efood.avaliacao}
-                      description={item.descricao}
-                      to={`/perfil/${efood.id}`}
-                      background={background}
-                      currentItem={currentItemModal}
-                      shouldTruncateDescription={location.pathname.includes(
-                        '/perfil'
-                      )}
-                      id={''}
-                    />
-                  )
-                )
+                efood.cardapio.map((item) => (
+                  <Product
+                    key={item.id}
+                    image={item.foto}
+                    infos={getEfoodTags(efood)}
+                    title={item.nome}
+                    nota={efood.avaliacao}
+                    description={item.descricao}
+                    to={`/perfil/${efood.id}`}
+                    background={background}
+                    currentItem={item}
+                    shouldTruncateDescription={location.pathname.includes(
+                      '/perfil'
+                    )}
+                    id={efood.id.toString()} // Convertendo efood.id para string
+                  />
+                ))
               )
             : // Renderizar informações de Efood quando estiver na página HOME
               catalogoServico.map((efood) => (
-                <Products
+                <Product
                   key={efood.id}
                   image={efood.capa}
                   infos={getEfoodTags(efood)}
@@ -100,11 +93,11 @@ const ProductList: React.FC<Props> = ({ title, background, efoods }) => {
                   description={efood.descricao}
                   to={`/perfil/${efood.id}`}
                   background={background}
-                  currentItem={currentItemModal}
+                  currentItem={null}
                   shouldTruncateDescription={location.pathname.includes(
                     '/perfil'
                   )}
-                  id={''}
+                  id={efood.id.toString()} // Convertendo efood.id para string
                 />
               ))}
         </ProductListItem>
