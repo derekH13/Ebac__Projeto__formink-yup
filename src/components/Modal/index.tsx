@@ -17,6 +17,7 @@ interface ModalPoupapProps {
   descricao: string
   preco: number
   nome: string
+  porcao: string
 }
 
 const ModalPoupap: React.FC<ModalPoupapProps> = ({
@@ -24,7 +25,8 @@ const ModalPoupap: React.FC<ModalPoupapProps> = ({
   foto,
   descricao,
   preco,
-  nome
+  nome,
+  porcao
 }) => {
   const formatPreco = (preco = 0) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -41,7 +43,7 @@ const ModalPoupap: React.FC<ModalPoupapProps> = ({
 
   return (
     <div className="container">
-      <ContainerPoupap className="overlay">
+      <ContainerPoupap className="overlay" onClick={onClose}>
         <Poupap>
           <CloseImg onClick={onClose}>
             <img src={ImgPoupapClose} alt="Fechar modal" />
@@ -51,7 +53,12 @@ const ModalPoupap: React.FC<ModalPoupapProps> = ({
           </SectionImgModal>
           <div>
             <h3>{nome}</h3>
-            <p>{descricao}</p>
+            <p>
+              {descricao}
+              <br />
+              <br />
+              {porcao}
+            </p>
             <Tag size="big">
               <Botao
                 type="button"

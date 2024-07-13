@@ -122,6 +122,7 @@ const Product: React.FC<ProductProps> = ({
           onClose={toggleModal}
           foto={currentItem.foto}
           descricao={currentItem.descricao}
+          porcao={currentItem.porcao}
           preco={currentItem.preco}
           nome={currentItem.nome}
         />

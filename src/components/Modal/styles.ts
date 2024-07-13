@@ -44,6 +44,7 @@ export const Poupap = styled.div`
     color: ${colors.white};
     margin: 16px 0;
   }
+
   ${TagContainer} {
     width: 218px;
     height: 24px;
