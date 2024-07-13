@@ -36,7 +36,7 @@ export const Poupap = styled.div`
 
   p {
     width: 656px;
-    height: 176px;
+    /* height: 176px; */
     font-size: 14px;
     font-weight: 400;
     line-height: 22px;
