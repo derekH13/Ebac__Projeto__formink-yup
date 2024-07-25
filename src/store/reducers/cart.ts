@@ -12,7 +12,7 @@ const initialState: CartState = {
 }
 
 const cartSlice = createSlice({
-  name: 'cart',
+  name: 'cartReducer',
   initialState,
   reducers: {
     add: (state, action: PayloadAction<Efood>) => {

@@ -21,11 +21,12 @@ export interface Efood {
 }
 
 export const api = createApi({
-  reducerPath: 'api',
-  baseQuery: fetchBaseQuery({ baseUrl: '/api' }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: '/apihttps://fake-api-tau.vercel.app/api/efood'
+  }),
   endpoints: (builder) => ({
-    getFeatureEfood: builder.query<Efood[], string>({
-      query: (id) => `efood/${id}`
+    getFeatureEfood: builder.query<Efood, void>({
+      query: (id) => `restaurantes/${id}`
     })
   })
 })

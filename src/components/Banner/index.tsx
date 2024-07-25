@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Efood } from '../../pages/Perfil'
+import { Efood } from '../../services/api'
 import { ImgBanner } from './styles'
 
 const Banner = () => {

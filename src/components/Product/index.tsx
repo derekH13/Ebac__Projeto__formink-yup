@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import RestaurantRatingImg from '../../assets/icons/estrela.png'
 import Tag from '../../components/Tag'
-import { CardapioItem } from '../../pages/Perfil'
+import { CardapioItem } from '../../services/api'
 import Botao from '../Button'
 import ModalPoupap from '../Modal'
 import {

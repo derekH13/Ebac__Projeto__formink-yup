@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
-import { CardapioItem, Efood } from '../../pages/Perfil'
+import { CardapioItem, Efood } from '../../services/api'
 import Product from '../Product'
 import { ProductListContainer, ProductListItem } from './styles'
 
