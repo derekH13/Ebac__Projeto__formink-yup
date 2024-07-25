@@ -11,36 +11,23 @@ type Params = {
 
 const Perfil = () => {
   const { id } = useParams<Params>()
-  const { data: listaRestaurantMenu, isLoading } = useGetFeatureEfoodQuery(id!)
+  const { data: listaRestaurantMenu } = useGetFeatureEfoodQuery(id!)
 
-  if (isLoading) {
+  if (listaRestaurantMenu) {
     return (
-      <div className="container">
-        <h3>Carregando...</h3>
-      </div>
+      <>
+        <Header background={'dark'} />
+        <Banner />
+        <ProductList
+          title=""
+          background={'dark'}
+          efoods={listaRestaurantMenu.cardapio}
+          isCardapio
+        />
+      </>
     )
   }
-
-  if (!listaRestaurantMenu) {
-    return (
-      <div className="container">
-        <h3>Restaurante não encontrado</h3>
-      </div>
-    )
-  }
-
-  return (
-    <>
-      <Header background={'dark'} />
-      <Banner />
-      <ProductList
-        title=""
-        background={'dark'}
-        efoods={listaRestaurantMenu.cardapio}
-        isCardapio
-      />
-    </>
-  )
+  return <h4>Carregando ...</h4>
 }
 
 export default Perfil
