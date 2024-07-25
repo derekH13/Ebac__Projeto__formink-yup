@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import LogoImgHome from '../../assets/icons/logo.png'
 import BannerImgHome from '../../assets/images/BannerImgHome.png'
 import {
@@ -18,6 +18,7 @@ export type Props = {
 const Header = ({ background }: Props) => {
   const location = useLocation()
 
+  const { id } = useParams<{ id: string }>()
   // Defini o texto na localização atual
   const titleText =
     location.pathname === '/Perfil'
@@ -25,9 +26,8 @@ const Header = ({ background }: Props) => {
       : 'Viva experiências gastronômicas no conforto da sua casa'
 
   // Defini o texto na localização atual
-  const titleRestaurate = location.pathname === '/Perfil' ? 'Restaurantes' : ''
-  const titleCarrinho =
-    location.pathname === '/Perfil' ? '0 produto(s) no carrinho' : ''
+  const titleRestaurate = id ? 'Restaurantes' : ''
+  const titleCarrinho = id ? '0 produto(s) no carrinho' : ''
 
   return (
     <HeaderPage className="container">
