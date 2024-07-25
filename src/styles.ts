@@ -18,6 +18,7 @@ export const GlobalCSS = createGlobalStyle`
     box-sizing: border-box; /* Define a modelagem de caixa como border-box para incluir padding e border no cálculo do tamanho total */
     font-family: Roboto, sans-serif; /* Define a família de fontes padrão */
     text-decoration: none; /* Remove a decoração de texto padrão, como sublinhado */
+    list-style: none; // Remove a bolinha
   }
 
   /* Define o estilo global para o corpo da página */
