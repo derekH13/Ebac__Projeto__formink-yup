@@ -10,6 +10,7 @@ export interface CardapioItem {
 }
 
 export interface Efood {
+  find(arg0: (item: { id: string | undefined }) => boolean): Efood
   id: number
   titulo: string
   destacado: boolean
@@ -22,10 +23,10 @@ export interface Efood {
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: '/apihttps://fake-api-tau.vercel.app/api/efood'
+    baseUrl: 'https://fake-api-tau.vercel.app/api/efood'
   }),
   endpoints: (builder) => ({
-    getFeatureEfood: builder.query<Efood, void>({
+    getFeatureEfood: builder.query<Efood, string>({
       query: (id) => `restaurantes/${id}`
     })
   })

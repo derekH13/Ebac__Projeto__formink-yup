@@ -7,13 +7,21 @@ import { ProductListContainer, ProductListItem } from './styles'
 export type Props = {
   title: string
   background: 'light' | 'dark'
-  efoods: Efood[]
+  efoods: Efood[] | CardapioItem[]
+  isCardapio?: boolean
 }
 
-const ProductList: React.FC<Props> = ({ title, background, efoods }) => {
+const ProductList: React.FC<Props> = ({
+  title,
+  background,
+  efoods,
+  isCardapio = false
+}) => {
   const { id } = useParams<{ id: string }>()
   const location = useLocation()
-  const [catalogoServico, setCatalogoServico] = useState<Efood[]>([])
+  const [catalogoServico, setCatalogoServico] = useState<
+    Efood[] | CardapioItem[]
+  >([])
   const [currentItemModal, setCurrentItemModal] = useState<CardapioItem | null>(
     null
   )
@@ -61,29 +69,27 @@ const ProductList: React.FC<Props> = ({ title, background, efoods }) => {
       <ProductListContainer background={background}>
         <h2>{title}</h2>
         <ProductListItem background={background}>
-          {location.pathname.startsWith('/perfil')
+          {isCardapio
             ? // Renderizar informações de CardapioItem quando estiver na página Perfil/id
-              catalogoServico.map((efood) =>
-                efood.cardapio.map((item) => (
-                  <Product
-                    key={item.id}
-                    image={item.foto}
-                    infos={getEfoodTags(efood)}
-                    title={item.nome}
-                    nota={efood.avaliacao}
-                    description={item.descricao}
-                    to={`/perfil/${efood.id}`}
-                    background={background}
-                    currentItem={item}
-                    shouldTruncateDescription={location.pathname.includes(
-                      '/perfil'
-                    )}
-                    id={efood.id.toString()} // Convertendo efood.id para string
-                  />
-                ))
-              )
+              (catalogoServico as CardapioItem[]).map((item) => (
+                <Product
+                  key={item.id}
+                  image={item.foto}
+                  infos={[]}
+                  title={item.nome}
+                  // Remove a propriedade nota se for CardapioItem
+                  description={item.descricao}
+                  to={`/perfil/${id}`}
+                  background={background}
+                  currentItem={item}
+                  shouldTruncateDescription={location.pathname.includes(
+                    '/perfil'
+                  )}
+                  id={item.id}
+                />
+              ))
             : // Renderizar informações de Efood quando estiver na página HOME
-              catalogoServico.map((efood) => (
+              (catalogoServico as Efood[]).map((efood) => (
                 <Product
                   key={efood.id}
                   image={efood.capa}

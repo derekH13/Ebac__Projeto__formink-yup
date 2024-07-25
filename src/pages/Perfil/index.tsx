@@ -1,24 +1,44 @@
-import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import Banner from '../../components/Banner'
 import Header from '../../components/Header'
 import ProductList from '../../components/ProductList'
-import { Efood } from '../../services/api'
+
+import { useGetFeatureEfoodQuery } from '../../services/api'
+
+type Params = {
+  id: string
+}
 
 const Perfil = () => {
-  const [listaRestaurantMenu, setListaRestaurantMenu] = useState<Efood[]>([])
+  const { id } = useParams<Params>()
+  const { data: listaRestaurantMenu, isLoading } = useGetFeatureEfoodQuery(id!)
 
-  useEffect(() => {
-    fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes')
-      .then((res) => res.json())
-      .then((res) => setListaRestaurantMenu(res))
-      .catch((error) => console.error('Erro ao carregar dados:', error))
-  }, [])
+  if (isLoading) {
+    return (
+      <div className="container">
+        <h3>Carregando...</h3>
+      </div>
+    )
+  }
+
+  if (!listaRestaurantMenu) {
+    return (
+      <div className="container">
+        <h3>Restaurante não encontrado</h3>
+      </div>
+    )
+  }
 
   return (
     <>
       <Header background={'dark'} />
       <Banner />
-      <ProductList title="" background={'dark'} efoods={listaRestaurantMenu} />
+      <ProductList
+        title=""
+        background={'dark'}
+        efoods={listaRestaurantMenu.cardapio}
+        isCardapio
+      />
     </>
   )
 }

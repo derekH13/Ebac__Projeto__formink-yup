@@ -1,24 +1,14 @@
-// Banner.tsx
-
-import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Efood } from '../../services/api'
+import { useGetFeatureEfoodQuery } from '../../services/api'
 import { ImgBanner } from './styles'
 
-const Banner = () => {
-  const [catalogoServico, setCatalogoServico] = useState<Efood | null>(null)
-  const { id } = useParams<{ id: string }>()
-  const [isLoading, setIsLoading] = useState(true) // Estado de carregamento
+type Params = {
+  id: string
+}
 
-  useEffect(() => {
-    fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
-      .then((res) => res.json())
-      .then((res) => {
-        setCatalogoServico(res)
-        setIsLoading(false) // Marca o carregamento como concluído
-      })
-      .catch((error) => console.error('Erro ao carregar dados:', error))
-  }, [id])
+const Banner = () => {
+  const { id } = useParams<Params>()
+  const { data: catalogoServico, isLoading } = useGetFeatureEfoodQuery(id!)
 
   if (isLoading) {
     return (
@@ -28,14 +18,20 @@ const Banner = () => {
     )
   }
 
+  if (!catalogoServico) {
+    return (
+      <div className="container">
+        <h3>Serviço não encontrado</h3>
+      </div>
+    )
+  }
+
   return (
     <div className="container">
-      {catalogoServico && (
-        <ImgBanner style={{ backgroundImage: `url(${catalogoServico.capa})` }}>
-          <h3>{catalogoServico.tipo}</h3>
-          <h1>{catalogoServico.titulo}</h1>
-        </ImgBanner>
-      )}
+      <ImgBanner style={{ backgroundImage: `url(${catalogoServico.capa})` }}>
+        <h3>{catalogoServico.tipo}</h3>
+        <h1>{catalogoServico.titulo}</h1>
+      </ImgBanner>
     </div>
   )
 }
