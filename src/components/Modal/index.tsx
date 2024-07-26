@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import ImgPoupapClose from '../../assets/icons/close.png'
-import { add, CartItem } from '../../store/reducers/cart'
+import { add, CartItem, open } from '../../store/reducers/cart'
 import Botao from '../Button'
 import Tag from '../Tag'
 import {
@@ -50,6 +50,7 @@ const ModalPoupap: React.FC<ModalPoupapProps> = ({
       porcao
     }
     dispatch(add(item))
+    dispatch(open())
     onClose()
   }
 
