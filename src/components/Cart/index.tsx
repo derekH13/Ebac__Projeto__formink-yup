@@ -1,11 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux'
-import pizza from '../../assets/images/pizza.png'
 import { RootReducer } from '../../store'
 import { close } from '../../store/reducers/cart'
 import Botao from '../Button'
 import { CartContainer, CartItem, Overlay, Prices, Sidebar } from './styles'
 const Cart = () => {
-  const { isOpen } = useSelector((state: RootReducer) => state.cart)
+  const { isOpen, items } = useSelector((state: RootReducer) => state.cart)
 
   const dispatch = useDispatch()
 
@@ -13,27 +12,28 @@ const Cart = () => {
     dispatch(close())
   }
 
+  const formatPreco = (preco = 0) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(preco)
+  }
+
   return (
     <CartContainer className={isOpen ? 'isOpen' : ''}>
       <Overlay onClick={closeCart} />
       <Sidebar>
         <ul>
-          <CartItem>
-            <img src={pizza} alt="Pizza" />
-            <div>
-              <h3>Nome do prato</h3>
-              <span>R$ 150,00</span>
-            </div>
-            <button type="button" />
-          </CartItem>
-          <CartItem>
-            <img src={pizza} alt="Pizza" />
-            <div>
-              <h3>Nome do prato</h3>
-              <span>R$ 150,00</span>
-            </div>
-            <button type="button" />
-          </CartItem>
+          {items.map((item) => (
+            <CartItem key={item.id}>
+              <img src={item.foto} alt={item.nome} />
+              <div>
+                <h3>{item.nome}</h3>
+                <span>{formatPreco(item.preco)}</span>
+              </div>
+              <button type="button" />
+            </CartItem>
+          ))}
         </ul>
         <Prices>
           Valor Total <span>R$250,00</span>
