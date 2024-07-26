@@ -1,15 +1,21 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import pizza from '../../assets/images/pizza.png'
 import { RootReducer } from '../../store'
+import { close } from '../../store/reducers/cart'
 import Botao from '../Button'
 import { CartContainer, CartItem, Overlay, Prices, Sidebar } from './styles'
-
 const Cart = () => {
   const { isOpen } = useSelector((state: RootReducer) => state.cart)
 
+  const dispatch = useDispatch()
+
+  const closeCart = () => {
+    dispatch(close())
+  }
+
   return (
     <CartContainer className={isOpen ? 'isOpen' : ''}>
-      <Overlay />
+      <Overlay onClick={closeCart} />
       <Sidebar>
         <ul>
           <CartItem>
