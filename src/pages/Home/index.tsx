@@ -1,17 +1,9 @@
-import { useEffect, useState } from 'react'
 import Header from '../../components/Header'
 import ProductList from '../../components/ProductList'
-import { Efood } from '../../services/api'
+import { useGetHomePageQuery } from '../../services/api'
 
 const Home = () => {
-  const [catalogoServico, setCatalogoServico] = useState<Efood[]>([])
-
-  useEffect(() => {
-    fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes')
-      .then((res) => res.json())
-      .then((res) => setCatalogoServico(res))
-      .catch((error) => console.error('Erro ao carregar dados:', error))
-  }, [])
+  const { data: catalogoServico = [] } = useGetHomePageQuery() // Define um valor padrão vazio para catalogoServico
 
   return (
     <>

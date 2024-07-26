@@ -28,9 +28,12 @@ export const api = createApi({
   endpoints: (builder) => ({
     getFeatureEfood: builder.query<Efood, string>({
       query: (id) => `restaurantes/${id}`
+    }),
+    getHomePage: builder.query<Efood[], void>({
+      query: () => 'restaurantes'
     })
   })
 })
 
-export const { useGetFeatureEfoodQuery } = api
+export const { useGetFeatureEfoodQuery, useGetHomePageQuery } = api
 export default api
