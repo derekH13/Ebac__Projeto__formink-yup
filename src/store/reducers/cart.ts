@@ -1,8 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Efood } from '../../services/api'
+
+// Defina o tipo para os itens do carrinho
+export interface CartItem {
+  id: number // Identificador único do item
+  foto: string
+  descricao: string
+  preco: number
+  nome: string
+  porcao: string
+}
 
 type CartState = {
-  items: Efood[]
+  items: CartItem[]
   isOpen: boolean
 }
 
@@ -15,7 +24,7 @@ const cartSlice = createSlice({
   name: 'cartReducer',
   initialState,
   reducers: {
-    add: (state, action: PayloadAction<Efood>) => {
+    add: (state, action: PayloadAction<CartItem>) => {
       state.items.push(action.payload)
     },
     open: (state) => {

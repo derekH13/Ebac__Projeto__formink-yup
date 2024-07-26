@@ -1,8 +1,9 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useLocation, useParams } from 'react-router-dom'
 import LogoImgHome from '../../assets/icons/logo.png'
 import BannerImgHome from '../../assets/images/BannerImgHome.png'
+import { RootReducer } from '../../store'
 import { open } from '../../store/reducers/cart'
 import {
   CarrinhoDeProdutos,
@@ -28,15 +29,16 @@ const Header = ({ background }: Props) => {
       ? ''
       : 'Viva experiências gastronômicas no conforto da sua casa'
 
-  // Define o texto na localização atual
-  const titleRestaurate = id ? 'Restaurantes' : ''
-  const titleCarrinho = id ? '0 produto(s) no carrinho' : ''
-
   const dispatch = useDispatch()
+  const { items } = useSelector((state: RootReducer) => state.cart)
 
   const openCart = () => {
     dispatch(open())
   }
+
+  // Define o texto na localização atual
+  const titleRestaurate = id ? 'Restaurantes' : ''
+  const titleCarrinho = id ? `${items.length} produto(s) no carrinho` : ''
 
   return (
     <HeaderPage className="container">

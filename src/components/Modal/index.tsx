@@ -1,6 +1,7 @@
-// ModalPoupap.tsx
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import ImgPoupapClose from '../../assets/icons/close.png'
+import { add, CartItem } from '../../store/reducers/cart'
 import Botao from '../Button'
 import Tag from '../Tag'
 import {
@@ -11,6 +12,7 @@ import {
   SectionImgModal
 } from './styles'
 
+// Define a interface do ModalPoupapProps
 interface ModalPoupapProps {
   onClose: () => void
   foto: string
@@ -35,10 +37,20 @@ const ModalPoupap: React.FC<ModalPoupapProps> = ({
     }).format(preco)
   }
 
+  const dispatch = useDispatch()
+
   const handleAddToCart = () => {
-    // Lógica para adicionar o item ao carrinho
-    // console.log('Item adicionado ao carrinho:', nome)
-    onClose() // Fecha o modal após adicionar ao carrinho (simulação)
+    const item: CartItem = {
+      // Atualize para usar CartItem
+      id: Date.now(), // Gere um ID único ou modifique conforme necessário
+      foto,
+      descricao,
+      preco,
+      nome,
+      porcao
+    }
+    dispatch(add(item))
+    onClose()
   }
 
   return (
@@ -62,7 +74,7 @@ const ModalPoupap: React.FC<ModalPoupapProps> = ({
             <Tag size="big">
               <Botao
                 type="button"
-                onClick={handleAddToCart} // Adiciona a função de clique
+                onClick={handleAddToCart}
                 title={'Adicionar ao carrinho'}
                 background="dark"
               >
