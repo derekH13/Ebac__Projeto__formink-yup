@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Props } from '.'
+import { colors } from '../../styles'
 
 export const HeaderPage = styled.div`
   width: 100%;
@@ -57,4 +58,8 @@ export const CarrinhoDeProdutos = styled(ContainerHeader)`
   font-weight: 900;
   justify-content: right;
   padding-top: none;
+`
+export const CartButton = styled.a`
+  color: ${colors.rosePink};
+  cursor: pointer;
 `

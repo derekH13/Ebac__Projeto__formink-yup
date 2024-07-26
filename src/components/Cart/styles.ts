@@ -24,7 +24,7 @@ export const CartContainer = styled.div`
   justify-content: flex-end;
   z-index: 1;
 
-  is-open {
+  &.isOpen {
     display: flex;
   }
 `
@@ -111,5 +111,6 @@ export const CartItem = styled.li`
     position: absolute;
     bottom: 8px;
     right: 8px;
+    cursor: pointer;
   }
 `

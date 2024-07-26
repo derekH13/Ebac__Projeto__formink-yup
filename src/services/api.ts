@@ -26,11 +26,11 @@ export const api = createApi({
     baseUrl: 'https://fake-api-tau.vercel.app/api/efood'
   }),
   endpoints: (builder) => ({
-    getFeatureEfood: builder.query<Efood, string>({
-      query: (id) => `restaurantes/${id}`
-    }),
     getHomePage: builder.query<Efood[], void>({
       query: () => 'restaurantes'
+    }),
+    getFeatureEfood: builder.query<Efood, string>({
+      query: (id) => `restaurantes/${id}`
     })
   })
 })
