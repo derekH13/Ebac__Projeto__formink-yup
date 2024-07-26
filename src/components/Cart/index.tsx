@@ -3,6 +3,7 @@ import { RootReducer } from '../../store'
 import { close } from '../../store/reducers/cart'
 import Botao from '../Button'
 import { CartContainer, CartItem, Overlay, Prices, Sidebar } from './styles'
+
 const Cart = () => {
   const { isOpen, items } = useSelector((state: RootReducer) => state.cart)
 
@@ -17,6 +18,12 @@ const Cart = () => {
       style: 'currency',
       currency: 'BRL'
     }).format(preco)
+  }
+
+  const getTotalPrice = () => {
+    return items.reduce((acumulador, item) => {
+      return acumulador + item.preco
+    }, 0)
   }
 
   return (
@@ -36,12 +43,12 @@ const Cart = () => {
           ))}
         </ul>
         <Prices>
-          Valor Total <span>R$250,00</span>
+          Valor Total <span>{formatPreco(getTotalPrice())}</span>
         </Prices>
         <Botao
-          type={'button'}
-          title={'Clique aqui para continuar com a compra'}
-          background={'dark'}
+          type="button"
+          title="Clique aqui para continuar com a compra"
+          background="dark"
         >
           Continuar com a entrega
         </Botao>
