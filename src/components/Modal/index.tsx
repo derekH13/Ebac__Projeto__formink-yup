@@ -1,5 +1,5 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import ImgPoupapClose from '../../assets/icons/close.png'
 import { add, CartItem, open } from '../../store/reducers/cart'
 import Botao from '../Button'
@@ -38,10 +38,12 @@ const ModalPoupap: React.FC<ModalPoupapProps> = ({
   }
 
   const dispatch = useDispatch()
+  const items = useSelector(
+    (state: { cart: { items: CartItem[] } }) => state.cart.items
+  )
 
   const handleAddToCart = () => {
     const item: CartItem = {
-      // Atualize para usar CartItem
       id: Date.now(), // Gere um ID único ou modifique conforme necessário
       foto,
       descricao,
@@ -49,15 +51,22 @@ const ModalPoupap: React.FC<ModalPoupapProps> = ({
       nome,
       porcao
     }
-    dispatch(add(item))
-    dispatch(open())
-    onClose()
+
+    const existingItem = items.find((cartItem) => cartItem.nome === item.nome)
+
+    if (!existingItem) {
+      dispatch(add(item))
+      dispatch(open())
+      onClose()
+    } else {
+      alert('O prato já está no carrinho!')
+    }
   }
 
   return (
     <div className="container">
       <ContainerPoupap className="overlay" onClick={onClose}>
-        <Poupap>
+        <Poupap onClick={(e) => e.stopPropagation()}>
           <CloseImg onClick={onClose}>
             <img src={ImgPoupapClose} alt="Fechar modal" />
           </CloseImg>
