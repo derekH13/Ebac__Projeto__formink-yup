@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
-import { close } from '../../store/reducers/cart'
+import { close, remove } from '../../store/reducers/cart'
 import Botao from '../Button'
 import { CartContainer, CartItem, Overlay, Prices, Sidebar } from './styles'
 
@@ -26,6 +26,10 @@ const Cart = () => {
     }, 0)
   }
 
+  const removeItem = (id: number) => {
+    dispatch(remove(id))
+  }
+
   return (
     <CartContainer className={isOpen ? 'isOpen' : ''}>
       <Overlay onClick={closeCart} />
@@ -38,7 +42,7 @@ const Cart = () => {
                 <h3>{item.nome}</h3>
                 <span>{formatPreco(item.preco)}</span>
               </div>
-              <button type="button" />
+              <button onClick={() => removeItem(item.id)} type="button" />
             </CartItem>
           ))}
         </ul>
