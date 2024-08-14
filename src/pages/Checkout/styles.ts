@@ -99,3 +99,12 @@ export const InputGroupPayment = styled.div`
     width: 155px;
   }
 `
+export const TitleH3 = styled.h3`
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 18.75px;
+  text-align: left;
+  color: ${colors.palePeach};
+  margin-bottom: 16px;
+`

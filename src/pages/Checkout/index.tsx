@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Card from '../../components/Card'
-import { InputGroup, InputGroupPayment, Row } from './styles'
+import { InputGroup, InputGroupPayment, Row, TitleH3 } from './styles'
 
 const Checkout = () => {
   const [isPaymentStep, setIsPaymentStep] = useState(false)
@@ -11,14 +11,11 @@ const Checkout = () => {
 
   return (
     <div className="container">
-      <Card
-        title="Entrega"
-        isPaymentStep={isPaymentStep}
-        onContinue={handleContinue}
-      >
+      <Card isPaymentStep={isPaymentStep} onContinue={handleContinue}>
         {!isPaymentStep ? (
           <>
             <Row>
+              <TitleH3>Entrega</TitleH3>
               <InputGroup>
                 <label htmlFor="fullName">Quem irá receber</label>
                 <input type="text" id="fullName" />
@@ -50,6 +47,7 @@ const Checkout = () => {
         ) : (
           <>
             <Row>
+              <TitleH3>Pagamento - Valor a pagar R$ 190,90</TitleH3>
               <InputGroupPayment>
                 <label htmlFor="cardOwner">Nome no cartão</label>
                 <input type="text" id="cardOwner" />
