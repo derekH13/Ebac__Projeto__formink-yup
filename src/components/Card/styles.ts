@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { colors } from '../../styles'
-import { ButtonContainer } from '../Button/styles'
 
 export const Overlay = styled.div`
   position: absolute;
@@ -43,14 +42,5 @@ export const Sidebar = styled.aside`
     font-weight: 900;
     line-height: 16.41px;
     margin: 8px 0 16px 0;
-  }
-
-  ${ButtonContainer} {
-    max-width: 344px;
-    width: 100%;
-    background-color: ${colors.palePeach};
-    color: ${colors.rosePink};
-    padding: 4px 0;
-    margin-top: 8px;
   }
 `

@@ -1,13 +1,13 @@
 import styled from 'styled-components'
+import { ButtonContainer } from '../../components/Button/styles'
 import { colors } from '../../styles'
 
 export const Row = styled.div`
   display: block;
+  align-items: flex-end;
 `
 
 export const InputGroup = styled.div`
-  margin-bottom: 16px;
-
   label {
     font-family: Roboto;
     font-size: 14px;
@@ -16,7 +16,7 @@ export const InputGroup = styled.div`
     text-align: left;
     color: ${colors.palePeach};
     display: block;
-    margin: 8px 0 4px 0;
+    margin: 8px 0 8px 0;
   }
 
   input {
@@ -40,7 +40,7 @@ export const InputGroup = styled.div`
     column-gap: 34px;
 
     label {
-      margin: 0; /* Remover margens das labels dentro do flex */
+      margin: 8px 0 8px 0;
     }
 
     input {
@@ -79,6 +79,7 @@ export const InputGroupPayment = styled.div`
     font-weight: 700;
     line-height: 16.41px;
     text-align: left;
+    margin-bottom: 8px;
   }
 
   &.InputFlexpayment {
@@ -107,4 +108,15 @@ export const TitleH3 = styled.h3`
   text-align: left;
   color: ${colors.palePeach};
   margin-bottom: 16px;
+`
+export const TabButton = styled.div`
+  margin-top: 24px;
+  ${ButtonContainer} {
+    max-width: 344px;
+    width: 100%;
+    background-color: ${colors.palePeach};
+    color: ${colors.rosePink};
+    padding: 4px 0 4px 0;
+    margin-bottom: 8px;
+  }
 `
