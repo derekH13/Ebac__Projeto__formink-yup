@@ -5,6 +5,10 @@ import { colors } from '../../styles'
 export const Row = styled.div`
   display: block;
   align-items: flex-end;
+
+  small {
+    color: ${colors.palePeach};
+  }
 `
 
 export const InputGroup = styled.div`
@@ -54,6 +58,10 @@ export const InputGroup = styled.div`
 `
 export const InputGroupPayment = styled.div`
   column-gap: 30px;
+
+  small {
+    color: ${colors.palePeach};
+  }
 
   label {
     font-family: Roboto;
