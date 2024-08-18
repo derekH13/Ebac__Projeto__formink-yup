@@ -11,9 +11,12 @@ import {
 } from './styles'
 
 import * as Yup from 'yup'
+import { usePurchaseMutation } from '../../services/api'
 
 const Checkout = () => {
   const [payWith, setPayWith] = useState(false)
+
+  const [purchase, { isLoading, isError, data }] = usePurchaseMutation()
 
   const form = useFormik({
     initialValues: {
@@ -31,44 +34,76 @@ const Checkout = () => {
     },
     validationSchema: Yup.object({
       fullName: Yup.string()
-        .min(5, 'O nome precisa ter pelo menos 5 caracterios')
-        .required('O campo é obrigatorio'),
-      endereco: Yup.string().required(),
-      cidade: Yup.string().required(),
+        .min(5, 'O nome precisa ter pelo menos 5 caracteres')
+        .required('O campo é obrigatório'),
+      endereco: Yup.string().required('O campo é obrigatório'),
+      cidade: Yup.string().required('O campo é obrigatório'),
       cep: Yup.string()
-        .min(10, 'O campo precisa ter 10 caracteres')
-        .max(10, 'O campo precisa ter 10 caracteres')
-        .required(),
-      numero: Yup.string().required(),
+        .length(10, 'O campo precisa ter 10 caracteres')
+        .required('O campo é obrigatório'),
+      numero: Yup.string().required('O campo é obrigatório'),
       fullComplemento: Yup.string(),
-
-      cardOwner: Yup.string().when((values, schema) =>
-        payWith ? schema.required('O campo é obrigatorio') : schema
-      ),
-      numbCard: Yup.string().when((values, schema) =>
-        payWith ? schema.required('O campo é obrigatorio') : schema
-      ),
-      cardCode: Yup.string().when((values, schema) =>
-        payWith ? schema.required('O campo é obrigatorio') : schema
-      ),
-      expiresMonth: Yup.string().when((values, schema) =>
-        payWith ? schema.required('O campo é obrigatorio') : schema
-      ),
-      expiresYear: Yup.string().when((values, schema) =>
-        payWith ? schema.required('O campo é obrigatorio') : schema
-      )
+      // Comentário: Aqui usamos o 'when' para condicionar a validação dos campos de cartão
+      cardOwner: Yup.string().when('payWith', {
+        is: true,
+        then: (schema) => schema.required('O campo é obrigatório')
+      }),
+      numbCard: Yup.string().when('payWith', {
+        is: true,
+        then: (schema) => schema.required('O campo é obrigatório')
+      }),
+      cardCode: Yup.string().when('payWith', {
+        is: true,
+        then: (schema) => schema.required('O campo é obrigatório')
+      }),
+      expiresMonth: Yup.string().when('payWith', {
+        is: true,
+        then: (schema) => schema.required('O campo é obrigatório')
+      }),
+      expiresYear: Yup.string().when('payWith', {
+        is: true,
+        then: (schema) => schema.required('O campo é obrigatório')
+      })
     }),
     onSubmit: (values) => {
-      console.log(values)
+      purchase({
+        delivery: {
+          receiver: values.fullName,
+          address: {
+            description: values.endereco,
+            city: values.cidade,
+            zipCode: values.cep,
+            number: Number(values.numero),
+            complement: values.fullComplemento
+          }
+        },
+        payment: {
+          card: {
+            name: values.cardOwner,
+            number: values.numbCard,
+            code: Number(values.cardCode),
+            expires: {
+              month: Number(values.expiresMonth),
+              year: Number(values.expiresYear)
+            }
+          }
+        },
+        products: [
+          {
+            id: 1,
+            price: 10
+          }
+        ]
+      })
     }
   })
 
-  const getErrorMessage = (fieldName: string, message?: string) => {
-    const isTouched = fieldName in form.touched
-    const isInvalid = fieldName in form.errors
-
-    if (isTouched && isInvalid) return message
-    return ''
+  // O tipo 'keyof typeof form.values' foi adicionado ao parâmetro 'fieldName' da função 'getErrorMessage'
+  // Isso garante que o 'fieldName' seja uma das chaves dos valores de 'form.values', removendo o erro TS7053.
+  const getErrorMessage = (fieldName: keyof typeof form.values) => {
+    return form.touched[fieldName] && form.errors[fieldName]
+      ? form.errors[fieldName]
+      : ''
   }
 
   return (
@@ -89,9 +124,7 @@ const Checkout = () => {
                     onChange={form.handleChange}
                     onBlur={form.handleBlur}
                   />
-                  <small>
-                    {getErrorMessage('fullName', form.errors.fullName)}
-                  </small>
+                  <small>{getErrorMessage('fullName')}</small>
                 </InputGroup>
                 <InputGroup>
                   <label htmlFor="endereco">Endereço</label>
@@ -103,9 +136,7 @@ const Checkout = () => {
                     onChange={form.handleChange}
                     onBlur={form.handleBlur}
                   />
-                  <small>
-                    {getErrorMessage('endereco', form.errors.endereco)}
-                  </small>
+                  <small>{getErrorMessage('endereco')}</small>
                 </InputGroup>
                 <InputGroup>
                   <label htmlFor="cidade">Cidade</label>
@@ -117,7 +148,7 @@ const Checkout = () => {
                     onChange={form.handleChange}
                     onBlur={form.handleBlur}
                   />
-                  <small>{getErrorMessage('cidade', form.errors.cidade)}</small>
+                  <small>{getErrorMessage('cidade')}</small>
                 </InputGroup>
                 <InputGroup className="InputFlex">
                   <div>
@@ -130,7 +161,7 @@ const Checkout = () => {
                       onChange={form.handleChange}
                       onBlur={form.handleBlur}
                     />
-                    <small>{getErrorMessage('cep', form.errors.cep)}</small>
+                    <small>{getErrorMessage('cep')}</small>
                   </div>
                   <div>
                     <label htmlFor="numero">Número</label>
@@ -142,9 +173,7 @@ const Checkout = () => {
                       onChange={form.handleChange}
                       onBlur={form.handleBlur}
                     />
-                    <small>
-                      {getErrorMessage('numero', form.errors.numero)}
-                    </small>
+                    <small>{getErrorMessage('numero')}</small>
                   </div>
                 </InputGroup>
                 <InputGroup>
@@ -159,12 +188,7 @@ const Checkout = () => {
                     onChange={form.handleChange}
                     onBlur={form.handleBlur}
                   />
-                  <small>
-                    {getErrorMessage(
-                      'fullComplemento',
-                      form.errors.fullComplemento
-                    )}
-                  </small>
+                  <small>{getErrorMessage('fullComplemento')}</small>
                 </InputGroup>
               </Row>
               <TabButton>
@@ -200,9 +224,7 @@ const Checkout = () => {
                     onChange={form.handleChange}
                     onBlur={form.handleBlur}
                   />
-                  <small>
-                    {getErrorMessage('cardOwner', form.errors.cardOwner)}
-                  </small>
+                  <small>{getErrorMessage('cardOwner')}</small>
                 </InputGroupPayment>
                 <InputGroupPayment className="InputFlexpayment">
                   <InputGroupPayment className="InputNumbCard">
@@ -215,9 +237,7 @@ const Checkout = () => {
                       onChange={form.handleChange}
                       onBlur={form.handleBlur}
                     />
-                    <small>
-                      {getErrorMessage('cardOwner', form.errors.cardOwner)}
-                    </small>
+                    <small>{getErrorMessage('numbCard')}</small>
                   </InputGroupPayment>
                   <InputGroupPayment className="InputCvv">
                     <label htmlFor="cardCode">CVV</label>
@@ -229,9 +249,7 @@ const Checkout = () => {
                       onChange={form.handleChange}
                       onBlur={form.handleBlur}
                     />
-                    <small>
-                      {getErrorMessage('cardCode', form.errors.cardCode)}
-                    </small>
+                    <small>{getErrorMessage('cardCode')}</small>
                   </InputGroupPayment>
                 </InputGroupPayment>
                 <InputGroupPayment className="InputFlexpayment">
@@ -245,12 +263,7 @@ const Checkout = () => {
                       onChange={form.handleChange}
                       onBlur={form.handleBlur}
                     />
-                    <small>
-                      {getErrorMessage(
-                        'expiresMonth',
-                        form.errors.expiresMonth
-                      )}
-                    </small>
+                    <small>{getErrorMessage('expiresMonth')}</small>
                   </InputGroupPayment>
                   <InputGroupPayment className="InputexpiresYear">
                     <label htmlFor="expiresYear">Ano de vencimento</label>
@@ -262,9 +275,7 @@ const Checkout = () => {
                       onChange={form.handleChange}
                       onBlur={form.handleBlur}
                     />
-                    <small>
-                      {getErrorMessage('expiresYear', form.errors.expiresYear)}
-                    </small>
+                    <small>{getErrorMessage('expiresYear')}</small>
                   </InputGroupPayment>
                 </InputGroupPayment>
               </Row>
@@ -273,7 +284,7 @@ const Checkout = () => {
                   type="button"
                   background="light"
                   title=""
-                  onClick={() => setPayWith(true)}
+                  onClick={form.handleSubmit}
                 >
                   Finalizar pagamento
                 </Button>
@@ -283,7 +294,7 @@ const Checkout = () => {
                   title=""
                   onClick={() => setPayWith(false)}
                 >
-                  Voltar para a edição de endereço
+                  Voltar para entrega
                 </Button>
               </TabButton>
             </>
