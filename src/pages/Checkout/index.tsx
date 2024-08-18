@@ -2,21 +2,26 @@ import { useFormik } from 'formik'
 import { useState } from 'react'
 import Button from '../../components/Button'
 import Card from '../../components/Card'
+
 import {
   InputGroup,
   InputGroupPayment,
+  Paragrafo,
   Row,
   TabButton,
   TitleH3
 } from './styles'
 
+import { useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 import { usePurchaseMutation } from '../../services/api'
 
 const Checkout = () => {
   const [payWith, setPayWith] = useState(false)
+  const navigate = useNavigate() // Inicializar useNavigate
 
-  const [purchase, { isLoading, isError, data }] = usePurchaseMutation()
+  const [purchase, { isLoading, isError, data, isSuccess }] =
+    usePurchaseMutation()
 
   const form = useFormik({
     initialValues: {
@@ -106,202 +111,246 @@ const Checkout = () => {
       : ''
   }
 
+  const handleConclude = () => {
+    navigate('/') // Redirecionar para a página inicial
+  }
+
   return (
-    <form onSubmit={form.handleSubmit} className="container">
-      <Card>
-        <div>
-          {!payWith ? (
-            <>
-              <Row>
-                <TitleH3>Entrega</TitleH3>
-                <InputGroup>
-                  <label htmlFor="fullName">Quem irá receber</label>
-                  <input
-                    type="text"
-                    id="fullName"
-                    name="fullName"
-                    value={form.values.fullName}
-                    onChange={form.handleChange}
-                    onBlur={form.handleBlur}
-                  />
-                  <small>{getErrorMessage('fullName')}</small>
-                </InputGroup>
-                <InputGroup>
-                  <label htmlFor="endereco">Endereço</label>
-                  <input
-                    type="text"
-                    id="endereco"
-                    name="endereco"
-                    value={form.values.endereco}
-                    onChange={form.handleChange}
-                    onBlur={form.handleBlur}
-                  />
-                  <small>{getErrorMessage('endereco')}</small>
-                </InputGroup>
-                <InputGroup>
-                  <label htmlFor="cidade">Cidade</label>
-                  <input
-                    type="text"
-                    id="cidade"
-                    name="cidade"
-                    value={form.values.cidade}
-                    onChange={form.handleChange}
-                    onBlur={form.handleBlur}
-                  />
-                  <small>{getErrorMessage('cidade')}</small>
-                </InputGroup>
-                <InputGroup className="InputFlex">
-                  <div>
-                    <label htmlFor="cep">CEP</label>
-                    <input
-                      type="text"
-                      id="cep"
-                      name="cep"
-                      value={form.values.cep}
-                      onChange={form.handleChange}
-                      onBlur={form.handleBlur}
-                    />
-                    <small>{getErrorMessage('cep')}</small>
-                  </div>
-                  <div>
-                    <label htmlFor="numero">Número</label>
-                    <input
-                      type="number"
-                      id="numero"
-                      name="numero"
-                      value={form.values.numero}
-                      onChange={form.handleChange}
-                      onBlur={form.handleBlur}
-                    />
-                    <small>{getErrorMessage('numero')}</small>
-                  </div>
-                </InputGroup>
-                <InputGroup>
-                  <label htmlFor="fullComplemento">
-                    Complemento (opcional)
-                  </label>
-                  <input
-                    type="text"
-                    id="fullComplemento"
-                    name="fullComplemento"
-                    value={form.values.fullComplemento}
-                    onChange={form.handleChange}
-                    onBlur={form.handleBlur}
-                  />
-                  <small>{getErrorMessage('fullComplemento')}</small>
-                </InputGroup>
-              </Row>
-              <TabButton>
-                <Button
-                  type="button"
-                  background="light"
-                  title=""
-                  onClick={() => setPayWith(true)}
-                >
-                  Continuar com o pagamento
-                </Button>
-                <Button
-                  type="button"
-                  background="light"
-                  title=""
-                  onClick={() => setPayWith(false)}
-                >
-                  Voltar para o carrinho
-                </Button>
-              </TabButton>
-            </>
-          ) : (
-            <>
-              <Row>
-                <TitleH3>Pagamento - Valor a pagar R$ 190,90</TitleH3>
-                <InputGroupPayment>
-                  <label htmlFor="cardOwner">Nome no cartão</label>
-                  <input
-                    type="text"
-                    id="cardOwner"
-                    name="cardOwner"
-                    value={form.values.cardOwner}
-                    onChange={form.handleChange}
-                    onBlur={form.handleBlur}
-                  />
-                  <small>{getErrorMessage('cardOwner')}</small>
-                </InputGroupPayment>
-                <InputGroupPayment className="InputFlexpayment">
-                  <InputGroupPayment className="InputNumbCard">
-                    <label htmlFor="numbCard">Número do cartão</label>
-                    <input
-                      type="number"
-                      id="numbCard"
-                      name="numbCard"
-                      value={form.values.numbCard}
-                      onChange={form.handleChange}
-                      onBlur={form.handleBlur}
-                    />
-                    <small>{getErrorMessage('numbCard')}</small>
-                  </InputGroupPayment>
-                  <InputGroupPayment className="InputCvv">
-                    <label htmlFor="cardCode">CVV</label>
-                    <input
-                      type="number"
-                      id="cardCode"
-                      name="cardCode"
-                      value={form.values.cardCode}
-                      onChange={form.handleChange}
-                      onBlur={form.handleBlur}
-                    />
-                    <small>{getErrorMessage('cardCode')}</small>
-                  </InputGroupPayment>
-                </InputGroupPayment>
-                <InputGroupPayment className="InputFlexpayment">
-                  <InputGroupPayment className="InputNumbCard">
-                    <label htmlFor="expiresMonth">Mês de vencimento</label>
-                    <input
-                      type="text"
-                      id="expiresMonth"
-                      name="expiresMonth"
-                      value={form.values.expiresMonth}
-                      onChange={form.handleChange}
-                      onBlur={form.handleBlur}
-                    />
-                    <small>{getErrorMessage('expiresMonth')}</small>
-                  </InputGroupPayment>
-                  <InputGroupPayment className="InputexpiresYear">
-                    <label htmlFor="expiresYear">Ano de vencimento</label>
-                    <input
-                      type="number"
-                      id="expiresYear"
-                      name="expiresYear"
-                      value={form.values.expiresYear}
-                      onChange={form.handleChange}
-                      onBlur={form.handleBlur}
-                    />
-                    <small>{getErrorMessage('expiresYear')}</small>
-                  </InputGroupPayment>
-                </InputGroupPayment>
-              </Row>
-              <TabButton>
-                <Button
-                  type="button"
-                  background="light"
-                  title=""
-                  onClick={form.handleSubmit}
-                >
-                  Finalizar pagamento
-                </Button>
-                <Button
-                  type="button"
-                  background="light"
-                  title=""
-                  onClick={() => setPayWith(false)}
-                >
-                  Voltar para entrega
-                </Button>
-              </TabButton>
-            </>
-          )}
-        </div>
-      </Card>
-    </form>
+    <div className="container">
+      {isSuccess ? (
+        <Card>
+          <>
+            <TitleH3>Pedido realizado - {data.orderId} </TitleH3>
+            <Paragrafo>
+              Estamos felizes em informar que seu pedido já está em processo de
+              preparação e, em breve, será entregue no endereço fornecido.
+            </Paragrafo>
+            <br />
+            <Paragrafo>
+              Gostaríamos de ressaltar que nossos entregadores não estão
+              autorizados a realizar cobranças extras.
+            </Paragrafo>
+            <br />
+            <Paragrafo>
+              Lembre-se da importância de higienizar as mãos após o recebimento
+              do pedido, garantindo assim sua segurança e bem-estar durante a
+              refeição.
+            </Paragrafo>
+            <br />
+            <Paragrafo>
+              Esperamos que desfrute de uma deliciosa e agradável experiência
+              gastronômica. Bom apetite!
+            </Paragrafo>
+            <TabButton>
+              <Button
+                type="button"
+                background="light"
+                title=""
+                onClick={handleConclude}
+              >
+                Concluir
+              </Button>
+            </TabButton>
+          </>
+        </Card>
+      ) : (
+        <form onSubmit={form.handleSubmit}>
+          <Card>
+            <div>
+              {!payWith ? (
+                <>
+                  <Row>
+                    <TitleH3>Entrega</TitleH3>
+                    <InputGroup>
+                      <label htmlFor="fullName">Quem irá receber</label>
+                      <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        value={form.values.fullName}
+                        onChange={form.handleChange}
+                        onBlur={form.handleBlur}
+                      />
+                      <small>{getErrorMessage('fullName')}</small>
+                    </InputGroup>
+                    <InputGroup>
+                      <label htmlFor="endereco">Endereço</label>
+                      <input
+                        type="text"
+                        id="endereco"
+                        name="endereco"
+                        value={form.values.endereco}
+                        onChange={form.handleChange}
+                        onBlur={form.handleBlur}
+                      />
+                      <small>{getErrorMessage('endereco')}</small>
+                    </InputGroup>
+                    <InputGroup>
+                      <label htmlFor="cidade">Cidade</label>
+                      <input
+                        type="text"
+                        id="cidade"
+                        name="cidade"
+                        value={form.values.cidade}
+                        onChange={form.handleChange}
+                        onBlur={form.handleBlur}
+                      />
+                      <small>{getErrorMessage('cidade')}</small>
+                    </InputGroup>
+                    <InputGroup className="InputFlex">
+                      <div>
+                        <label htmlFor="cep">CEP</label>
+                        <input
+                          type="text"
+                          id="cep"
+                          name="cep"
+                          value={form.values.cep}
+                          onChange={form.handleChange}
+                          onBlur={form.handleBlur}
+                        />
+                        <small>{getErrorMessage('cep')}</small>
+                      </div>
+                      <div>
+                        <label htmlFor="numero">Número</label>
+                        <input
+                          type="number"
+                          id="numero"
+                          name="numero"
+                          value={form.values.numero}
+                          onChange={form.handleChange}
+                          onBlur={form.handleBlur}
+                        />
+                        <small>{getErrorMessage('numero')}</small>
+                      </div>
+                    </InputGroup>
+                    <InputGroup>
+                      <label htmlFor="fullComplemento">
+                        Complemento (opcional)
+                      </label>
+                      <input
+                        type="text"
+                        id="fullComplemento"
+                        name="fullComplemento"
+                        value={form.values.fullComplemento}
+                        onChange={form.handleChange}
+                        onBlur={form.handleBlur}
+                      />
+                      <small>{getErrorMessage('fullComplemento')}</small>
+                    </InputGroup>
+                  </Row>
+                  <TabButton>
+                    <Button
+                      type="button"
+                      background="light"
+                      title=""
+                      onClick={() => setPayWith(true)}
+                    >
+                      Continuar com o pagamento
+                    </Button>
+                    <Button
+                      type="button"
+                      background="light"
+                      title=""
+                      onClick={() => setPayWith(false)}
+                    >
+                      Voltar para o carrinho
+                    </Button>
+                  </TabButton>
+                </>
+              ) : (
+                <>
+                  <Row>
+                    <TitleH3>Pagamento - Valor a pagar R$ 190,90</TitleH3>
+                    <InputGroupPayment>
+                      <label htmlFor="cardOwner">Nome no cartão</label>
+                      <input
+                        type="text"
+                        id="cardOwner"
+                        name="cardOwner"
+                        value={form.values.cardOwner}
+                        onChange={form.handleChange}
+                        onBlur={form.handleBlur}
+                      />
+                      <small>{getErrorMessage('cardOwner')}</small>
+                    </InputGroupPayment>
+                    <InputGroupPayment className="InputFlexpayment">
+                      <InputGroupPayment className="InputNumbCard">
+                        <label htmlFor="numbCard">Número do cartão</label>
+                        <input
+                          type="number"
+                          id="numbCard"
+                          name="numbCard"
+                          value={form.values.numbCard}
+                          onChange={form.handleChange}
+                          onBlur={form.handleBlur}
+                        />
+                        <small>{getErrorMessage('numbCard')}</small>
+                      </InputGroupPayment>
+                      <InputGroupPayment className="InputCvv">
+                        <label htmlFor="cardCode">CVV</label>
+                        <input
+                          type="number"
+                          id="cardCode"
+                          name="cardCode"
+                          value={form.values.cardCode}
+                          onChange={form.handleChange}
+                          onBlur={form.handleBlur}
+                        />
+                        <small>{getErrorMessage('cardCode')}</small>
+                      </InputGroupPayment>
+                    </InputGroupPayment>
+                    <InputGroupPayment className="InputFlexpayment">
+                      <InputGroupPayment className="InputNumbCard">
+                        <label htmlFor="expiresMonth">Mês de vencimento</label>
+                        <input
+                          type="text"
+                          id="expiresMonth"
+                          name="expiresMonth"
+                          value={form.values.expiresMonth}
+                          onChange={form.handleChange}
+                          onBlur={form.handleBlur}
+                        />
+                        <small>{getErrorMessage('expiresMonth')}</small>
+                      </InputGroupPayment>
+                      <InputGroupPayment className="InputexpiresYear">
+                        <label htmlFor="expiresYear">Ano de vencimento</label>
+                        <input
+                          type="number"
+                          id="expiresYear"
+                          name="expiresYear"
+                          value={form.values.expiresYear}
+                          onChange={form.handleChange}
+                          onBlur={form.handleBlur}
+                        />
+                        <small>{getErrorMessage('expiresYear')}</small>
+                      </InputGroupPayment>
+                    </InputGroupPayment>
+                  </Row>
+                  <TabButton>
+                    <Button
+                      type="button"
+                      background="light"
+                      title=""
+                      onClick={form.handleSubmit}
+                    >
+                      Finalizar pagamento
+                    </Button>
+                    <Button
+                      type="button"
+                      background="light"
+                      title=""
+                      onClick={() => setPayWith(false)}
+                    >
+                      Voltar para a edição de endereço
+                    </Button>
+                  </TabButton>
+                </>
+              )}
+            </div>
+          </Card>
+        </form>
+      )}
+    </div>
   )
 }
 

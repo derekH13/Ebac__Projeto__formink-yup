@@ -117,6 +117,15 @@ export const TitleH3 = styled.h3`
   color: ${colors.palePeach};
   margin-bottom: 16px;
 `
+export const Paragrafo = styled.p`
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  text-align: left;
+  color: ${colors.palePeach};
+`
+
 export const TabButton = styled.div`
   margin-top: 24px;
   ${ButtonContainer} {
