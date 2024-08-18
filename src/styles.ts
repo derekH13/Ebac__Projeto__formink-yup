@@ -1,3 +1,4 @@
+// Recursos externos
 import { createGlobalStyle } from 'styled-components'
 
 // #Definindo paleta de cores presente no projeto figma

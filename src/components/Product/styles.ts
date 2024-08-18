@@ -6,6 +6,7 @@ export const CardRestaurant = styled.div`
   width: 472px;
   height: 398px;
   position: relative;
+  /* cursor: pointer; */
 `
 export const CardConteiner = styled.div``
 

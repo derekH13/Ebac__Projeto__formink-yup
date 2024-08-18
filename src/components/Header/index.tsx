@@ -1,10 +1,17 @@
+// Recursos externos
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useLocation, useParams } from 'react-router-dom'
-import LogoImgHome from '../../assets/icons/logo.png'
-import BannerImgHome from '../../assets/images/BannerImgHome.png'
+
+// Funções
 import { RootReducer } from '../../store'
 import { open } from '../../store/reducers/cart'
+
+// Imagens (não é exatamente um recurso externo, mas também não se encaixa bem em componentes ou estilos)
+import LogoImgHome from '../../assets/icons/logo.png'
+import BannerImgHome from '../../assets/images/BannerImgHome.png'
+
+// Estilos
 import {
   CarrinhoDeProdutos,
   CartButton,
@@ -49,7 +56,7 @@ const Header = ({ background }: Props) => {
         <div className="container">
           <ContainerHeader>
             <RestaurantName>{titleRestaurate}</RestaurantName>
-            <Link to="/">
+            <Link title="Clique aqui para retornar a pagina home" to="/">
               <img
                 className="imagemLogoLnk"
                 src={LogoImgHome}

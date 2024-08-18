@@ -1,10 +1,19 @@
+// Recursos externos
 import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import RestaurantRatingImg from '../../assets/icons/estrela.png'
-import Tag from '../../components/Tag'
+
+// Funções
 import { CardapioItem } from '../../services/api'
+
+// Imagens
+import RestaurantRatingImg from '../../assets/icons/estrela.png'
+
+// Componentes
+import Tag from '../../components/Tag'
 import Botao from '../Button'
 import ModalPoupap from '../Modal'
+
+// Estilos
 import {
   CardConteiner,
   CardRestaurant,
@@ -48,8 +57,7 @@ const Product: React.FC<ProductProps> = ({
   to,
   background,
   currentItem,
-  shouldTruncateDescription = false,
-  id
+  shouldTruncateDescription = false
 }) => {
   const location = useLocation()
   const [isModalVisible, setIsModalVisible] = useState(false)
@@ -74,7 +82,9 @@ const Product: React.FC<ProductProps> = ({
   return (
     <div className="container">
       <CardConteiner>
-        <CardRestaurant>
+        <CardRestaurant
+          title={`Clicque aqui para ver mais detalhes do cardapio : ${title}`}
+        >
           <Imagem style={{ backgroundImage: `url(${image})` }} />
           <Infos>
             {infos.map((info, index) => (

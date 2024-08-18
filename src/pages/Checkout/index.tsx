@@ -1,8 +1,17 @@
+// Recursos externos
 import { useFormik } from 'formik'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import * as Yup from 'yup'
+
+// Funções
+import { usePurchaseMutation } from '../../services/api'
+
+// Componentes
 import Button from '../../components/Button'
 import Card from '../../components/Card'
 
+// Estilos
 import {
   InputGroup,
   InputGroupPayment,
@@ -12,16 +21,11 @@ import {
   TitleH3
 } from './styles'
 
-import { useNavigate } from 'react-router-dom'
-import * as Yup from 'yup'
-import { usePurchaseMutation } from '../../services/api'
-
 const Checkout = () => {
   const [payWith, setPayWith] = useState(false)
   const navigate = useNavigate() // Inicializar useNavigate
 
-  const [purchase, { isLoading, isError, data, isSuccess }] =
-    usePurchaseMutation()
+  const [purchase, { data, isSuccess }] = usePurchaseMutation()
 
   const form = useFormik({
     initialValues: {

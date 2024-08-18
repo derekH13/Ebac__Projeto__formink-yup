@@ -1,7 +1,14 @@
+// Recursos externos
 import React, { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
+
+// Funções
 import { CardapioItem, Efood } from '../../services/api'
+
+// Componentes
 import Product from '../Product'
+
+// Estilos
 import { ProductListContainer, ProductListItem } from './styles'
 
 export type Props = {
@@ -22,9 +29,6 @@ const ProductList: React.FC<Props> = ({
   const [catalogoServico, setCatalogoServico] = useState<
     Efood[] | CardapioItem[]
   >([])
-  const [currentItemModal, setCurrentItemModal] = useState<CardapioItem | null>(
-    null
-  )
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,10 +52,6 @@ const ProductList: React.FC<Props> = ({
       setCatalogoServico(efoods)
     }
   }, [id, efoods])
-
-  const handleButtonClick = (item: CardapioItem) => {
-    setCurrentItemModal(item)
-  }
 
   const getEfoodTags = (efood: Efood) => {
     const tags: string[] = []

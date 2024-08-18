@@ -1,5 +1,10 @@
+// Recursos externos
 import { useParams } from 'react-router-dom'
+
+// Funções
 import { useGetFeatureEfoodQuery } from '../../services/api'
+
+// Estilos
 import { ImgBanner } from './styles'
 
 type Params = {

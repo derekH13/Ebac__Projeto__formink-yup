@@ -1,5 +1,7 @@
+// Recursos externos
 import { configureStore } from '@reduxjs/toolkit'
 
+// Funções
 import api from '../services/api'
 import cartReducer from '../store/reducers/cart'
 

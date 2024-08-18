@@ -1,7 +1,14 @@
+// Recursos externos
 import { useDispatch, useSelector } from 'react-redux'
+
+// Funções
 import { RootReducer } from '../../store'
 import { close, remove } from '../../store/reducers/cart'
+
+// Componentes
 import Botao from '../Button'
+
+// Estilos
 import { CartContainer, CartItem, Overlay, Prices, Sidebar } from './styles'
 
 const Cart = () => {
