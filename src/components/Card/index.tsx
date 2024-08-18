@@ -1,5 +1,5 @@
 // Estilos
-import { Container, Sidebar } from './styles'
+import * as S from './styles'
 
 type Props = {
   children: JSX.Element | JSX.Element[]
@@ -7,11 +7,11 @@ type Props = {
 
 const Card = ({ children }: Props) => {
   return (
-    <Container isOverlay>
-      <Sidebar>
+    <S.Container isOverlay>
+      <S.Sidebar>
         <div className="divFormulario">{children}</div>
-      </Sidebar>
-    </Container>
+      </S.Sidebar>
+    </S.Container>
   )
 }
 

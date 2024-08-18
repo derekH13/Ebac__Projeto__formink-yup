@@ -60,6 +60,6 @@ export const CarrinhoDeProdutos = styled(ContainerHeader)`
   padding-top: none;
 `
 export const CartButton = styled.a`
-  color: ${colors.rosePink};
+  color: ${colors.LightSalmon};
   cursor: pointer;
 `

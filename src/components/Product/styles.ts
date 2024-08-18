@@ -21,7 +21,7 @@ export const Imagem = styled.div`
 export const ContainerDescritivo = styled.div`
   width: 472px;
   height: 181px;
-  border: 1px solid ${colors.rosePink};
+  border: 1px solid ${colors.LightSalmon};
   border-top: 0;
 
   h3 {

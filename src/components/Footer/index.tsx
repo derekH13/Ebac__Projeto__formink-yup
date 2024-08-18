@@ -9,15 +9,15 @@ import LogoImgHome from '../../assets/icons/logo.png'
 import twSrc from '../../assets/icons/twitter.png'
 
 // Estilos
-import { Footers, RedeSociais, SectionFooter, Titulo } from './styles'
+import * as S from './styles'
 
 const Footer = () => (
-  <Footers className="container">
-    <SectionFooter>
+  <S.Footers className="container">
+    <S.SectionFooter>
       <Link title="Clique aqui para retornar a pagina home" to="/">
         <img className="imagemLogo" src={LogoImgHome} alt="efood" />
       </Link>
-      <RedeSociais>
+      <S.RedeSociais>
         <HashLink to="https://www.instagram.com">
           <img src={instaSrc} alt="Instagram" />
         </HashLink>
@@ -27,14 +27,14 @@ const Footer = () => (
         <HashLink to="https://www.twitter.com">
           <img src={twSrc} alt="Twitter" />
         </HashLink>
-      </RedeSociais>
-    </SectionFooter>
-    <Titulo>
+      </S.RedeSociais>
+    </S.SectionFooter>
+    <S.Titulo>
       A efood é uma plataforma para divulgação de estabelecimentos, a
       responsabilidade pela entrega, qualidade dos produtos é toda do
       estabelecimento contratado.
-    </Titulo>
-  </Footers>
+    </S.Titulo>
+  </S.Footers>
 )
 
 export default Footer

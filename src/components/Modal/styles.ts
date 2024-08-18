@@ -22,7 +22,7 @@ export const Poupap = styled.div`
   width: 1024px;
   height: 344px;
   padding: 32px;
-  background-color: ${colors.rosePink};
+  background-color: ${colors.LightSalmon};
   z-index: 1; /* Definindo um z-index mais alto para o conteúdo do popup */
 
   h3 {
@@ -48,8 +48,8 @@ export const Poupap = styled.div`
   ${TagContainer} {
     width: 218px;
     height: 24px;
-    background-color: ${colors.palePeach};
-    color: ${colors.rosePink};
+    background-color: ${colors.BlanchedAlmond};
+    color: ${colors.LightSalmon};
     margin-bottom: 27px;
   }
 `

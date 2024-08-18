@@ -6,8 +6,8 @@ export const TagContainer = styled.div<Props>`
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: ${colors.rosePink};
-  color: ${colors.creamyWhite};
+  background-color: ${colors.LightSalmon};
+  color: ${colors.FloralWhite};
   font-size: ${(props) => (props.size === 'big' ? '14px' : '12px')};
   font-weight: 700;
   line-height: ${(props) => (props.size === 'big' ? '16.41px' : '14.06px')};

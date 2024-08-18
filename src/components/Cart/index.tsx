@@ -9,7 +9,8 @@ import { close, remove } from '../../store/reducers/cart'
 import Botao from '../Button'
 
 // Estilos
-import { CartContainer, CartItem, Overlay, Prices, Sidebar } from './styles'
+import { parseToBrl } from '../../utils'
+import * as S from './styles'
 
 const Cart = () => {
   const { isOpen, items } = useSelector((state: RootReducer) => state.cart)
@@ -18,13 +19,6 @@ const Cart = () => {
 
   const closeCart = () => {
     dispatch(close())
-  }
-
-  const formatPreco = (preco = 0) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    }).format(preco)
   }
 
   const getTotalPrice = () => {
@@ -38,24 +32,24 @@ const Cart = () => {
   }
 
   return (
-    <CartContainer className={isOpen ? 'isOpen' : ''}>
-      <Overlay onClick={closeCart} />
-      <Sidebar>
+    <S.CartContainer className={isOpen ? 'isOpen' : ''}>
+      <S.Overlay onClick={closeCart} />
+      <S.Sidebar>
         <ul>
           {items.map((item) => (
-            <CartItem key={item.id}>
+            <S.CartItem key={item.id}>
               <img src={item.foto} alt={item.nome} />
               <div>
                 <h3>{item.nome}</h3>
-                <span>{formatPreco(item.preco)}</span>
+                <span>{parseToBrl(item.preco)}</span>
               </div>
               <button onClick={() => removeItem(item.id)} type="button" />
-            </CartItem>
+            </S.CartItem>
           ))}
         </ul>
-        <Prices>
-          Valor Total <span>{formatPreco(getTotalPrice())}</span>
-        </Prices>
+        <S.Prices>
+          Valor Total <span>{parseToBrl(getTotalPrice())}</span>
+        </S.Prices>
         <Botao
           type="button"
           title="Clique aqui para continuar com a compra"
@@ -63,8 +57,8 @@ const Cart = () => {
         >
           Continuar com a entrega
         </Botao>
-      </Sidebar>
-    </CartContainer>
+      </S.Sidebar>
+    </S.CartContainer>
   )
 }
 

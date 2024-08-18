@@ -7,7 +7,7 @@ export const Row = styled.div`
   align-items: flex-end;
 
   small {
-    color: ${colors.palePeach};
+    color: ${colors.BlanchedAlmond};
   }
 `
 
@@ -18,7 +18,7 @@ export const InputGroup = styled.div`
     font-weight: 700;
     line-height: 16.41px;
     text-align: left;
-    color: ${colors.palePeach};
+    color: ${colors.BlanchedAlmond};
     display: block;
     margin: 8px 0 8px 0;
   }
@@ -28,8 +28,8 @@ export const InputGroup = styled.div`
     max-height: 32px;
     height: 100%;
     padding: 8px;
-    border: 1px solid ${colors.rosePink};
-    background-color: ${colors.palePeach};
+    border: 1px solid ${colors.LightSalmon};
+    background-color: ${colors.BlanchedAlmond};
     color: rgba(75, 75, 75, 1);
     font-family: Roboto;
     font-size: 14px;
@@ -60,7 +60,7 @@ export const InputGroupPayment = styled.div`
   column-gap: 30px;
 
   small {
-    color: ${colors.palePeach};
+    color: ${colors.BlanchedAlmond};
   }
 
   label {
@@ -69,7 +69,7 @@ export const InputGroupPayment = styled.div`
     font-weight: 700;
     line-height: 16.41px;
     text-align: left;
-    color: ${colors.palePeach};
+    color: ${colors.BlanchedAlmond};
     display: block;
     margin: 8px 0 4px 0;
   }
@@ -79,8 +79,8 @@ export const InputGroupPayment = styled.div`
     max-height: 32px;
     height: 100%;
     padding: 8px;
-    border: 1px solid ${colors.rosePink};
-    background-color: ${colors.palePeach};
+    border: 1px solid ${colors.LightSalmon};
+    background-color: ${colors.BlanchedAlmond};
     color: rgba(75, 75, 75, 1);
     font-family: Roboto;
     font-size: 14px;
@@ -114,7 +114,7 @@ export const TitleH3 = styled.h3`
   font-weight: 700;
   line-height: 18.75px;
   text-align: left;
-  color: ${colors.palePeach};
+  color: ${colors.BlanchedAlmond};
   margin-bottom: 16px;
 `
 export const Paragrafo = styled.p`
@@ -123,7 +123,7 @@ export const Paragrafo = styled.p`
   font-weight: 400;
   line-height: 22px;
   text-align: left;
-  color: ${colors.palePeach};
+  color: ${colors.BlanchedAlmond};
 `
 
 export const TabButton = styled.div`
@@ -131,8 +131,8 @@ export const TabButton = styled.div`
   ${ButtonContainer} {
     max-width: 344px;
     width: 100%;
-    background-color: ${colors.palePeach};
-    color: ${colors.rosePink};
+    background-color: ${colors.BlanchedAlmond};
+    color: ${colors.LightSalmon};
     padding: 4px 0 4px 0;
     margin-bottom: 8px;
   }

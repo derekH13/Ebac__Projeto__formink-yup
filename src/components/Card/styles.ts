@@ -24,7 +24,7 @@ export const Container = styled.div<{ isOverlay: boolean }>`
 `
 
 export const Sidebar = styled.aside`
-  background-color: ${colors.rosePink};
+  background-color: ${colors.LightSalmon};
   max-width: 360px;
   width: 100%;
   max-height: 1624px;
@@ -36,7 +36,7 @@ export const Sidebar = styled.aside`
   }
 
   h2 {
-    color: ${colors.palePeach};
+    color: ${colors.BlanchedAlmond};
     font-family: Roboto;
     font-size: 18px;
     font-weight: 900;

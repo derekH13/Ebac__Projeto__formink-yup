@@ -3,7 +3,7 @@ import { colors } from '../../styles'
 
 export const Footers = styled.footer`
   height: 298px;
-  background-color: ${colors.palePeach};
+  background-color: ${colors.BlanchedAlmond};
 `
 export const SectionFooter = styled.div`
   display: flex;

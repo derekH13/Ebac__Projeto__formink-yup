@@ -14,15 +14,7 @@ import Botao from '../Button'
 import ModalPoupap from '../Modal'
 
 // Estilos
-import {
-  CardConteiner,
-  CardRestaurant,
-  ContainerDescritivo,
-  Imagem,
-  Infos,
-  LineSection,
-  RatingStar
-} from './styles'
+import * as S from './styles'
 
 export type Efood = {
   id: string
@@ -81,26 +73,26 @@ const Product: React.FC<ProductProps> = ({
 
   return (
     <div className="container">
-      <CardConteiner>
-        <CardRestaurant
+      <S.CardConteiner>
+        <S.CardRestaurant
           title={`Clicque aqui para ver mais detalhes do cardapio : ${title}`}
         >
-          <Imagem style={{ backgroundImage: `url(${image})` }} />
-          <Infos>
+          <S.Imagem style={{ backgroundImage: `url(${image})` }} />
+          <S.Infos>
             {infos.map((info, index) => (
               <Tag key={index}>{info}</Tag>
             ))}
-          </Infos>
-          <ContainerDescritivo>
-            <LineSection>
+          </S.Infos>
+          <S.ContainerDescritivo>
+            <S.LineSection>
               <h3 className="tituloCard">{title}</h3>
               <div className="Rating">
                 <h3 className="nota">{nota}</h3>
-                <RatingStar
+                <S.RatingStar
                   style={{ backgroundImage: `url(${RestaurantRatingImg})` }}
                 />
               </div>
-            </LineSection>
+            </S.LineSection>
             <p>
               {isPerfilPage && shouldTruncateDescription
                 ? getTruncatedDescription(description)
@@ -125,9 +117,9 @@ const Product: React.FC<ProductProps> = ({
                 {buttonText}
               </Botao>
             )}
-          </ContainerDescritivo>
-        </CardRestaurant>
-      </CardConteiner>
+          </S.ContainerDescritivo>
+        </S.CardRestaurant>
+      </S.CardConteiner>
       {isModalVisible && currentItem && (
         <ModalPoupap
           onClose={toggleModal}

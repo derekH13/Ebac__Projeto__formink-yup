@@ -12,14 +12,7 @@ import Button from '../../components/Button'
 import Card from '../../components/Card'
 
 // Estilos
-import {
-  InputGroup,
-  InputGroupPayment,
-  Paragrafo,
-  Row,
-  TabButton,
-  TitleH3
-} from './styles'
+import * as S from './styles'
 
 const Checkout = () => {
   const [payWith, setPayWith] = useState(false)
@@ -124,28 +117,28 @@ const Checkout = () => {
       {isSuccess ? (
         <Card>
           <>
-            <TitleH3>Pedido realizado - {data.orderId} </TitleH3>
-            <Paragrafo>
+            <S.TitleH3>Pedido realizado - {data.orderId} </S.TitleH3>
+            <S.Paragrafo>
               Estamos felizes em informar que seu pedido já está em processo de
               preparação e, em breve, será entregue no endereço fornecido.
-            </Paragrafo>
+            </S.Paragrafo>
             <br />
-            <Paragrafo>
+            <S.Paragrafo>
               Gostaríamos de ressaltar que nossos entregadores não estão
               autorizados a realizar cobranças extras.
-            </Paragrafo>
+            </S.Paragrafo>
             <br />
-            <Paragrafo>
+            <S.Paragrafo>
               Lembre-se da importância de higienizar as mãos após o recebimento
               do pedido, garantindo assim sua segurança e bem-estar durante a
               refeição.
-            </Paragrafo>
+            </S.Paragrafo>
             <br />
-            <Paragrafo>
+            <S.Paragrafo>
               Esperamos que desfrute de uma deliciosa e agradável experiência
               gastronômica. Bom apetite!
-            </Paragrafo>
-            <TabButton>
+            </S.Paragrafo>
+            <S.TabButton>
               <Button
                 type="button"
                 background="light"
@@ -154,7 +147,7 @@ const Checkout = () => {
               >
                 Concluir
               </Button>
-            </TabButton>
+            </S.TabButton>
           </>
         </Card>
       ) : (
@@ -163,9 +156,9 @@ const Checkout = () => {
             <div>
               {!payWith ? (
                 <>
-                  <Row>
-                    <TitleH3>Entrega</TitleH3>
-                    <InputGroup>
+                  <S.Row>
+                    <S.TitleH3>Entrega</S.TitleH3>
+                    <S.InputGroup>
                       <label htmlFor="fullName">Quem irá receber</label>
                       <input
                         type="text"
@@ -176,8 +169,8 @@ const Checkout = () => {
                         onBlur={form.handleBlur}
                       />
                       <small>{getErrorMessage('fullName')}</small>
-                    </InputGroup>
-                    <InputGroup>
+                    </S.InputGroup>
+                    <S.InputGroup>
                       <label htmlFor="endereco">Endereço</label>
                       <input
                         type="text"
@@ -188,8 +181,8 @@ const Checkout = () => {
                         onBlur={form.handleBlur}
                       />
                       <small>{getErrorMessage('endereco')}</small>
-                    </InputGroup>
-                    <InputGroup>
+                    </S.InputGroup>
+                    <S.InputGroup>
                       <label htmlFor="cidade">Cidade</label>
                       <input
                         type="text"
@@ -200,8 +193,8 @@ const Checkout = () => {
                         onBlur={form.handleBlur}
                       />
                       <small>{getErrorMessage('cidade')}</small>
-                    </InputGroup>
-                    <InputGroup className="InputFlex">
+                    </S.InputGroup>
+                    <S.InputGroup className="InputFlex">
                       <div>
                         <label htmlFor="cep">CEP</label>
                         <input
@@ -226,8 +219,8 @@ const Checkout = () => {
                         />
                         <small>{getErrorMessage('numero')}</small>
                       </div>
-                    </InputGroup>
-                    <InputGroup>
+                    </S.InputGroup>
+                    <S.InputGroup>
                       <label htmlFor="fullComplemento">
                         Complemento (opcional)
                       </label>
@@ -240,9 +233,9 @@ const Checkout = () => {
                         onBlur={form.handleBlur}
                       />
                       <small>{getErrorMessage('fullComplemento')}</small>
-                    </InputGroup>
-                  </Row>
-                  <TabButton>
+                    </S.InputGroup>
+                  </S.Row>
+                  <S.TabButton>
                     <Button
                       type="button"
                       background="light"
@@ -259,13 +252,13 @@ const Checkout = () => {
                     >
                       Voltar para o carrinho
                     </Button>
-                  </TabButton>
+                  </S.TabButton>
                 </>
               ) : (
                 <>
-                  <Row>
-                    <TitleH3>Pagamento - Valor a pagar R$ 190,90</TitleH3>
-                    <InputGroupPayment>
+                  <S.Row>
+                    <S.TitleH3>Pagamento - Valor a pagar R$ 190,90</S.TitleH3>
+                    <S.InputGroupPayment>
                       <label htmlFor="cardOwner">Nome no cartão</label>
                       <input
                         type="text"
@@ -276,9 +269,9 @@ const Checkout = () => {
                         onBlur={form.handleBlur}
                       />
                       <small>{getErrorMessage('cardOwner')}</small>
-                    </InputGroupPayment>
-                    <InputGroupPayment className="InputFlexpayment">
-                      <InputGroupPayment className="InputNumbCard">
+                    </S.InputGroupPayment>
+                    <S.InputGroupPayment className="InputFlexpayment">
+                      <S.InputGroupPayment className="InputNumbCard">
                         <label htmlFor="numbCard">Número do cartão</label>
                         <input
                           type="number"
@@ -289,8 +282,8 @@ const Checkout = () => {
                           onBlur={form.handleBlur}
                         />
                         <small>{getErrorMessage('numbCard')}</small>
-                      </InputGroupPayment>
-                      <InputGroupPayment className="InputCvv">
+                      </S.InputGroupPayment>
+                      <S.InputGroupPayment className="InputCvv">
                         <label htmlFor="cardCode">CVV</label>
                         <input
                           type="number"
@@ -301,10 +294,10 @@ const Checkout = () => {
                           onBlur={form.handleBlur}
                         />
                         <small>{getErrorMessage('cardCode')}</small>
-                      </InputGroupPayment>
-                    </InputGroupPayment>
-                    <InputGroupPayment className="InputFlexpayment">
-                      <InputGroupPayment className="InputNumbCard">
+                      </S.InputGroupPayment>
+                    </S.InputGroupPayment>
+                    <S.InputGroupPayment className="InputFlexpayment">
+                      <S.InputGroupPayment className="InputNumbCard">
                         <label htmlFor="expiresMonth">Mês de vencimento</label>
                         <input
                           type="text"
@@ -315,8 +308,8 @@ const Checkout = () => {
                           onBlur={form.handleBlur}
                         />
                         <small>{getErrorMessage('expiresMonth')}</small>
-                      </InputGroupPayment>
-                      <InputGroupPayment className="InputexpiresYear">
+                      </S.InputGroupPayment>
+                      <S.InputGroupPayment className="InputexpiresYear">
                         <label htmlFor="expiresYear">Ano de vencimento</label>
                         <input
                           type="number"
@@ -327,10 +320,10 @@ const Checkout = () => {
                           onBlur={form.handleBlur}
                         />
                         <small>{getErrorMessage('expiresYear')}</small>
-                      </InputGroupPayment>
-                    </InputGroupPayment>
-                  </Row>
-                  <TabButton>
+                      </S.InputGroupPayment>
+                    </S.InputGroupPayment>
+                  </S.Row>
+                  <S.TabButton>
                     <Button
                       type="button"
                       background="light"
@@ -347,7 +340,7 @@ const Checkout = () => {
                     >
                       Voltar para a edição de endereço
                     </Button>
-                  </TabButton>
+                  </S.TabButton>
                 </>
               )}
             </div>

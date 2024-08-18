@@ -13,13 +13,7 @@ import Botao from '../Button'
 import Tag from '../Tag'
 
 // Estilos
-import {
-  CloseImg,
-  ContainerPoupap,
-  ModalImage,
-  Poupap,
-  SectionImgModal
-} from './styles'
+import * as S from './styles'
 
 // Define a interface do ModalPoupapProps
 interface ModalPoupapProps {
@@ -39,7 +33,7 @@ const ModalPoupap: React.FC<ModalPoupapProps> = ({
   nome,
   porcao
 }) => {
-  const formatPreco = (preco = 0) => {
+  const parseToBrl = (preco = 0) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
       currency: 'BRL'
@@ -74,14 +68,14 @@ const ModalPoupap: React.FC<ModalPoupapProps> = ({
 
   return (
     <div className="container">
-      <ContainerPoupap className="overlay" onClick={onClose}>
-        <Poupap onClick={(e) => e.stopPropagation()}>
-          <CloseImg onClick={onClose}>
+      <S.ContainerPoupap className="overlay" onClick={onClose}>
+        <S.Poupap onClick={(e) => e.stopPropagation()}>
+          <S.CloseImg onClick={onClose}>
             <img src={ImgPoupapClose} alt="Fechar modal" />
-          </CloseImg>
-          <SectionImgModal>
-            <ModalImage src={foto} alt="Produto" />
-          </SectionImgModal>
+          </S.CloseImg>
+          <S.SectionImgModal>
+            <S.ModalImage src={foto} alt="Produto" />
+          </S.SectionImgModal>
           <div>
             <h3>{nome}</h3>
             <p>
@@ -97,12 +91,12 @@ const ModalPoupap: React.FC<ModalPoupapProps> = ({
                 title={'Adicionar ao carrinho'}
                 background="dark"
               >
-                Adicionar ao carrinho - {formatPreco(preco)}
+                Adicionar ao carrinho - {parseToBrl(preco)}
               </Botao>
             </Tag>
           </div>
-        </Poupap>
-      </ContainerPoupap>
+        </S.Poupap>
+      </S.ContainerPoupap>
     </div>
   )
 }

@@ -31,7 +31,7 @@ export const CartContainer = styled.div`
 `
 
 export const Sidebar = styled.aside`
-  background-color: ${colors.rosePink};
+  background-color: ${colors.LightSalmon};
   max-width: 360px;
   width: 100%;
   max-height: 1624px;
@@ -55,7 +55,7 @@ export const Prices = styled.p`
   font-size: 14px;
   font-weight: 700;
   line-height: 16.41px;
-  color: ${colors.creamyWhite};
+  color: ${colors.FloralWhite};
   margin: 40px 0 16px 0px;
   display: flex;
   justify-content: space-between;
@@ -71,7 +71,7 @@ export const Prices = styled.p`
 
 export const CartItem = styled.li`
   display: flex;
-  background-color: ${colors.creamyWhite};
+  background-color: ${colors.FloralWhite};
   margin: 16px 0;
   position: relative;
 
@@ -83,7 +83,7 @@ export const CartItem = styled.li`
   }
 
   h3 {
-    color: ${colors.rosePink};
+    color: ${colors.LightSalmon};
     text-decoration: none;
     font-family: Roboto;
     font-size: 18px;
@@ -94,7 +94,7 @@ export const CartItem = styled.li`
 
   span {
     display: block;
-    color: ${colors.rosePink};
+    color: ${colors.LightSalmon};
     font-family: Roboto;
     font-size: 14px;
     font-weight: 400;
