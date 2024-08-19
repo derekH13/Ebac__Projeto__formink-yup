@@ -137,3 +137,41 @@ export const TabButton = styled.div`
     margin-bottom: 8px;
   }
 `
+
+export const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; // Certifique-se de que está acima de outros conteúdos
+`
+
+export const ModalContent = styled.div`
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+`
+
+export const Container = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+`
+
+export const CloseButton = styled.button`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+`
