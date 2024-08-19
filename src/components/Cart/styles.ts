@@ -71,7 +71,7 @@ export const Prices = styled.p`
 
 export const CartItem = styled.li`
   display: flex;
-  background-color: ${colors.FloralWhite};
+  background-color: ${colors.BlanchedAlmond};
   margin: 16px 0;
   position: relative;
 

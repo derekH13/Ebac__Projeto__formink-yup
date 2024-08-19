@@ -1,5 +1,6 @@
 // Recursos externos
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 // Funções
 import { RootReducer } from '../../store'
@@ -14,6 +15,7 @@ import * as S from './styles'
 
 const Cart = () => {
   const { isOpen, items } = useSelector((state: RootReducer) => state.cart)
+  const navigate = useNavigate()
 
   const dispatch = useDispatch()
 
@@ -23,12 +25,17 @@ const Cart = () => {
 
   const getTotalPrice = () => {
     return items.reduce((acumulador, item) => {
-      return acumulador + item.preco
+      return (acumulador += item.preco)
     }, 0)
   }
 
   const removeItem = (id: number) => {
     dispatch(remove(id))
+  }
+
+  const goToCheckout = () => {
+    navigate('/checkout')
+    closeCart()
   }
 
   return (
@@ -51,6 +58,7 @@ const Cart = () => {
           Valor Total <span>{parseToBrl(getTotalPrice())}</span>
         </S.Prices>
         <Botao
+          onClick={goToCheckout}
           type="button"
           title="Clique aqui para continuar com a compra"
           background="dark"
