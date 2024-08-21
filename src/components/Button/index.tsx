@@ -2,7 +2,7 @@
 import { ButtonContainer, ButtonLink } from './styles'
 
 export type Props = {
-  type: 'button' | 'link'
+  type: 'button' | 'link' | 'submit'
   title: string
   to?: string
   onClick?: () => void
@@ -11,11 +11,11 @@ export type Props = {
 }
 
 const Botao = ({ type, children, title, to, onClick, background }: Props) => {
-  if (type === 'button') {
+  if (type === 'button' || type === 'submit') {
     return (
       <ButtonContainer
         background={background}
-        type="button"
+        type={type}
         title={title}
         onClick={onClick}
       >

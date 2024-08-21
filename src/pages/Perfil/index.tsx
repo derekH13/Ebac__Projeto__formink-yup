@@ -15,18 +15,21 @@ type Params = {
 
 const Perfil = () => {
   const { id } = useParams<Params>()
-  const { data: listaRestaurantMenu } = useGetFeatureEfoodQuery(id!)
+  const { data: listaRestaurantMenu, isLoading: isLoadingRestaurantMenu } =
+    useGetFeatureEfoodQuery(id!)
 
   if (listaRestaurantMenu) {
     return (
       <>
         <Header background={'dark'} />
+
         <Banner />
         <ProductList
           title=""
           background={'dark'}
           efoods={listaRestaurantMenu.cardapio}
           isCardapio
+          isLoading={isLoadingRestaurantMenu}
         />
       </>
     )

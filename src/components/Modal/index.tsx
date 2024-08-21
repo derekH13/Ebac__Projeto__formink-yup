@@ -14,6 +14,7 @@ import Tag from '../Tag'
 
 // Estilos
 import * as S from './styles'
+import { parseToBrl } from '../../utils'
 
 // Define a interface do ModalPoupapProps
 interface ModalPoupapProps {
@@ -33,13 +34,6 @@ const ModalPoupap: React.FC<ModalPoupapProps> = ({
   nome,
   porcao
 }) => {
-  const parseToBrl = (preco = 0) => {
-    return new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
-    }).format(preco)
-  }
-
   const dispatch = useDispatch()
   const items = useSelector(
     (state: { cart: { items: CartItem[] } }) => state.cart.items

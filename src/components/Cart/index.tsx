@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 
 // Funções
 import { RootReducer } from '../../store'
@@ -11,24 +10,17 @@ import Botao from '../Button'
 
 // Estilos
 import Checkout from '../../pages/Checkout'
-import { parseToBrl } from '../../utils'
+import { getTotalPrice, parseToBrl } from '../../utils'
 import * as S from './styles'
 
 const Cart = () => {
   const { isOpen, items } = useSelector((state: RootReducer) => state.cart)
-  const navigate = useNavigate()
 
   const dispatch = useDispatch()
   const [showCheckout, setShowCheckout] = useState(false) // Estado para controlar a exibição do Checkout
 
   const closeCart = () => {
     dispatch(close())
-  }
-
-  const getTotalPrice = () => {
-    return items.reduce((acumulador, item) => {
-      return (acumulador += item.preco)
-    }, 0)
   }
 
   const removeItem = (id: number) => {
@@ -43,7 +35,7 @@ const Cart = () => {
   return (
     <>
       <S.CartContainer className={isOpen ? 'isOpen' : ''}>
-        {!showCheckout && <S.Overlay />}
+        {!showCheckout && <S.Overlay onClick={closeCart} />}
         <S.Sidebar>
           <ul>
             {items.map((item) => (
@@ -58,7 +50,7 @@ const Cart = () => {
             ))}
           </ul>
           <S.Prices>
-            Valor Total <span>{parseToBrl(getTotalPrice())}</span>
+            Valor Total <span>{parseToBrl(getTotalPrice(items))}</span>
           </S.Prices>
           <Botao
             onClick={goToCheckout}

@@ -9,6 +9,7 @@ import { CardapioItem, Efood } from '../../services/api'
 import Product from '../Product'
 
 // Estilos
+import Loader from '../Loader'
 import { ProductListContainer, ProductListItem } from './styles'
 
 export type Props = {
@@ -16,12 +17,14 @@ export type Props = {
   background: 'light' | 'dark'
   efoods: Efood[] | CardapioItem[]
   isCardapio?: boolean
+  isLoading?: boolean
 }
 
 const ProductList: React.FC<Props> = ({
   title,
   background,
   efoods,
+  isLoading,
   isCardapio = false
 }) => {
   const { id } = useParams<{ id: string }>()
@@ -62,6 +65,10 @@ const ProductList: React.FC<Props> = ({
       tags.push('Destaque da semana')
     }
     return tags
+  }
+
+  if (isLoading) {
+    return <Loader />
   }
 
   return (

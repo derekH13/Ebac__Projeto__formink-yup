@@ -3,15 +3,17 @@ import { Props } from '.'
 import { colors } from '../../styles'
 import { ButtonContainer } from '../Button/styles'
 import {
-    CardConteiner,
-    CardRestaurant,
-    ContainerDescritivo,
-    Imagem,
-    Infos
+  CardConteiner,
+  CardRestaurant,
+  ContainerDescritivo,
+  Imagem,
+  Infos
 } from '../Product/styles'
 import { TagContainer } from '../Tag/styles'
 
-export const ProductListContainer = styled.div<Omit<Props, 'title' | 'efoods'>>`
+export const ProductListContainer = styled.div<
+  Omit<Props, 'title' | 'efoods' | 'isLoading'>
+>`
   width: 100%;
   display: flex;
   justify-content: center;
@@ -52,7 +54,9 @@ export const ProductListContainer = styled.div<Omit<Props, 'title' | 'efoods'>>`
 
         h3 {
           color: ${(props) =>
-            props.background === 'dark' ? colors.BlanchedAlmond : colors.LightSalmon};
+            props.background === 'dark'
+              ? colors.BlanchedAlmond
+              : colors.LightSalmon};
           font-size: ${(props) =>
             props.background === 'dark' ? '16px' : '18px'};
           font-weight: ${(props) =>
@@ -67,7 +71,9 @@ export const ProductListContainer = styled.div<Omit<Props, 'title' | 'efoods'>>`
         p {
           width: ${(props) => (props.background === 'dark' ? '304px' : '')};
           color: ${(props) =>
-            props.background === 'dark' ? colors.BlanchedAlmond : colors.LightSalmon};
+            props.background === 'dark'
+              ? colors.BlanchedAlmond
+              : colors.LightSalmon};
           height: ${(props) => (props.background === 'dark' ? '88px' : '')};
           margin: ${(props) => (props.background === 'dark' ? '8px' : '')};
         }
@@ -79,9 +85,13 @@ export const ProductListContainer = styled.div<Omit<Props, 'title' | 'efoods'>>`
 
         ${ButtonContainer} {
           background-color: ${(props) =>
-            props.background === 'dark' ? colors.BlanchedAlmond : colors.LightSalmon};
+            props.background === 'dark'
+              ? colors.BlanchedAlmond
+              : colors.LightSalmon};
           color: ${(props) =>
-            props.background === 'dark' ? colors.LightSalmon : colors.BlanchedAlmond};
+            props.background === 'dark'
+              ? colors.LightSalmon
+              : colors.BlanchedAlmond};
           height: ${(props) => (props.background === 'dark' ? '24px' : '')};
           margin-left: 8px;
         }

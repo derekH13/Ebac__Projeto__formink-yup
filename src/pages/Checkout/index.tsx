@@ -1,11 +1,12 @@
 // Recursos externos
 import { useFormik } from 'formik'
 import { useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import * as Yup from 'yup'
 
 // Funções
 import { usePurchaseMutation } from '../../services/api'
+import { getTotalPrice, parseToBrl } from '../../utils'
 
 // Componentes
 import Button from '../../components/Button'
@@ -18,7 +19,6 @@ import * as S from './styles'
 
 const Checkout = () => {
   const [payWith, setPayWith] = useState(false)
-  const navigate = useNavigate()
 
   const [purchase, { data, isSuccess }] = usePurchaseMutation()
 
@@ -104,14 +104,6 @@ const Checkout = () => {
     }
   })
 
-  // O tipo 'keyof typeof form.values' foi adicionado ao parâmetro 'fieldName' da função 'getErrorMessage'
-  // Isso garante que o 'fieldName' seja uma das chaves dos valores de 'form.values', removendo o erro TS7053.
-  // const getErrorMessage = (fieldName: keyof typeof form.values) => {
-  //   return form.touched[fieldName] && form.errors[fieldName]
-  //     ? form.errors[fieldName]
-  //     : ''
-  // }
-
   const checkInputHasError = (fieldName: string) => {
     const isTouched = fieldName in form.touched
     const isInvalid = fieldName in form.errors
@@ -152,7 +144,7 @@ const Checkout = () => {
               gastronômica. Bom apetite!
             </S.Paragrafo>
             <S.TabButton>
-              <Button type={'button'} background="light" title="">
+              <Button type="button" background="light" title="">
                 Concluir
               </Button>
             </S.TabButton>
@@ -253,7 +245,7 @@ const Checkout = () => {
                   </S.Row>
                   <S.TabButton>
                     <Button
-                      type={'button'}
+                      type="button"
                       background="light"
                       title=""
                       onClick={() => setPayWith(true)}
@@ -261,7 +253,7 @@ const Checkout = () => {
                       Continuar com o pagamento
                     </Button>
                     <Button
-                      type={'button'}
+                      type="button"
                       background="light"
                       title=""
                       onClick={() => setPayWith(false)}
@@ -273,7 +265,10 @@ const Checkout = () => {
               ) : (
                 <>
                   <S.Row>
-                    <S.TitleH3>Pagamento - Valor a pagar R$ 190,90</S.TitleH3>
+                    <S.TitleH3>
+                      Pagamento - Valor a pagar
+                      <span>{parseToBrl(getTotalPrice(items))}</span>
+                    </S.TitleH3>
                     <S.InputGroupPayment>
                       <label htmlFor="cardOwner">Nome no cartão</label>
                       <input
@@ -351,7 +346,7 @@ const Checkout = () => {
                   </S.Row>
                   <S.TabButton>
                     <Button
-                      type={'button'}
+                      type="submit"
                       background="light"
                       title=""
                       onClick={form.handleSubmit}
@@ -359,7 +354,7 @@ const Checkout = () => {
                       Finalizar pagamento
                     </Button>
                     <Button
-                      type={'button'}
+                      type="button"
                       background="light"
                       title=""
                       onClick={() => setPayWith(false)}
