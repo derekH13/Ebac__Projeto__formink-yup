@@ -20,7 +20,7 @@ import * as S from './styles'
 const Checkout = () => {
   const [payWith, setPayWith] = useState(false)
 
-  const [purchase, { data, isSuccess }] = usePurchaseMutation()
+  const [purchase, { data, isSuccess, isLoading }] = usePurchaseMutation()
 
   const { items } = useSelector((state: RootReducer) => state.cart)
 
@@ -119,7 +119,7 @@ const Checkout = () => {
 
   return (
     <div className="container">
-      {isSuccess ? (
+      {isSuccess && data ? (
         <Card>
           <>
             <S.TitleH3>Pedido realizado - {data.orderId} </S.TitleH3>
@@ -350,8 +350,11 @@ const Checkout = () => {
                       background="light"
                       title=""
                       onClick={form.handleSubmit}
+                      disabled={isLoading}
                     >
-                      Finalizar pagamento
+                      {isLoading
+                        ? 'Finalizando a compra...'
+                        : 'Finalizar compra'}
                     </Button>
                     <Button
                       type="button"

@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
 // Funções
-import { CardapioItem } from '../../services/api'
 
 // Imagens
 import RestaurantRatingImg from '../../assets/icons/estrela.png'

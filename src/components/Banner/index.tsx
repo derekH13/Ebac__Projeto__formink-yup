@@ -1,5 +1,6 @@
 // Recursos externos
 import { useParams } from 'react-router-dom'
+import Loader from '../Loader'
 
 // Funções
 import { useGetFeatureEfoodQuery } from '../../services/api'
@@ -16,11 +17,7 @@ const Banner = () => {
   const { data: catalogoServico, isLoading } = useGetFeatureEfoodQuery(id!)
 
   if (isLoading) {
-    return (
-      <div className="container">
-        <h3>Carregando...</h3>
-      </div>
-    )
+    return <Loader />
   }
 
   if (!catalogoServico) {

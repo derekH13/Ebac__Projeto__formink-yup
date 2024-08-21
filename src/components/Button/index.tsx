@@ -8,9 +8,18 @@ export type Props = {
   onClick?: () => void
   children: React.ReactNode
   background: 'light' | 'dark'
+  disabled?: boolean
 }
 
-const Botao = ({ type, children, title, to, onClick, background }: Props) => {
+const Botao = ({
+  type,
+  children,
+  title,
+  disabled,
+  to,
+  onClick,
+  background
+}: Props) => {
   if (type === 'button' || type === 'submit') {
     return (
       <ButtonContainer
@@ -18,6 +27,7 @@ const Botao = ({ type, children, title, to, onClick, background }: Props) => {
         type={type}
         title={title}
         onClick={onClick}
+        disabled={disabled}
       >
         {children}
       </ButtonContainer>

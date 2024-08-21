@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 
 // Funções
-import { CardapioItem, Efood } from '../../services/api'
 
 // Componentes
 import Product from '../Product'
@@ -15,7 +14,7 @@ import { ProductListContainer, ProductListItem } from './styles'
 export type Props = {
   title: string
   background: 'light' | 'dark'
-  efoods: Efood[] | CardapioItem[]
+  efoods?: Efood[] | CardapioItem[]
   isCardapio?: boolean
   isLoading?: boolean
 }
@@ -49,10 +48,10 @@ const ProductList: React.FC<Props> = ({
       }
     }
 
-    if (efoods.length === 0) {
+    if (efoods && efoods.length === 0) {
       fetchData()
     } else {
-      setCatalogoServico(efoods)
+      setCatalogoServico(efoods ?? []) // Default to an empty array if efoods is undefined
     }
   }, [id, efoods])
 
