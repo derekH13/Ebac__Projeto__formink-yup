@@ -36,13 +36,13 @@ const Cart = () => {
   }
 
   const goToCheckout = () => {
-    setShowCheckout(true) // Exibe o Checkout como modal
+    setShowCheckout(true)
+    closeCart()
   }
 
   return (
     <>
       <S.CartContainer className={isOpen ? 'isOpen' : ''}>
-        {/* <S.Overlay /> */}
         {!showCheckout && <S.Overlay />}
         <S.Sidebar>
           <ul>

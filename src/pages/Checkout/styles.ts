@@ -23,7 +23,8 @@ export const InputGroup = styled.div`
     margin: 8px 0 8px 0;
   }
 
-  input {
+  input,
+  select {
     width: 100%; /* Ocupa a largura definida pelo container */
     max-height: 32px;
     height: 100%;
@@ -36,23 +37,36 @@ export const InputGroup = styled.div`
     font-weight: 700;
     line-height: 16.41px;
     text-align: left;
+
+    &.error {
+      border: 1px solid red;
+    }
   }
 
-  &.InputFlex {
+  &.InputFlex,
+  select {
     display: flex;
     gap: 16px;
     column-gap: 34px;
 
+    &.error {
+      border: 1px solid red;
+    }
     label {
       margin: 8px 0 8px 0;
     }
 
-    input {
+    input,
+    select {
       border: none;
       max-width: 155px; /* Definir largura dos inputs dentro do flex */
       width: 100%;
       max-height: 32px;
       height: 100%;
+
+      &.error {
+        border: 1px solid red;
+      }
     }
   }
 `
@@ -74,7 +88,8 @@ export const InputGroupPayment = styled.div`
     margin: 8px 0 4px 0;
   }
 
-  input {
+  input,
+  select {
     width: 100%; /* Ocupa a largura definida pelo container */
     max-height: 32px;
     height: 100%;
@@ -88,24 +103,53 @@ export const InputGroupPayment = styled.div`
     line-height: 16.41px;
     text-align: left;
     margin-bottom: 8px;
+
+    &.error {
+      border: 1px solid red;
+    }
   }
 
-  &.InputFlexpayment {
+  &.InputFlexpayment,
+  select {
     display: flex;
+
+    &.error {
+      border: 1px solid red;
+    }
   }
 
-  &.InputNumbCard {
+  &.InputNumbCard,
+  select {
     width: 228px;
+
+    &.error {
+      border: 1px solid red;
+    }
   }
-  &.InputCvv {
+  &.InputCvv,
+  select {
     width: 87px;
+
+    &.error {
+      border: 1px solid red;
+    }
   }
 
-  &.InputexpiresMonth {
+  &.InputexpiresMonth,
+  select {
     width: 155px;
+
+    &.error {
+      border: 1px solid red;
+    }
   }
-  &.expiresMonth {
+  &.expiresMonth,
+  select {
     width: 155px;
+
+    &.error {
+      border: 1px solid red;
+    }
   }
 `
 export const TitleH3 = styled.h3`
