@@ -19,9 +19,8 @@ import * as S from './styles'
 
 const Checkout = () => {
   const [payWith, setPayWith] = useState(false)
-  const [payWithSucces, setPayWithSucces] = useState(false)
 
-  const [purchase, { data, isSuccess, isLoading }] = usePurchaseMutation()
+  const [purchase, { data, isSuccess }] = usePurchaseMutation()
 
   const { items } = useSelector((state: RootReducer) => state.cart)
 
@@ -113,11 +112,15 @@ const Checkout = () => {
     return hasError
   }
 
-  if (items.length === 0) {
+  const handleConclude = () => {
     window.location.reload()
     return <Navigate to="/" />
   }
 
+  if (items.length === 0) {
+    window.location.reload()
+    return <Navigate to="/" />
+  }
   return (
     <div className="container">
       {isSuccess && data ? (
@@ -145,7 +148,12 @@ const Checkout = () => {
               gastronômica. Bom apetite!
             </S.Paragrafo>
             <S.TabButton>
-              <Button type="button" background="light" title="">
+              <Button
+                type="button"
+                background="light"
+                title="Concoluir"
+                onClick={handleConclude}
+              >
                 Concluir
               </Button>
             </S.TabButton>

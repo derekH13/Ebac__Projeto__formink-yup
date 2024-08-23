@@ -2,7 +2,6 @@
 import { Route, Routes } from 'react-router-dom'
 
 // Páginas
-import Checkout from './pages/Checkout'
 import Home from './pages/Home'
 import Perfil from './pages/Perfil'
 

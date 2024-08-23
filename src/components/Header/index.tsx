@@ -60,7 +60,9 @@ const Header = ({ background }: Props) => {
 
             <S.CarrinhoDeProdutos>
               {/* Coloque o evento onClick no elemento que deve abrir o carrinho */}
-              <S.CartButton onClick={openCart}>{titleCarrinho}</S.CartButton>
+              <S.CartButton role="button" onClick={openCart}>
+                {titleCarrinho}
+              </S.CartButton>
             </S.CarrinhoDeProdutos>
           </S.ContainerHeader>
           <S.Titulo>{titleText}</S.Titulo>

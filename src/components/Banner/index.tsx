@@ -14,7 +14,7 @@ type Params = {
 
 const Banner = () => {
   const { id } = useParams<Params>()
-  const { data: catalogoServico, isLoading } = useGetFeatureEfoodQuery(id!)
+  const { data: catalogoServico, isLoading } = useGetFeatureEfoodQuery(id || '')
 
   if (isLoading) {
     return <Loader />

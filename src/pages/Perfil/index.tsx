@@ -9,10 +9,6 @@ import Banner from '../../components/Banner'
 import Header from '../../components/Header'
 import ProductList from '../../components/ProductList'
 
-type Params = {
-  id: string
-}
-
 type EfoodParams = {
   id: string
 }

@@ -59,7 +59,7 @@ export const CarrinhoDeProdutos = styled(ContainerHeader)`
   justify-content: right;
   padding-top: none;
 `
-export const CartButton = styled.a`
+export const CartButton = styled.span`
   color: ${colors.LightSalmon};
   cursor: pointer;
 `

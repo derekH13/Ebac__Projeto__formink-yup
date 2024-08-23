@@ -46,6 +46,15 @@ export const Sidebar = styled.aside`
     max-height: 24px;
     height: 24px; // Adjusted height for visibility
   }
+
+  .empty-text {
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+    text-align: center;
+    color: ${colors.FloralWhite};
+  }
 `
 
 export const Prices = styled.p`
