@@ -13,8 +13,8 @@ import Botao from '../Button'
 import Tag from '../Tag'
 
 // Estilos
-import * as S from './styles'
 import { parseToBrl } from '../../utils'
+import * as S from './styles'
 
 // Define a interface do ModalPoupapProps
 interface ModalPoupapProps {

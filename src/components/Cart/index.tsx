@@ -1,23 +1,16 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-
-// Funções
+import Checkout from '../../pages/Checkout'
 import { RootReducer } from '../../store'
 import { close, remove } from '../../store/reducers/cart'
-
-// Componentes
-import Botao from '../Button'
-
-// Estilos
-import Checkout from '../../pages/Checkout'
 import { getTotalPrice, parseToBrl } from '../../utils'
+import Botao from '../Button'
 import * as S from './styles'
 
 const Cart = () => {
   const { isOpen, items } = useSelector((state: RootReducer) => state.cart)
-
   const dispatch = useDispatch()
-  const [showCheckout, setShowCheckout] = useState(false) // Estado para controlar a exibição do Checkout
+  const [showCheckout, setShowCheckout] = useState(false)
 
   const closeCart = () => {
     dispatch(close())

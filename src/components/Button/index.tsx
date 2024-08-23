@@ -1,4 +1,3 @@
-// Estilos
 import { ButtonContainer, ButtonLink } from './styles'
 
 export type Props = {
@@ -7,7 +6,7 @@ export type Props = {
   to?: string
   onClick?: () => void
   children: React.ReactNode
-  background: 'light' | 'dark'
+  background: 'light' | 'dark' // Use background em vez de $background
   disabled?: boolean
 }
 

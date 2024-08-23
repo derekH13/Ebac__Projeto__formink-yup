@@ -19,6 +19,7 @@ import * as S from './styles'
 
 const Checkout = () => {
   const [payWith, setPayWith] = useState(false)
+  const [payWithSucces, setPayWithSucces] = useState(false)
 
   const [purchase, { data, isSuccess, isLoading }] = usePurchaseMutation()
 
@@ -151,118 +152,112 @@ const Checkout = () => {
           </>
         </Card>
       ) : (
-        <form onSubmit={form.handleSubmit}>
-          <Card>
-            <div>
-              {!payWith ? (
-                <>
-                  <S.Row>
-                    <S.TitleH3>Entrega</S.TitleH3>
-                    <S.InputGroup>
-                      <label htmlFor="fullName">Quem irá receber</label>
+        <Card>
+          <div>
+            {!payWith ? (
+              <>
+                <S.Row>
+                  <S.TitleH3>Entrega</S.TitleH3>
+                  <S.InputGroup>
+                    <label htmlFor="fullName">Quem irá receber</label>
+                    <input
+                      type="text"
+                      id="fullName"
+                      name="fullName"
+                      value={form.values.fullName}
+                      onChange={form.handleChange}
+                      onBlur={form.handleBlur}
+                      className={checkInputHasError('fullName') ? 'error' : ''}
+                    />
+                  </S.InputGroup>
+                  <S.InputGroup>
+                    <label htmlFor="endereco">Endereço</label>
+                    <input
+                      type="text"
+                      id="endereco"
+                      name="endereco"
+                      value={form.values.endereco}
+                      onChange={form.handleChange}
+                      onBlur={form.handleBlur}
+                      className={checkInputHasError('endereco') ? 'error' : ''}
+                    />
+                  </S.InputGroup>
+                  <S.InputGroup>
+                    <label htmlFor="cidade">Cidade</label>
+                    <input
+                      type="text"
+                      id="cidade"
+                      name="cidade"
+                      value={form.values.cidade}
+                      onChange={form.handleChange}
+                      onBlur={form.handleBlur}
+                      className={checkInputHasError('cidade') ? 'error' : ''}
+                    />
+                  </S.InputGroup>
+                  <S.InputGroup className="InputFlex">
+                    <div>
+                      <label htmlFor="cep">CEP</label>
                       <input
                         type="text"
-                        id="fullName"
-                        name="fullName"
-                        value={form.values.fullName}
+                        id="cep"
+                        name="cep"
+                        value={form.values.cep}
                         onChange={form.handleChange}
                         onBlur={form.handleBlur}
-                        className={
-                          checkInputHasError('fullName') ? 'error' : ''
-                        }
+                        className={checkInputHasError('cep') ? 'error' : ''}
                       />
-                    </S.InputGroup>
-                    <S.InputGroup>
-                      <label htmlFor="endereco">Endereço</label>
+                    </div>
+                    <div>
+                      <label htmlFor="numero">Número</label>
                       <input
-                        type="text"
-                        id="endereco"
-                        name="endereco"
-                        value={form.values.endereco}
+                        type="number"
+                        id="numero"
+                        name="numero"
+                        value={form.values.numero}
                         onChange={form.handleChange}
                         onBlur={form.handleBlur}
-                        className={
-                          checkInputHasError('endereco') ? 'error' : ''
-                        }
+                        className={checkInputHasError('numero') ? 'error' : ''}
                       />
-                    </S.InputGroup>
-                    <S.InputGroup>
-                      <label htmlFor="cidade">Cidade</label>
-                      <input
-                        type="text"
-                        id="cidade"
-                        name="cidade"
-                        value={form.values.cidade}
-                        onChange={form.handleChange}
-                        onBlur={form.handleBlur}
-                        className={checkInputHasError('cidade') ? 'error' : ''}
-                      />
-                    </S.InputGroup>
-                    <S.InputGroup className="InputFlex">
-                      <div>
-                        <label htmlFor="cep">CEP</label>
-                        <input
-                          type="text"
-                          id="cep"
-                          name="cep"
-                          value={form.values.cep}
-                          onChange={form.handleChange}
-                          onBlur={form.handleBlur}
-                          className={checkInputHasError('cep') ? 'error' : ''}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="numero">Número</label>
-                        <input
-                          type="number"
-                          id="numero"
-                          name="numero"
-                          value={form.values.numero}
-                          onChange={form.handleChange}
-                          onBlur={form.handleBlur}
-                          className={
-                            checkInputHasError('numero') ? 'error' : ''
-                          }
-                        />
-                      </div>
-                    </S.InputGroup>
-                    <S.InputGroup>
-                      <label htmlFor="fullComplemento">
-                        Complemento (opcional)
-                      </label>
-                      <input
-                        type="text"
-                        id="fullComplemento"
-                        name="fullComplemento"
-                        value={form.values.fullComplemento}
-                        onChange={form.handleChange}
-                        onBlur={form.handleBlur}
-                        className={
-                          checkInputHasError('fullComplemento') ? 'error' : ''
-                        }
-                      />
-                    </S.InputGroup>
-                  </S.Row>
-                  <S.TabButton>
-                    <Button
-                      type="button"
-                      background="light"
-                      title=""
-                      onClick={() => setPayWith(true)}
-                    >
-                      Continuar com o pagamento
-                    </Button>
-                    <Button
-                      type="button"
-                      background="light"
-                      title=""
-                      onClick={() => setPayWith(false)}
-                    >
-                      Voltar para o carrinho
-                    </Button>
-                  </S.TabButton>
-                </>
-              ) : (
+                    </div>
+                  </S.InputGroup>
+                  <S.InputGroup>
+                    <label htmlFor="fullComplemento">
+                      Complemento (opcional)
+                    </label>
+                    <input
+                      type="text"
+                      id="fullComplemento"
+                      name="fullComplemento"
+                      value={form.values.fullComplemento}
+                      onChange={form.handleChange}
+                      onBlur={form.handleBlur}
+                      className={
+                        checkInputHasError('fullComplemento') ? 'error' : ''
+                      }
+                    />
+                  </S.InputGroup>
+                </S.Row>
+                <S.TabButton>
+                  <Button
+                    type="button"
+                    background="light"
+                    title=""
+                    onClick={() => setPayWith(true)}
+                  >
+                    Continuar com o pagamento
+                  </Button>
+                  <Button
+                    type="button"
+                    background="light"
+                    title=""
+                    onClick={() => setPayWith(false)}
+                  >
+                    Voltar para o carrinho
+                  </Button>
+                </S.TabButton>
+              </>
+            ) : (
+              <form onSubmit={form.handleSubmit}>
                 <>
                   <S.Row>
                     <S.TitleH3>
@@ -350,11 +345,8 @@ const Checkout = () => {
                       background="light"
                       title=""
                       onClick={form.handleSubmit}
-                      disabled={isLoading}
                     >
-                      {isLoading
-                        ? 'Finalizando a compra...'
-                        : 'Finalizar compra'}
+                      Finalizar compra
                     </Button>
                     <Button
                       type="button"
@@ -366,10 +358,10 @@ const Checkout = () => {
                     </Button>
                   </S.TabButton>
                 </>
-              )}
-            </div>
-          </Card>
-        </form>
+              </form>
+            )}
+          </div>
+        </Card>
       )}
     </div>
   )

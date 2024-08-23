@@ -14,7 +14,6 @@ export const ButtonContainer = styled.button<{ background: 'light' | 'dark' }>`
   font-weight: 700;
   line-height: 16px;
   text-align: center;
-  /* margin-top: 16px; */
   cursor: pointer;
 `
 
@@ -25,12 +24,6 @@ export const ButtonLink = styled(Link)<{ background: 'light' | 'dark' }>`
     props.background === 'dark' ? colors.BlanchedAlmond : colors.LightSalmon};
   color: ${(props) =>
     props.background === 'dark' ? colors.LightSalmon : colors.BlanchedAlmond};
-  width: 70px;
-  height: 16px;
-  top: 810px;
-  left: 737px;
-  gap: 0px;
-  opacity: 0px;
   font-family: Roboto;
   font-size: 14px;
   font-weight: 700;

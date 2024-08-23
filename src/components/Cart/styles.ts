@@ -10,8 +10,6 @@ export const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  /* background-color: #000;
-  opacity: 0.7; */
   background: rgba(0, 0, 0, 0.8);
 `
 
@@ -36,9 +34,9 @@ export const Sidebar = styled.aside`
   width: 100%;
   max-height: 1624px;
   height: 100%;
-  left: 1006px;
+  position: relative; // Changed from left to relative positioning
   gap: 0px;
-  opacity: 0px;
+  opacity: 1; // Changed from 0px to 1 for visibility
   z-index: 1;
   padding: 16px 8px;
 
@@ -46,7 +44,7 @@ export const Sidebar = styled.aside`
     max-width: 100%;
     width: 100%;
     max-height: 24px;
-    height: 100%;
+    height: 24px; // Adjusted height for visibility
   }
 `
 
@@ -56,7 +54,7 @@ export const Prices = styled.p`
   font-weight: 700;
   line-height: 16.41px;
   color: ${colors.FloralWhite};
-  margin: 40px 0 16px 0px;
+  margin: 40px 0 16px 0;
   display: flex;
   justify-content: space-between;
 
@@ -79,12 +77,11 @@ export const CartItem = styled.li`
     height: 80px;
     width: 80px;
     object-fit: cover;
-    margin: 8px 8px 12px 8px;
+    margin: 8px;
   }
 
   h3 {
     color: ${colors.LightSalmon};
-    text-decoration: none;
     font-family: Roboto;
     font-size: 18px;
     font-weight: 900;
@@ -99,7 +96,6 @@ export const CartItem = styled.li`
     font-size: 14px;
     font-weight: 400;
     line-height: 22px;
-    text-align: left;
     margin: 16px 0 33px 0;
   }
 
