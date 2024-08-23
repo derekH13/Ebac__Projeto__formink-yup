@@ -1,6 +1,7 @@
 // Recursos externos
 import { useFormik } from 'formik'
 import { useState } from 'react'
+import InputMask from 'react-input-mask'
 import { Navigate } from 'react-router-dom'
 import * as Yup from 'yup'
 
@@ -205,7 +206,7 @@ const Checkout = () => {
                   <S.InputGroup className="InputFlex">
                     <div>
                       <label htmlFor="cep">CEP</label>
-                      <input
+                      <InputMask
                         type="text"
                         id="cep"
                         name="cep"
@@ -213,6 +214,7 @@ const Checkout = () => {
                         onChange={form.handleChange}
                         onBlur={form.handleBlur}
                         className={checkInputHasError('cep') ? 'error' : ''}
+                        mask="99.999-999"
                       />
                     </div>
                     <div>
@@ -289,7 +291,7 @@ const Checkout = () => {
                     <S.InputGroupPayment className="InputFlexpayment">
                       <S.InputGroupPayment className="InputNumbCard">
                         <label htmlFor="numbCard">Número do cartão</label>
-                        <input
+                        <InputMask
                           type="number"
                           id="numbCard"
                           name="numbCard"
@@ -299,11 +301,12 @@ const Checkout = () => {
                           className={
                             checkInputHasError('numbCard') ? 'error' : ''
                           }
+                          mask="9999 9999 9999 9999"
                         />
                       </S.InputGroupPayment>
                       <S.InputGroupPayment className="InputCvv">
                         <label htmlFor="cardCode">CVV</label>
-                        <input
+                        <InputMask
                           type="number"
                           id="cardCode"
                           name="cardCode"
@@ -313,13 +316,14 @@ const Checkout = () => {
                           className={
                             checkInputHasError('cardCode') ? 'error' : ''
                           }
+                          mask="999"
                         />
                       </S.InputGroupPayment>
                     </S.InputGroupPayment>
                     <S.InputGroupPayment className="InputFlexpayment">
                       <S.InputGroupPayment className="InputNumbCard">
                         <label htmlFor="expiresMonth">Mês de vencimento</label>
-                        <input
+                        <InputMask
                           type="text"
                           id="expiresMonth"
                           name="expiresMonth"
@@ -329,11 +333,12 @@ const Checkout = () => {
                           className={
                             checkInputHasError('expiresMonth') ? 'error' : ''
                           }
+                          mask="99"
                         />
                       </S.InputGroupPayment>
                       <S.InputGroupPayment className="InputexpiresYear">
                         <label htmlFor="expiresYear">Ano de vencimento</label>
-                        <input
+                        <InputMask
                           type="number"
                           id="expiresYear"
                           name="expiresYear"
@@ -343,6 +348,7 @@ const Checkout = () => {
                           className={
                             checkInputHasError('expiresYear') ? 'error' : ''
                           }
+                          mask="9999"
                         />
                       </S.InputGroupPayment>
                     </S.InputGroupPayment>
