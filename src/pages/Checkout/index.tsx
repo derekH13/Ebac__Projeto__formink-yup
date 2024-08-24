@@ -6,6 +6,7 @@ import * as Yup from 'yup'
 
 // Funções
 import { usePurchaseMutation } from '../../services/api'
+import { open } from '../../store/reducers/cart'
 import { getTotalPrice, parseToBrl } from '../../utils'
 
 // Componentes
@@ -120,11 +121,21 @@ const Checkout = ({ onClose }: { onClose: () => void }) => {
     }
   }, [isSuccess, dispatch])
 
+  const openCart = () => {
+    dispatch(open())
+  }
+
   // Função ajustada para navegação sem recarregar a página
   const handleConclude = () => {
     setIsOpenCart(true)
     onClose()
     navigate('/')
+  }
+
+  const handleVoltar = () => {
+    setIsOpenCart(true)
+    onClose()
+    openCart()
   }
 
   // Redireciona para a página inicial se o carrinho estiver vazio
@@ -270,7 +281,7 @@ const Checkout = ({ onClose }: { onClose: () => void }) => {
                     type="button"
                     background="light"
                     title=""
-                    onClick={() => setPayWith(false)}
+                    onClick={handleVoltar}
                   >
                     Voltar para o carrinho
                   </Button>
