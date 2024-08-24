@@ -1,7 +1,7 @@
 import { useFormik } from 'formik'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import InputMask from 'react-input-mask'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 
 // Funções
@@ -13,8 +13,9 @@ import Button from '../../components/Button'
 import Card from '../../components/Card'
 
 // Estilos
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
+import { clear } from '../../store/reducers/cart'
 import * as S from './styles'
 
 const Checkout = ({ onClose }: { onClose: () => void }) => {
@@ -23,8 +24,10 @@ const Checkout = ({ onClose }: { onClose: () => void }) => {
 
   const navigate = useNavigate() // Hook para navegação, substituindo o uso de `window.location.reload()`
 
-  const [purchase, { data, isSuccess }] = usePurchaseMutation()
+  const [purchase, { data, isSuccess, isLoading }] = usePurchaseMutation()
   const { items } = useSelector((state: RootReducer) => state.cart)
+
+  const dispatch = useDispatch()
 
   const form = useFormik({
     initialValues: {
@@ -111,6 +114,12 @@ const Checkout = ({ onClose }: { onClose: () => void }) => {
     return hasError
   }
 
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(clear())
+    }
+  }, [isSuccess, dispatch])
+
   // Função ajustada para navegação sem recarregar a página
   const handleConclude = () => {
     setIsOpenCart(true)
@@ -119,9 +128,8 @@ const Checkout = ({ onClose }: { onClose: () => void }) => {
   }
 
   // Redireciona para a página inicial se o carrinho estiver vazio
-  if (items.length === 0) {
-    navigate('/')
-    return null
+  if (items.length === 0 && !isSuccess) {
+    return <Navigate to="/" />
   }
 
   return (
@@ -368,8 +376,11 @@ const Checkout = ({ onClose }: { onClose: () => void }) => {
                       background="light"
                       title=""
                       onClick={form.handleSubmit}
+                      disabled={isLoading}
                     >
-                      Finalizar compra
+                      {isLoading
+                        ? 'Finalizando compra ...'
+                        : 'Finalizar compra'}
                     </Button>
                     <Button
                       type="button"

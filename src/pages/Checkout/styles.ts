@@ -31,7 +31,6 @@ export const InputGroup = styled.div`
     padding: 8px;
     border: 1px solid ${colors.LightSalmon};
     background-color: ${colors.BlanchedAlmond};
-    color: rgba(75, 75, 75, 1);
     font-family: Roboto;
     font-size: 14px;
     font-weight: 700;
@@ -77,6 +76,11 @@ export const InputGroupPaymentBlock = styled.div`
     height: 32px;
     background-color: ${colors.BlanchedAlmond};
     border: none;
+    font-family: Roboto;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 16.41px;
+    text-align: left;
   }
 `
 
@@ -98,6 +102,11 @@ export const InputGroupPaymentFlex = styled.div`
 
     input {
       width: 100%;
+      font-family: Roboto;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 16.41px;
+      text-align: left;
     }
   }
 
@@ -107,6 +116,11 @@ export const InputGroupPaymentFlex = styled.div`
 
     input {
       width: 100%;
+      font-family: Roboto;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 16.41px;
+      text-align: left;
     }
   }
 
