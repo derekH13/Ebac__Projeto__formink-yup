@@ -319,7 +319,12 @@ const Checkout = () => {
                     </S.InputGroupPaymentFlex>
                     <S.InputGroup className="InputFlex">
                       <div>
-                        <label htmlFor="expiresMonth">Mês</label>
+                        <label
+                          className="Label-margin-top"
+                          htmlFor="expiresMonth"
+                        >
+                          Mês
+                        </label>
                         <input
                           type="text"
                           id="expiresMonth"
@@ -333,7 +338,12 @@ const Checkout = () => {
                         />
                       </div>
                       <div>
-                        <label htmlFor="expiresYear">Ano</label>
+                        <label
+                          className="Label-margin-top"
+                          htmlFor="expiresYear"
+                        >
+                          Ano
+                        </label>
                         <input
                           type="text"
                           id="expiresYear"

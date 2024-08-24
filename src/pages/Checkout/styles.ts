@@ -50,10 +50,10 @@ export const InputGroup = styled.div`
 
     div {
       width: 155px;
+    }
 
-      label {
-        margin-top: 0;
-      }
+    .Label-margin-top {
+      margin-top: 0;
     }
   }
 `
