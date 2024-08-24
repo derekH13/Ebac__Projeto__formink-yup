@@ -17,8 +17,10 @@ import { useSelector } from 'react-redux'
 import { RootReducer } from '../../store'
 import * as S from './styles'
 
-const Checkout = () => {
+const Checkout = ({ onClose }: { onClose: () => void }) => {
   const [payWith, setPayWith] = useState(false)
+  const [isOpenCart, setIsOpenCart] = useState(false)
+
   const navigate = useNavigate() // Hook para navegação, substituindo o uso de `window.location.reload()`
 
   const [purchase, { data, isSuccess }] = usePurchaseMutation()
@@ -111,6 +113,8 @@ const Checkout = () => {
 
   // Função ajustada para navegação sem recarregar a página
   const handleConclude = () => {
+    setIsOpenCart(true)
+    onClose()
     navigate('/')
   }
 
@@ -122,7 +126,7 @@ const Checkout = () => {
 
   return (
     <div className="container">
-      {isSuccess && data ? (
+      {!isOpenCart && isSuccess && data ? (
         <Card>
           <>
             <S.TitleH3>Pedido realizado - {data.orderId} </S.TitleH3>

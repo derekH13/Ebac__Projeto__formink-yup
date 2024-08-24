@@ -65,7 +65,7 @@ const Cart = () => {
         </S.Sidebar>
       </S.CartContainer>
 
-      {showCheckout && <Checkout />}
+      {showCheckout && <Checkout onClose={() => setShowCheckout(false)} />}
     </>
   )
 }
