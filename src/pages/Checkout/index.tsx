@@ -1,8 +1,7 @@
-// Recursos externos
 import { useFormik } from 'formik'
 import { useState } from 'react'
 import InputMask from 'react-input-mask'
-import { Navigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 
 // Funções
@@ -20,9 +19,9 @@ import * as S from './styles'
 
 const Checkout = () => {
   const [payWith, setPayWith] = useState(false)
+  const navigate = useNavigate() // Hook para navegação, substituindo o uso de `window.location.reload()`
 
   const [purchase, { data, isSuccess }] = usePurchaseMutation()
-
   const { items } = useSelector((state: RootReducer) => state.cart)
 
   const form = useFormik({
@@ -50,7 +49,6 @@ const Checkout = () => {
         .required('O campo é obrigatório'),
       numero: Yup.string().required('O campo é obrigatório'),
       fullComplemento: Yup.string(),
-      // Comentário: Aqui usamos o 'when' para condicionar a validação dos campos de cartão
       cardOwner: Yup.string().when('payWith', {
         is: true,
         then: (schema) => schema.required('O campo é obrigatório')
@@ -95,12 +93,10 @@ const Checkout = () => {
             }
           }
         },
-        products: [
-          {
-            id: 1,
-            price: 10
-          }
-        ]
+        products: items.map((item) => ({
+          id: item.id,
+          price: item.preco
+        }))
       })
     }
   })
@@ -113,15 +109,17 @@ const Checkout = () => {
     return hasError
   }
 
+  // Função ajustada para navegação sem recarregar a página
   const handleConclude = () => {
-    window.location.reload()
-    return <Navigate to="/" />
+    navigate('/')
   }
 
+  // Redireciona para a página inicial se o carrinho estiver vazio
   if (items.length === 0) {
-    window.location.reload()
-    return <Navigate to="/" />
+    navigate('/')
+    return null
   }
+
   return (
     <div className="container">
       {isSuccess && data ? (
@@ -152,7 +150,7 @@ const Checkout = () => {
               <Button
                 type="button"
                 background="light"
-                title="Concoluir"
+                title="Concluir"
                 onClick={handleConclude}
               >
                 Concluir
@@ -274,7 +272,7 @@ const Checkout = () => {
                       Pagamento - Valor a pagar
                       <span>{parseToBrl(getTotalPrice(items))}</span>
                     </S.TitleH3>
-                    <S.InputGroupPayment>
+                    <S.InputGroupPaymentBlock>
                       <label htmlFor="cardOwner">Nome no cartão</label>
                       <input
                         type="text"
@@ -284,15 +282,15 @@ const Checkout = () => {
                         onChange={form.handleChange}
                         onBlur={form.handleBlur}
                         className={
-                          checkInputHasError('cardOwer') ? 'error' : ''
+                          checkInputHasError('cardOwner') ? 'error' : ''
                         }
                       />
-                    </S.InputGroupPayment>
-                    <S.InputGroupPayment className="InputFlexpayment">
-                      <S.InputGroupPayment className="InputNumbCard">
+                    </S.InputGroupPaymentBlock>
+                    <S.InputGroupPaymentFlex className="InputFlexpayment">
+                      <div className="InputNumbCard">
                         <label htmlFor="numbCard">Número do cartão</label>
                         <InputMask
-                          type="number"
+                          type="text"
                           id="numbCard"
                           name="numbCard"
                           value={form.values.numbCard}
@@ -303,10 +301,10 @@ const Checkout = () => {
                           }
                           mask="9999 9999 9999 9999"
                         />
-                      </S.InputGroupPayment>
-                      <S.InputGroupPayment className="InputCvv">
+                      </div>
+                      <div className="InputCvv">
                         <label htmlFor="cardCode">CVV</label>
-                        <InputMask
+                        <input
                           type="number"
                           id="cardCode"
                           name="cardCode"
@@ -316,14 +314,13 @@ const Checkout = () => {
                           className={
                             checkInputHasError('cardCode') ? 'error' : ''
                           }
-                          mask="999"
                         />
-                      </S.InputGroupPayment>
-                    </S.InputGroupPayment>
-                    <S.InputGroupPayment className="InputFlexpayment">
-                      <S.InputGroupPayment className="InputNumbCard">
-                        <label htmlFor="expiresMonth">Mês de vencimento</label>
-                        <InputMask
+                      </div>
+                    </S.InputGroupPaymentFlex>
+                    <S.InputGroup className="InputFlex">
+                      <div>
+                        <label htmlFor="expiresMonth">Mês</label>
+                        <input
                           type="text"
                           id="expiresMonth"
                           name="expiresMonth"
@@ -333,13 +330,12 @@ const Checkout = () => {
                           className={
                             checkInputHasError('expiresMonth') ? 'error' : ''
                           }
-                          mask="99"
                         />
-                      </S.InputGroupPayment>
-                      <S.InputGroupPayment className="InputexpiresYear">
-                        <label htmlFor="expiresYear">Ano de vencimento</label>
-                        <InputMask
-                          type="number"
+                      </div>
+                      <div>
+                        <label htmlFor="expiresYear">Ano</label>
+                        <input
+                          type="text"
                           id="expiresYear"
                           name="expiresYear"
                           value={form.values.expiresYear}
@@ -348,14 +344,13 @@ const Checkout = () => {
                           className={
                             checkInputHasError('expiresYear') ? 'error' : ''
                           }
-                          mask="9999"
                         />
-                      </S.InputGroupPayment>
-                    </S.InputGroupPayment>
+                      </div>
+                    </S.InputGroup>
                   </S.Row>
                   <S.TabButton>
                     <Button
-                      type="submit"
+                      type="button"
                       background="light"
                       title=""
                       onClick={form.handleSubmit}
