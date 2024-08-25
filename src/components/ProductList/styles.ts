@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { Props } from '.'
-import { colors } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 import { ButtonContainer } from '../Button/styles'
 import {
   CardConteiner,
@@ -34,6 +34,7 @@ export const ProductListContainer = styled.div<
     ${CardRestaurant} {
       width: ${(props) => (props.background === 'dark' ? '320px' : '')};
       height: ${(props) => (props.background === 'dark' ? '338px' : '')};
+
       ${Imagem} {
         width: ${(props) => (props.background === 'dark' ? '304px' : '')};
         height: ${(props) => (props.background === 'dark' ? '167px' : '')};
@@ -97,6 +98,15 @@ export const ProductListContainer = styled.div<
         }
       }
     }
+    @media (max-width: ${breakpoints.tablet}) {
+      align-items: center;
+      margin: 0 auto;
+    }
+
+    @media (max-width: ${breakpoints.mobile}) {
+      align-items: center;
+      margin: 0 auto;
+    }
   }
 `
 
@@ -115,4 +125,12 @@ export const ProductListItem = styled.ul<Omit<Props, 'title' | 'efoods'>>`
   align-content: center;
   align-items: center;
   justify-items: center;
+
+  @media (max-width: ${breakpoints.tablet}) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (max-width: ${breakpoints.mobile}) {
+    grid-template-columns: 1fr;
+  }
 `

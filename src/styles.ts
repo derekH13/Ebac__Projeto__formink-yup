@@ -10,6 +10,13 @@ export const colors = {
   FloralWhite: '#FFF8F2' //FloralWhite
 }
 
+/* Breakpoints */
+export const breakpoints = {
+  desktop: '1024px',
+  tablet: '768px',
+  mobile: '480px'
+}
+
 // #Inicializando as configurações Globais
 export const GlobalCSS = createGlobalStyle`
   /* Define as regras para todos os elementos */
@@ -33,7 +40,32 @@ export const GlobalCSS = createGlobalStyle`
   .container {
   max-width: 1366px; /* largura total do container central do projeto */
   width: 100%; /* preenchimento de todo container */
-  margin: 0 auto; /* removendo as margens ao mesmo tempo que centralizo o container junto com seus elementos */
+  margin: 0 auto; /* centralizando o container */
+  padding: 0 20px; /* adicionando um padding para as laterais */
+
+  /* Estilo para desktop */
+@media (max-width: ${breakpoints.desktop}) {
+  .container {
+    max-width: 1024px;
+    padding: 0 16px; /* ajuste de padding para telas menores */
+  }
+}
+
+/* Estilo para tablet */
+@media (max-width: ${breakpoints.tablet}) {
+  .container {
+    max-width: 768px;
+    padding: 0 12px;
+  }
+}
+
+/* Estilo para mobile */
+@media (max-width: ${breakpoints.mobile}) {
+  .container {
+    max-width: 480px;
+    padding: 0 8px;
+  }
+}
 }
 
 `
