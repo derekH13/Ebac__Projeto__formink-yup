@@ -20,7 +20,7 @@ export const InputGroup = styled.div`
     text-align: left;
     color: ${colors.BlanchedAlmond};
     display: block;
-    margin: 8px 0 8px 0;
+    margin: 8px 0;
   }
 
   input,
@@ -38,12 +38,11 @@ export const InputGroup = styled.div`
     text-align: left;
 
     &.error {
-      border: 1px solid red;
+      border: 2px solid black; /* Borda preta para campos com erro */
     }
   }
 
-  &.InputFlex,
-  select {
+  &.InputFlex {
     display: flex;
     justify-content: space-between;
 
@@ -71,7 +70,8 @@ export const InputGroupPaymentBlock = styled.div`
     margin-bottom: 8px;
   }
 
-  input {
+  input,
+  select {
     width: 100%; /* Ajusta a largura do input ao contêiner */
     height: 32px;
     background-color: ${colors.BlanchedAlmond};
@@ -81,6 +81,10 @@ export const InputGroupPaymentBlock = styled.div`
     font-weight: 700;
     line-height: 16.41px;
     text-align: left;
+
+    &.error {
+      border: 2px solid black; /* Borda preta para campos com erro */
+    }
   }
 `
 
@@ -94,33 +98,44 @@ export const InputGroupPaymentFlex = styled.div`
   .InputCvv {
     display: flex;
     flex-direction: column;
+    width: 100%; /* Garante que as divs se ajustem ao contêiner pai */
   }
 
   .InputNumbCard {
     width: 228px;
-    margin: 8px 0 8px 0;
+    margin: 8px 0;
 
-    input {
+    input,
+    select {
       width: 100%;
       font-family: Roboto;
       font-size: 14px;
       font-weight: 700;
       line-height: 16.41px;
       text-align: left;
+
+      &.error {
+        border: 2px solid black; /* Borda preta para campos com erro */
+      }
     }
   }
 
   .InputCvv {
     width: 87px;
-    margin: 8px 0 8px 0;
+    margin: 8px 0;
 
-    input {
+    input,
+    select {
       width: 100%;
       font-family: Roboto;
       font-size: 14px;
       font-weight: 700;
       line-height: 16.41px;
       text-align: left;
+
+      &.error {
+        border: 2px solid black; /* Borda preta para campos com erro */
+      }
     }
   }
 
@@ -134,10 +149,15 @@ export const InputGroupPaymentFlex = styled.div`
     margin-bottom: 8px;
   }
 
-  input {
+  input,
+  select {
     height: 32px;
     background-color: ${colors.BlanchedAlmond};
-    border: none;
+    border: 1px solid ${colors.LightSalmon}; /* Borda padrão */
+
+    &.error {
+      border: 2px solid black; /* Borda preta para campos com erro */
+    }
   }
 
   .InputNumbCard + .InputCvv {
@@ -154,6 +174,7 @@ export const TitleH3 = styled.h3`
   color: ${colors.BlanchedAlmond};
   margin-bottom: 16px;
 `
+
 export const Paragrafo = styled.p`
   font-family: Roboto;
   font-size: 14px;
@@ -170,7 +191,7 @@ export const TabButton = styled.div`
     width: 100%;
     background-color: ${colors.BlanchedAlmond};
     color: ${colors.LightSalmon};
-    padding: 4px 0 4px 0;
+    padding: 4px 0;
     margin-bottom: 8px;
   }
 `

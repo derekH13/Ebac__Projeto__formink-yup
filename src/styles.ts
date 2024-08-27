@@ -7,7 +7,8 @@ export const colors = {
   BlanchedAlmond: '#FFEBD9', //BlanchedAlmond
   white: '#FFFFFF',
   BrightOrange: '#FFB930', //BrightOrange
-  FloralWhite: '#FFF8F2' //FloralWhite
+  FloralWhite: '#FFF8F2', //FloralWhite
+  CrimsonRed: '#DC143C'
 }
 
 /* Breakpoints */

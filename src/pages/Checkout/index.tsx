@@ -55,26 +55,26 @@ const Checkout = ({ onClose }: { onClose: () => void }) => {
         .required('O campo é obrigatório'),
       numero: Yup.string().required('O campo é obrigatório'),
       fullComplemento: Yup.string(),
-      cardOwner: Yup.string().when('payWith', {
-        is: true,
-        then: (schema) => schema.required('O campo é obrigatório')
-      }),
-      numbCard: Yup.string().when('payWith', {
-        is: true,
-        then: (schema) => schema.required('O campo é obrigatório')
-      }),
-      cardCode: Yup.string().when('payWith', {
-        is: true,
-        then: (schema) => schema.required('O campo é obrigatório')
-      }),
-      expiresMonth: Yup.string().when('payWith', {
-        is: true,
-        then: (schema) => schema.required('O campo é obrigatório')
-      }),
-      expiresYear: Yup.string().when('payWith', {
-        is: true,
-        then: (schema) => schema.required('O campo é obrigatório')
-      })
+
+      cardOwner: Yup.string()
+        .min(5, 'O nome precisa ter pelo menos 5 caracteres')
+        .when((values, schema) =>
+          payWith ? schema.required('O campo é obrigatorio') : schema
+        ),
+      numbCard: Yup.string().when((values, schema) =>
+        payWith ? schema.required('O campo é obrigatorio') : schema
+      ),
+      cardCode: Yup.string()
+        .max(3, 'São permitidos até 3 dígitos')
+        .when((values, schema) =>
+          payWith ? schema.required('O campo é obrigatorio') : schema
+        ),
+      expiresMonth: Yup.string().when((values, schema) =>
+        payWith ? schema.required('O campo é obrigatorio') : schema
+      ),
+      expiresYear: Yup.string().when((values, schema) =>
+        payWith ? schema.required('O campo é obrigatorio') : schema
+      )
     }),
     onSubmit: (values) => {
       purchase({
@@ -113,6 +113,40 @@ const Checkout = ({ onClose }: { onClose: () => void }) => {
     const hasError = isTouched && isInvalid
 
     return hasError
+  }
+
+  // Função ajustada para verificar os campos de entrega antes de continuar
+  const handleContinueToPayment = () => {
+    // Marcar todos os campos como tocados para exibir erros de validação
+    form.setTouched({
+      fullName: true,
+      endereco: true,
+      cidade: true,
+      cep: true,
+      numero: true,
+      cardOwner: true,
+      numbCard: true,
+      cardCode: true,
+      expiresMonth: true,
+      expiresYear: true
+    })
+
+    // Verificar se há erros nos campos obrigatórios e se os valores não estão vazios
+    const isDeliveryValid =
+      !form.errors.fullName &&
+      !form.errors.endereco &&
+      !form.errors.cidade &&
+      !form.errors.cep &&
+      !form.errors.numero &&
+      form.values.fullName !== '' &&
+      form.values.endereco !== '' &&
+      form.values.cidade !== '' &&
+      form.values.cep !== '' &&
+      form.values.numero !== ''
+
+    if (isDeliveryValid) {
+      setPayWith(true)
+    }
   }
 
   useEffect(() => {
@@ -272,15 +306,18 @@ const Checkout = ({ onClose }: { onClose: () => void }) => {
                   <Button
                     type="button"
                     background="light"
-                    title=""
-                    onClick={() => setPayWith(true)}
+                    title="Continuar com o pagamento"
+                    onClick={handleContinueToPayment}
+                    disabled={isLoading}
                   >
-                    Continuar com o pagamento
+                    {isLoading
+                      ? 'Continuar com ...'
+                      : 'Continuar com o pagamento'}
                   </Button>
                   <Button
                     type="button"
                     background="light"
-                    title=""
+                    title="Voltar para o carrinho"
                     onClick={handleVoltar}
                   >
                     Voltar para o carrinho
@@ -328,7 +365,7 @@ const Checkout = ({ onClose }: { onClose: () => void }) => {
                       <div className="InputCvv">
                         <label htmlFor="cardCode">CVV</label>
                         <input
-                          type="number"
+                          type="text"
                           id="cardCode"
                           name="cardCode"
                           value={form.values.cardCode}
@@ -337,6 +374,8 @@ const Checkout = ({ onClose }: { onClose: () => void }) => {
                           className={
                             checkInputHasError('cardCode') ? 'error' : ''
                           }
+                          maxLength={3}
+                          pattern="\d{1,3}"
                         />
                       </div>
                     </S.InputGroupPaymentFlex>
@@ -348,7 +387,7 @@ const Checkout = ({ onClose }: { onClose: () => void }) => {
                         >
                           Mês
                         </label>
-                        <input
+                        <InputMask
                           type="text"
                           id="expiresMonth"
                           name="expiresMonth"
@@ -358,6 +397,7 @@ const Checkout = ({ onClose }: { onClose: () => void }) => {
                           className={
                             checkInputHasError('expiresMonth') ? 'error' : ''
                           }
+                          mask="99"
                         />
                       </div>
                       <div>
@@ -367,7 +407,7 @@ const Checkout = ({ onClose }: { onClose: () => void }) => {
                         >
                           Ano
                         </label>
-                        <input
+                        <InputMask
                           type="text"
                           id="expiresYear"
                           name="expiresYear"
@@ -377,6 +417,7 @@ const Checkout = ({ onClose }: { onClose: () => void }) => {
                           className={
                             checkInputHasError('expiresYear') ? 'error' : ''
                           }
+                          mask="9999"
                         />
                       </div>
                     </S.InputGroup>
@@ -385,7 +426,7 @@ const Checkout = ({ onClose }: { onClose: () => void }) => {
                     <Button
                       type="button"
                       background="light"
-                      title=""
+                      title="Finalizar compra"
                       onClick={form.handleSubmit}
                       disabled={isLoading}
                     >
