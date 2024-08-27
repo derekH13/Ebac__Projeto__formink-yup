@@ -8,7 +8,7 @@ export const colors = {
   white: '#FFFFFF',
   BrightOrange: '#FFB930', //BrightOrange
   FloralWhite: '#FFF8F2', //FloralWhite
-  CrimsonRed: '#DC143C'
+  CrimsonRed: '#fae0e4'
 }
 
 /* Breakpoints */

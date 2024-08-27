@@ -38,7 +38,8 @@ export const InputGroup = styled.div`
     text-align: left;
 
     &.error {
-      border: 2px solid black; /* Borda preta para campos com erro */
+      border: 2px solid red; /* Borda preta para campos com erro */
+      background: ${colors.CrimsonRed};
     }
   }
 
@@ -83,7 +84,8 @@ export const InputGroupPaymentBlock = styled.div`
     text-align: left;
 
     &.error {
-      border: 2px solid black; /* Borda preta para campos com erro */
+      border: 2px solid red; /* Borda preta para campos com erro */
+      background: ${colors.CrimsonRed};
     }
   }
 `
@@ -115,7 +117,8 @@ export const InputGroupPaymentFlex = styled.div`
       text-align: left;
 
       &.error {
-        border: 2px solid black; /* Borda preta para campos com erro */
+        border: 2px solid red; /* Borda preta para campos com erro */
+        background: ${colors.CrimsonRed};
       }
     }
   }
@@ -134,7 +137,8 @@ export const InputGroupPaymentFlex = styled.div`
       text-align: left;
 
       &.error {
-        border: 2px solid black; /* Borda preta para campos com erro */
+        border: 2px solid red; /* Borda preta para campos com erro */
+        background: ${colors.CrimsonRed};
       }
     }
   }
@@ -156,7 +160,8 @@ export const InputGroupPaymentFlex = styled.div`
     border: 1px solid ${colors.LightSalmon}; /* Borda padrão */
 
     &.error {
-      border: 2px solid black; /* Borda preta para campos com erro */
+      border: 2px solid red; /* Borda preta para campos com erro */
+      background: ${colors.CrimsonRed};
     }
   }
 
